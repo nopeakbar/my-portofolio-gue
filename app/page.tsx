@@ -238,7 +238,7 @@ export default function Portfolio() {
               </div>
 
               <div className="absolute top-4 left-1/2 -translate-x-1/2 z-10 flex items-center gap-2 text-green-500 text-xs font-bold bg-black/80 px-4 py-1.5 rounded-full backdrop-blur-md border border-green-900 shadow-xl">
-                <Music size={12} className="animate-pulse"/> MY JAM ({currentSong + 1}/{spotifyEmbeds.length})
+                <Music size={12} className="animate-pulse"/> MY LAGU GUE ({currentSong + 1}/{spotifyEmbeds.length})
               </div>
 
               <div className="w-full h-full relative">
@@ -290,7 +290,7 @@ export default function Portfolio() {
         </div>
 
         <div className="border-t border-slate-900 pt-8 pb-8 text-slate-600 text-sm">
-          <p>© {new Date().getFullYear()} My Portfolio. Built with Next.js.</p>
+          <p>© {new Date().getFullYear()} nopeakbar's Portfolio. Built with Next.js.</p>
         </div>
       </footer>
     </main>
