@@ -1,7 +1,7 @@
 "use client";
 
 import React, { useState } from 'react';
-import { Github, ExternalLink, Smartphone, Book, FileText, Mail, ArrowRight, Music, ChevronLeft, ChevronRight, Binary, Instagram, Linkedin } from 'lucide-react';
+import { Github, ExternalLink, Smartphone, Book, FileText, Mail, ArrowRight, Music, ChevronLeft, ChevronRight, Binary, Instagram, Linkedin, Coffee } from 'lucide-react';
 
 export default function Portfolio() {
   
@@ -64,10 +64,11 @@ export default function Portfolio() {
           Open to Work
         </div>
 
-        <h1 className="text-5xl md:text-7xl font-bold mb-6 leading-tight">
-          Informatics Student. <br />
+        {/* HANYA MENGUBAH BAGIAN INI MENJADI font-black (Sangat Tebal) */}
+        <h1 className="text-5xl md:text-7xl font-black mb-6 leading-tight tracking-tight">
+          BUILDING. <br />
           <span className="bg-gradient-to-r from-cyan-400 via-blue-500 to-purple-600 bg-clip-text text-transparent">
-            Fullstack Builder.
+            THE. FUTURE.
           </span>
         </h1>
 
@@ -95,7 +96,9 @@ export default function Portfolio() {
         
         <div className="grid grid-cols-1 md:grid-cols-3 gap-6 auto-rows-[350px] md:auto-rows-[400px]">
           
-          {/* CARD 1: ISBN */}
+          {/* --- BARIS 1 --- */}
+
+          {/* CARD 1: ISBN (2 Cols) */}
           <div className="md:col-span-2 relative group overflow-hidden rounded-3xl bg-slate-900 border border-slate-800 hover:border-cyan-500/50 transition-all duration-300">
             <div className="absolute inset-0 bg-slate-800 group-hover:scale-105 transition-transform duration-700 bg-[url('/thumbnail/thumb-isbn.png')] bg-cover bg-center opacity-50" />
             <div className="absolute inset-0 bg-gradient-to-t from-slate-950 via-slate-950/20 to-transparent" />
@@ -121,7 +124,7 @@ export default function Portfolio() {
             </div>
           </div>
 
-          {/* CARD 2: MOBILE */}
+          {/* CARD 2: MOBILE (1 Col) */}
           <div className="md:col-span-1 relative group overflow-hidden rounded-3xl bg-slate-900 border border-slate-800 hover:border-purple-500/50 transition-all duration-300">
              <div className="absolute inset-0 bg-slate-900 group-hover:scale-105 transition-transform duration-700 bg-[url('/thumbnail/thumb-nonton-nyantai.png')] bg-cover bg-center opacity-40" />
              <div className="absolute inset-0 bg-gradient-to-t from-slate-950 via-purple-900/40 to-transparent z-10" />
@@ -142,7 +145,9 @@ export default function Portfolio() {
              </div>
           </div>
 
-          {/* CARD 3: BOOK EXCHANGE */}
+          {/* --- BARIS 2 --- */}
+
+          {/* CARD 3: BOOK EXCHANGE (1 Col) */}
           <div className="md:col-span-1 relative group overflow-hidden rounded-3xl bg-slate-900 border border-slate-800 hover:border-orange-500/50 transition-all duration-300">
              <div className="absolute inset-0 bg-slate-900 group-hover:scale-105 transition-transform duration-700 bg-[url('/thumbnail/thumb-book-exchange.png')] bg-cover bg-center opacity-40" />
              <div className="absolute inset-0 bg-gradient-to-tr from-orange-900/30 to-slate-950 z-10" />
@@ -158,33 +163,51 @@ export default function Portfolio() {
              </div>
           </div>
 
-          {/* CARD 4: MEDIUM / DATA SCIENCE WRITING */}
-          <div className="md:col-span-2 relative group overflow-hidden rounded-3xl bg-slate-900 border border-slate-800 hover:border-white/50 transition-all duration-300">
-             <div className="absolute inset-0 bg-slate-900 group-hover:scale-105 transition-transform duration-700 bg-[url('/thumbnail/thumb-medium.png')] bg-cover bg-center opacity-50" />
-             <div className="absolute inset-0 bg-gradient-to-r from-slate-950 via-slate-950/60 to-transparent z-10" />
-             
-             <Binary className="absolute top-8 right-8 text-white/5 w-32 h-32 rotate-[-15deg] group-hover:rotate-0 transition-transform duration-500" />
+          {/* CARD 4: MEDIUM / DATA SCIENCE WRITING (1 Col) */}
+          <div className="md:col-span-1 relative group overflow-hidden rounded-3xl bg-slate-900 border border-slate-800 hover:border-white/50 transition-all duration-300">
+             {/* Thumbnail GIF tetap sesuai instruksi */}
+             <div className="absolute inset-0 bg-slate-900 group-hover:scale-105 transition-transform duration-700 bg-[url('/thumbnail/thumb-medium.gif')] bg-cover bg-center opacity-40" />
+             <div className="absolute inset-0 bg-gradient-to-tr from-slate-950 via-slate-950/40 to-transparent z-10" />
+             <FileText className="absolute top-4 right-4 text-white/10 w-24 h-24 rotate-[-15deg] group-hover:rotate-0 transition-transform duration-500" />
 
              <div className="absolute bottom-0 left-0 p-8 z-20 w-full flex flex-col justify-end h-full">
                <div className="mt-auto">
                  <div className="flex items-center gap-2 text-white/70 mb-2">
-                    <FileText size={18} />
-                    <span className="text-xs font-bold tracking-widest uppercase">Data Science & Writing</span>
+                    <Binary size={16} />
+                    <span className="text-[10px] font-bold tracking-widest uppercase">Data Science</span>
                  </div>
-                 
-                 <h3 className="text-2xl font-bold text-white mb-3">Writing Journey on Medium</h3>
-                 <p className="text-slate-300 text-sm mb-6 max-w-lg leading-relaxed">
-                   Turning raw data into compelling narratives. I document my experiments in Data Science, breaking down complex analytical concepts into clear, actionable insights.
+                 <h3 className="text-xl font-bold text-white mb-2">Writing on Medium</h3>
+                 <p className="text-slate-300 text-sm mb-4 line-clamp-3 leading-relaxed">
+                   Documenting my experiments in Data Science and breaking down complex concepts into actionable insights.
                  </p>
-                 
-                 <a href="https://medium.com/@nopeakbar" target="_blank" className="inline-flex items-center gap-2 px-5 py-2.5 bg-white text-black rounded-full text-sm font-bold hover:bg-slate-200 transition-colors">
-                   Read Articles <ExternalLink size={16} />
+                 <a href="https://medium.com/@nopeakbar" target="_blank" className="inline-flex items-center gap-2 text-sm font-bold text-white hover:text-slate-300 transition-colors">
+                   Read Articles <ExternalLink size={14} />
                  </a>
                </div>
              </div>
           </div>
 
-          {/* CARD 5: SPOTIFY SLIDER */}
+          {/* CARD 5: COFFEE SHOP NOTION (1 Col) */}
+          <div className="md:col-span-1 relative group overflow-hidden rounded-3xl bg-slate-900 border border-slate-800 hover:border-amber-500/50 transition-all duration-300">
+             {/* Background Image Notion */}
+             <div className="absolute inset-0 bg-slate-900 group-hover:scale-105 transition-transform duration-700 bg-[url('/thumbnail/thumb-notion.png')] bg-cover bg-center opacity-40" />
+             <div className="absolute inset-0 bg-gradient-to-tr from-amber-900/30 to-slate-950 z-10" />
+             <Coffee className="absolute top-4 right-4 text-amber-500/20 w-24 h-24 group-hover:text-amber-500/40 transition-colors" />
+
+             <div className="absolute bottom-0 left-0 p-8 z-20">
+                <h3 className="text-xl font-bold text-white mb-2">Coffee Shop Hunter</h3>
+                <p className="text-slate-400 text-sm mb-4">
+                  Exploring the best coffee spots in Yogyakarta. I curate and review them on my personal Notion page.
+                </p>
+                <a href="https://treasure-clef-482.notion.site/d73789d729ac46da85500df19a83e3a4?v=a8f299db8e804d88ba26ba13e88a06e7&source=copy_link" target="_blank" className="flex items-center gap-2 text-sm text-amber-400 font-medium hover:text-amber-300">
+                  View Notion <ExternalLink size={14} />
+                </a>
+             </div>
+          </div>
+
+          {/* --- BARIS 3 --- */}
+
+          {/* CARD 6: SPOTIFY SLIDER (Full Width) */}
           <div 
             className="md:col-span-3 rounded-3xl bg-black border border-slate-800 overflow-hidden relative group h-[360px]"
             onTouchStart={onTouchStart}
@@ -243,12 +266,12 @@ export default function Portfolio() {
       <footer id="contact" className="max-w-5xl mx-auto px-6 pt-10 text-center">
         <h2 className="text-2xl font-bold mb-6">Let's Connect</h2>
         
-        {/* Email - Update */}
+        {/* Email */}
         <a href="mailto:nopeakbar.blog@gmail.com" className="flex justify-center items-center gap-2 text-slate-400 hover:text-cyan-400 transition-colors mb-8 text-lg">
           <Mail size={24} /> nopeakbar.blog@gmail.com
         </a>
 
-        {/* Social Links - New */}
+        {/* Social Links */}
         <div className="flex justify-center gap-8 mb-12">
           {/* LinkedIn */}
           <a href="https://www.linkedin.com/in/noveanto-nur-akbar/" target="_blank" className="text-slate-400 hover:text-blue-500 transition-colors transform hover:scale-110">
