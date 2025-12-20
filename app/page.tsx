@@ -1,65 +1,275 @@
-import Image from "next/image";
+"use client";
 
-export default function Home() {
+import React, { useState } from 'react';
+import { Github, ExternalLink, Smartphone, Book, FileText, Mail, ArrowRight, Music, ChevronLeft, ChevronRight, Binary, Instagram, Linkedin } from 'lucide-react';
+
+export default function Portfolio() {
+  
+  // --- CONFIG SLIDER SPOTIFY ---
+  const spotifyEmbeds = [
+    "https://open.spotify.com/embed/track/2dIBMHByUGcNPzmYBJ6OAj?utm_source=generator&theme=0",
+    "https://open.spotify.com/embed/track/4XHijJfABTtUCW3Bp6KFvr?utm_source=generator&theme=0",
+  ];
+
+  const [currentSong, setCurrentSong] = useState(0);
+  const [touchStart, setTouchStart] = useState<number | null>(null);
+  const [touchEnd, setTouchEnd] = useState<number | null>(null);
+
+  // Fungsi Ganti Lagu
+  const nextSong = () => {
+    setCurrentSong((prev) => (prev === spotifyEmbeds.length - 1 ? 0 : prev + 1));
+  };
+
+  const prevSong = () => {
+    setCurrentSong((prev) => (prev === 0 ? spotifyEmbeds.length - 1 : prev - 1));
+  };
+
+  // --- LOGIC SWIPE UNTUK MOBILE ---
+  const minSwipeDistance = 50; 
+
+  const onTouchStart = (e: React.TouchEvent) => {
+    setTouchEnd(null);
+    setTouchStart(e.targetTouches[0].clientX);
+  };
+
+  const onTouchMove = (e: React.TouchEvent) => {
+    setTouchEnd(e.targetTouches[0].clientX);
+  };
+
+  const onTouchEnd = () => {
+    if (!touchStart || !touchEnd) return;
+    const distance = touchStart - touchEnd;
+    const isLeftSwipe = distance > minSwipeDistance;
+    const isRightSwipe = distance < -minSwipeDistance;
+    
+    if (isLeftSwipe) nextSong();
+    if (isRightSwipe) prevSong();
+  };
+
   return (
-    <div className="flex min-h-screen items-center justify-center bg-zinc-50 font-sans dark:bg-black">
-      <main className="flex min-h-screen w-full max-w-3xl flex-col items-center justify-between py-32 px-16 bg-white dark:bg-black sm:items-start">
-        <Image
-          className="dark:invert"
-          src="/next.svg"
-          alt="Next.js logo"
-          width={100}
-          height={20}
-          priority
-        />
-        <div className="flex flex-col items-center gap-6 text-center sm:items-start sm:text-left">
-          <h1 className="max-w-xs text-3xl font-semibold leading-10 tracking-tight text-black dark:text-zinc-50">
-            To get started, edit the page.tsx file.
-          </h1>
-          <p className="max-w-md text-lg leading-8 text-zinc-600 dark:text-zinc-400">
-            Looking for a starting point or more instructions? Head over to{" "}
-            <a
-              href="https://vercel.com/templates?framework=next.js&utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-              className="font-medium text-zinc-950 dark:text-zinc-50"
-            >
-              Templates
-            </a>{" "}
-            or the{" "}
-            <a
-              href="https://nextjs.org/learn?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-              className="font-medium text-zinc-950 dark:text-zinc-50"
-            >
-              Learning
-            </a>{" "}
-            center.
-          </p>
+    <main className="min-h-screen bg-slate-950 text-slate-200 selection:bg-cyan-500 selection:text-white pb-20">
+      
+      {/* --- NAVBAR FLOATING --- */}
+      <nav className="fixed top-6 left-1/2 -translate-x-1/2 z-50 bg-slate-900/80 backdrop-blur-md border border-slate-700 rounded-full px-6 py-3 flex gap-6 shadow-2xl">
+        <a href="#home" className="hover:text-cyan-400 transition-colors text-sm font-medium">Home</a>
+        <a href="#projects" className="hover:text-cyan-400 transition-colors text-sm font-medium">Projects</a>
+        <a href="#contact" className="hover:text-cyan-400 transition-colors text-sm font-medium">Contact</a>
+      </nav>
+
+      {/* --- HERO SECTION --- */}
+      <section id="home" className="max-w-5xl mx-auto px-6 pt-40 pb-20 flex flex-col justify-center min-h-[80vh]">
+        
+        <div className="inline-flex items-center gap-2 px-3 py-1 mb-6 text-xs font-bold tracking-wider text-cyan-400 uppercase bg-cyan-900/20 rounded-full w-fit border border-cyan-800/50">
+          <span className="w-2 h-2 rounded-full bg-cyan-400 animate-pulse"></span>
+          Open to Work
         </div>
-        <div className="flex flex-col gap-4 text-base font-medium sm:flex-row">
-          <a
-            className="flex h-12 w-full items-center justify-center gap-2 rounded-full bg-foreground px-5 text-background transition-colors hover:bg-[#383838] dark:hover:bg-[#ccc] md:w-[158px]"
-            href="https://vercel.com/new?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            <Image
-              className="dark:invert"
-              src="/vercel.svg"
-              alt="Vercel logomark"
-              width={16}
-              height={16}
-            />
-            Deploy Now
+
+        <h1 className="text-5xl md:text-7xl font-bold mb-6 leading-tight">
+          Informatics Student. <br />
+          <span className="bg-gradient-to-r from-cyan-400 via-blue-500 to-purple-600 bg-clip-text text-transparent">
+            Fullstack Builder.
+          </span>
+        </h1>
+
+        <p className="text-lg md:text-xl text-slate-400 max-w-2xl leading-relaxed mb-8">
+          Hi, I'm <span className="text-white font-semibold">AKBAR</span>. I build modern web apps using 
+          <span className="text-cyan-300"> React/Next.js</span> and mobile apps using 
+          <span className="text-purple-400"> Flutter</span>. I focus on creating software solutions that solve real-world problems.
+        </p>
+        
+        <div className="flex flex-wrap gap-4">
+          <a href="#projects" className="px-7 py-3 bg-cyan-600 hover:bg-cyan-500 text-white font-semibold rounded-full transition-all shadow-[0_0_20px_rgba(8,145,178,0.4)] flex items-center gap-2 group">
+            View Projects <ArrowRight size={18} className="group-hover:translate-x-1 transition-transform"/>
           </a>
-          <a
-            className="flex h-12 w-full items-center justify-center rounded-full border border-solid border-black/[.08] px-5 transition-colors hover:border-transparent hover:bg-black/[.04] dark:border-white/[.145] dark:hover:bg-[#1a1a1a] md:w-[158px]"
-            href="https://nextjs.org/docs?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            Documentation
+          <a href="https://github.com/username" target="_blank" className="px-7 py-3 border border-slate-700 hover:border-slate-500 hover:bg-slate-900 rounded-full transition-all flex items-center gap-2">
+            <Github size={20} /> GitHub
           </a>
         </div>
-      </main>
-    </div>
+      </section>
+
+      {/* --- PROJECTS SECTION (BENTO GRID) --- */}
+      <section id="projects" className="max-w-5xl mx-auto px-6 py-20">
+        <div className="flex items-end justify-between mb-10">
+           <h2 className="text-3xl font-bold border-l-4 border-cyan-500 pl-4">Featured Projects</h2>
+        </div>
+        
+        <div className="grid grid-cols-1 md:grid-cols-3 gap-6 auto-rows-[350px] md:auto-rows-[400px]">
+          
+          {/* CARD 1: ISBN */}
+          <div className="md:col-span-2 relative group overflow-hidden rounded-3xl bg-slate-900 border border-slate-800 hover:border-cyan-500/50 transition-all duration-300">
+            <div className="absolute inset-0 bg-slate-800 group-hover:scale-105 transition-transform duration-700 bg-[url('/thumbnail/thumb-isbn.png')] bg-cover bg-center opacity-50" />
+            <div className="absolute inset-0 bg-gradient-to-t from-slate-950 via-slate-950/20 to-transparent" />
+            <div className="absolute bottom-0 left-0 p-6 md:p-8 w-full">
+               <div className="flex justify-between items-end">
+                <div>
+                  <span className="bg-green-500/20 text-green-400 text-[10px] md:text-xs font-bold px-2 py-1 rounded mb-3 inline-block border border-green-500/30 backdrop-blur-sm">
+                    DEPLOYED AT UPN "VETERAN" YOGYAKARTA
+                  </span>
+                  <h3 className="text-2xl md:text-3xl font-bold text-white mb-2">ISBN Data Management System</h3>
+                  <p className="text-slate-300 text-sm md:text-base mb-4 line-clamp-2 md:line-clamp-none">
+                    Digitized the ISBN submission workflow for the university. Transformed a previously manual application process into a fully integrated web system.
+                  </p>
+                  <div className="flex gap-2">
+                    <span className="text-xs bg-slate-950/80 border border-slate-700 px-2 py-1 rounded text-slate-300">React</span>
+                    <span className="text-xs bg-slate-950/80 border border-slate-700 px-2 py-1 rounded text-slate-300">NodeJS</span>
+                  </div>
+                </div>
+                <a href="https://penerbitlppm.site/v2" target="_blank" className="p-3 bg-white text-slate-950 rounded-full hover:bg-cyan-400 hover:scale-110 transition-all shadow-lg">
+                  <ExternalLink size={24} />
+                </a>
+              </div>
+            </div>
+          </div>
+
+          {/* CARD 2: MOBILE */}
+          <div className="md:col-span-1 relative group overflow-hidden rounded-3xl bg-slate-900 border border-slate-800 hover:border-purple-500/50 transition-all duration-300">
+             <div className="absolute inset-0 bg-slate-900 group-hover:scale-105 transition-transform duration-700 bg-[url('/thumbnail/thumb-nonton-nyantai.png')] bg-cover bg-center opacity-40" />
+             <div className="absolute inset-0 bg-gradient-to-t from-slate-950 via-purple-900/40 to-transparent z-10" />
+             <Smartphone className="absolute -top-6 -right-6 text-purple-900/20 w-40 h-40 rotate-12 z-10" />
+             <div className="absolute bottom-0 left-0 p-8 z-20 h-full flex flex-col justify-end">
+                <div className="mb-auto mt-4">
+                  <div className="w-12 h-12 bg-purple-900/50 backdrop-blur-md rounded-xl flex items-center justify-center border border-purple-500/30 mb-4 text-purple-300 shadow-lg">
+                    <Smartphone size={24}/>
+                  </div>
+                </div>
+                <h3 className="text-xl font-bold text-white mb-2 text-shadow-sm">Nonton Nyantai App</h3>
+                <p className="text-slate-300 text-sm mb-4 font-medium leading-relaxed">
+                  A movie discovery app powered by **OMDB API**. Features real-time movie data and a location-based cinema finder in Yogyakarta.
+                </p>
+                <a href="https://nonton-nyantai-nopeakbar-porto.web.app/" target="_blank" className="flex items-center gap-2 text-sm text-purple-300 font-bold cursor-pointer hover:text-purple-100 transition-colors w-fit">
+                  View Demo <ArrowRight size={16} />
+                </a>
+             </div>
+          </div>
+
+          {/* CARD 3: BOOK EXCHANGE */}
+          <div className="md:col-span-1 relative group overflow-hidden rounded-3xl bg-slate-900 border border-slate-800 hover:border-orange-500/50 transition-all duration-300">
+             <div className="absolute inset-0 bg-slate-900 group-hover:scale-105 transition-transform duration-700 bg-[url('/thumbnail/thumb-book-exchange.png')] bg-cover bg-center opacity-40" />
+             <div className="absolute inset-0 bg-gradient-to-tr from-orange-900/30 to-slate-950 z-10" />
+             <Book className="absolute top-4 right-4 text-slate-800 w-24 h-24 group-hover:text-orange-500/10 transition-colors" />
+             <div className="absolute bottom-0 left-0 p-8 z-20">
+                <h3 className="text-xl font-bold text-white mb-2">Book Exchange</h3>
+                <p className="text-slate-400 text-sm mb-4">
+                  A peer-to-peer platform for book lovers. Connects readers to swap their favorite titles.
+                </p>
+                <a href="https://bukutukar-nopeakbar.vercel.app/" target="_blank" className="flex items-center gap-2 text-sm text-orange-400 font-medium hover:text-orange-300">
+                  Visit Platform <ExternalLink size={14} />
+                </a>
+             </div>
+          </div>
+
+          {/* CARD 4: MEDIUM / DATA SCIENCE WRITING */}
+          <div className="md:col-span-2 relative group overflow-hidden rounded-3xl bg-slate-900 border border-slate-800 hover:border-white/50 transition-all duration-300">
+             <div className="absolute inset-0 bg-slate-900 group-hover:scale-105 transition-transform duration-700 bg-[url('/thumbnail/thumb-medium.png')] bg-cover bg-center opacity-50" />
+             <div className="absolute inset-0 bg-gradient-to-r from-slate-950 via-slate-950/60 to-transparent z-10" />
+             
+             <Binary className="absolute top-8 right-8 text-white/5 w-32 h-32 rotate-[-15deg] group-hover:rotate-0 transition-transform duration-500" />
+
+             <div className="absolute bottom-0 left-0 p-8 z-20 w-full flex flex-col justify-end h-full">
+               <div className="mt-auto">
+                 <div className="flex items-center gap-2 text-white/70 mb-2">
+                    <FileText size={18} />
+                    <span className="text-xs font-bold tracking-widest uppercase">Data Science & Writing</span>
+                 </div>
+                 
+                 <h3 className="text-2xl font-bold text-white mb-3">Writing Journey on Medium</h3>
+                 <p className="text-slate-300 text-sm mb-6 max-w-lg leading-relaxed">
+                   Turning raw data into compelling narratives. I document my experiments in Data Science, breaking down complex analytical concepts into clear, actionable insights.
+                 </p>
+                 
+                 <a href="https://medium.com/@nopeakbar" target="_blank" className="inline-flex items-center gap-2 px-5 py-2.5 bg-white text-black rounded-full text-sm font-bold hover:bg-slate-200 transition-colors">
+                   Read Articles <ExternalLink size={16} />
+                 </a>
+               </div>
+             </div>
+          </div>
+
+          {/* CARD 5: SPOTIFY SLIDER */}
+          <div 
+            className="md:col-span-3 rounded-3xl bg-black border border-slate-800 overflow-hidden relative group h-[360px]"
+            onTouchStart={onTouchStart}
+            onTouchMove={onTouchMove}
+            onTouchEnd={onTouchEnd}
+          >
+              <button 
+                onClick={prevSong} 
+                className="absolute left-4 top-1/2 -translate-y-1/2 z-20 bg-black/50 hover:bg-green-500/80 p-2 rounded-full backdrop-blur-md transition-all text-white border border-slate-700 hover:border-green-400 hover:scale-110"
+              >
+                <ChevronLeft size={24} />
+              </button>
+
+              <button 
+                onClick={nextSong} 
+                className="absolute right-4 top-1/2 -translate-y-1/2 z-20 bg-black/50 hover:bg-green-500/80 p-2 rounded-full backdrop-blur-md transition-all text-white border border-slate-700 hover:border-green-400 hover:scale-110"
+              >
+                <ChevronRight size={24} />
+              </button>
+
+              <div className="absolute bottom-4 left-1/2 -translate-x-1/2 z-20 flex gap-2">
+                {spotifyEmbeds.map((_, index) => (
+                  <div 
+                    key={index}
+                    className={`h-2 rounded-full transition-all duration-300 ${index === currentSong ? "w-6 bg-green-500" : "w-2 bg-slate-600"}`}
+                  />
+                ))}
+              </div>
+
+              <div className="absolute top-4 left-1/2 -translate-x-1/2 z-10 flex items-center gap-2 text-green-500 text-xs font-bold bg-black/80 px-4 py-1.5 rounded-full backdrop-blur-md border border-green-900 shadow-xl">
+                <Music size={12} className="animate-pulse"/> MY JAM ({currentSong + 1}/{spotifyEmbeds.length})
+              </div>
+
+              <div className="w-full h-full relative">
+                {spotifyEmbeds.map((link, index) => (
+                   <iframe 
+                    key={index}
+                    style={{borderRadius: "12px", display: index === currentSong ? 'block' : 'none'}} 
+                    src={link}
+                    width="100%" 
+                    height="100%" 
+                    frameBorder="0" 
+                    allowFullScreen={true}
+                    allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture" 
+                    loading="lazy"
+                    className="opacity-90 transition-opacity animate-in fade-in duration-500"
+                  ></iframe>
+                ))}
+              </div>
+          </div>
+
+        </div>
+      </section>
+
+      {/* --- FOOTER (CONTACT) --- */}
+      <footer id="contact" className="max-w-5xl mx-auto px-6 pt-10 text-center">
+        <h2 className="text-2xl font-bold mb-6">Let's Connect</h2>
+        
+        {/* Email - Update */}
+        <a href="mailto:nopeakbar.blog@gmail.com" className="flex justify-center items-center gap-2 text-slate-400 hover:text-cyan-400 transition-colors mb-8 text-lg">
+          <Mail size={24} /> nopeakbar.blog@gmail.com
+        </a>
+
+        {/* Social Links - New */}
+        <div className="flex justify-center gap-8 mb-12">
+          {/* LinkedIn */}
+          <a href="https://www.linkedin.com/in/noveanto-nur-akbar/" target="_blank" className="text-slate-400 hover:text-blue-500 transition-colors transform hover:scale-110">
+            <Linkedin size={32} />
+          </a>
+          
+          {/* Instagram */}
+          <a href="https://instagram.com/nopeakbar" target="_blank" className="text-slate-400 hover:text-pink-500 transition-colors transform hover:scale-110">
+            <Instagram size={32} />
+          </a>
+
+          {/* Medium */}
+          <a href="https://medium.com/@nopeakbar" target="_blank" className="text-slate-400 hover:text-white transition-colors transform hover:scale-110">
+            <FileText size={32} />
+          </a>
+        </div>
+
+        <div className="border-t border-slate-900 pt-8 pb-8 text-slate-600 text-sm">
+          <p>© {new Date().getFullYear()} My Portfolio. Built with Next.js.</p>
+        </div>
+      </footer>
+    </main>
   );
 }
