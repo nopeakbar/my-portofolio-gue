@@ -128,8 +128,8 @@ export default function Portfolio() {
                     Digitized the ISBN submission workflow for the university. Transformed a previously manual application process into a fully integrated web system.
                   </p>
                   <div className="flex gap-2">
-                    <span className="text-xs bg-slate-950/80 border border-slate-700 px-2 py-1 rounded text-slate-300">React</span>
-                    <span className="text-xs bg-slate-950/80 border border-slate-700 px-2 py-1 rounded text-slate-300">NodeJS</span>
+                    <span className="text-xs bg-slate-950/80 border border-slate-700 px-2 py-1 rounded text-slate-300">PHP</span>
+                    {/* <span className="text-xs bg-slate-950/80 border border-slate-700 px-2 py-1 rounded text-slate-300">NodeJS</span> */}
                   </div>
                 </div>
                 <a href="https://penerbitlppm.site/v2" target="_blank" className="p-3 bg-white text-slate-950 rounded-full hover:bg-cyan-400 hover:scale-110 transition-all shadow-lg">
