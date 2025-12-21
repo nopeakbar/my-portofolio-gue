@@ -280,6 +280,9 @@ export default function Portfolio() {
       {/* SEGMENT 3.5: NOW PLAYING (SPOTIFY API)  */}
       {/* ========================================= */}
       {/* 4. BAGIAN INI SAYA UPDATE DENGAN DATA DARI API */}
+      {/* ========================================= */}
+      {/* SEGMENT 3.5: NOW PLAYING (SPOTIFY API)  */}
+      {/* ========================================= */}
       <section id="nowplaying" className="max-w-5xl mx-auto px-6 py-10">
          <div className="flex items-center gap-4 mb-8">
            <div className="h-10 w-1 bg-green-400 rounded-full"></div>
@@ -287,7 +290,6 @@ export default function Portfolio() {
         </div>
 
         <div className="grid grid-cols-1 gap-6">
-          {/* NOW PLAYING CARD */}
           <div className="relative group overflow-hidden rounded-3xl bg-gradient-to-br from-green-900/40 via-slate-900 to-slate-900 border border-green-500/30 hover:border-green-400/50 transition-all duration-300 p-8">
              
              {/* Background Decoration */}
@@ -295,51 +297,46 @@ export default function Portfolio() {
              
              <div className="relative z-10">
                <div className="flex items-center gap-3 mb-6">
-                 {/* UPDATE: Indikator nyala kalau lagi main lagu */}
-                 <div className={`w-3 h-3 rounded-full ${data?.isPlaying ? "bg-green-400 animate-pulse" : "bg-red-500"}`}></div>
-                 <span className="text-green-400 font-bold text-sm tracking-wider uppercase">
-                    {data?.isPlaying ? "Live from Spotify" : "Offline / Paused"}
+                 {/* UPDATE: Logic Warna (Hijau=Play, Abu=History) */}
+                 <div className={`w-3 h-3 rounded-full ${data?.isPlaying ? "bg-green-400 animate-pulse" : "bg-slate-500"}`}></div>
+                 
+                 {/* UPDATE: Logic Teks (Live vs Last Played) */}
+                 <span className={`font-bold text-sm tracking-wider uppercase ${data?.isPlaying ? "text-green-400" : "text-slate-400"}`}>
+                    {data?.isPlaying ? "Live from Spotify" : data?.lastPlayed ? `Last Played ${data.lastPlayed}` : "Offline"}
                  </span>
                </div>
 
                <div className="flex flex-col md:flex-row gap-6 items-start md:items-center">
-                 {/* UPDATE: Album Art dari API */}
+                 {/* UPDATE: Gambar jadi Hitam Putih kalau Offline */}
                  <div className="w-32 h-32 bg-slate-800 rounded-2xl flex items-center justify-center border-2 border-slate-700 group-hover:border-green-500/50 transition-all duration-300 flex-shrink-0 overflow-hidden relative">
-                   {data?.isPlaying && data?.albumImageUrl ? (
-                      <img src={data.albumImageUrl} alt={data.album} className="w-full h-full object-cover animate-in fade-in duration-700" />
+                   {data?.albumImageUrl ? (
+                      <img src={data.albumImageUrl} alt={data.album} className={`w-full h-full object-cover animate-in fade-in duration-700 ${!data.isPlaying && "grayscale opacity-70"}`} />
                    ) : (
                       <Music size={48} className="text-slate-600" />
                    )}
                  </div>
 
-                 {/* UPDATE: Track Info dari API */}
+                 {/* Track Info */}
                  <div className="flex-1">
                    <h3 className="text-2xl md:text-3xl font-bold text-white mb-2 line-clamp-1">
-                     {data?.isPlaying ? data.title : "Not playing right now"}
+                     {data?.title || "Not playing right now"}
                    </h3>
                    <p className="text-slate-400 text-lg mb-4 line-clamp-1">
-                     {data?.isPlaying ? data.artist : "Check back later to see what I'm listening to!"}
+                     {data?.artist || "Spotify is currently offline"}
                    </p>
                    <div className="flex items-center gap-4">
+                     {/* UPDATE: Tombol berubah jadi abu-abu kalau offline */}
                      <a 
-                       href={data?.isPlaying ? data.songUrl : "https://open.spotify.com/user/67tbuc3v934pih7w5u2nefkt1?si=035ba658aaac4039"} 
+                       href={data?.songUrl || "https://open.spotify.com"} 
                        target="_blank"
-                       className="inline-flex items-center gap-2 px-5 py-2.5 bg-green-600 hover:bg-green-500 text-white font-semibold rounded-full transition-all text-sm"
+                       className={`inline-flex items-center gap-2 px-5 py-2.5 font-semibold rounded-full transition-all text-sm ${data?.isPlaying ? "bg-green-600 hover:bg-green-500 text-white" : "bg-slate-800 hover:bg-slate-700 text-slate-300 border border-slate-700"}`}
                      >
-                       <Music size={16} /> {data?.isPlaying ? "Listen on Spotify" : "Follow on Spotify"}
+                       <Music size={16} /> {data?.isPlaying ? "Listen on Spotify" : "Open Spotify"}
                      </a>
                    </div>
                  </div>
                </div>
 
-               {/* Note for Setup (Boleh dihapus nanti kalau sudah lancar) */}
-               {!data?.isPlaying && (
-                 <div className="mt-6 p-4 bg-slate-800/50 rounded-xl border border-slate-700">
-                   <p className="text-slate-400 text-sm">
-                     💡 <strong className="text-white">Note:</strong> Lagu akan muncul otomatis di sini saat kamu memutar Spotify.
-                   </p>
-                 </div>
-               )}
              </div>
           </div>
         </div>

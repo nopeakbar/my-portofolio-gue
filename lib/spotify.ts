@@ -7,6 +7,7 @@ const refresh_token = process.env.SPOTIFY_REFRESH_TOKEN;
 const basic = Buffer.from(`${client_id}:${client_secret}`).toString('base64');
 const TOKEN_ENDPOINT = `https://accounts.spotify.com/api/token`;
 const NOW_PLAYING_ENDPOINT = `https://api.spotify.com/v1/me/player/currently-playing`;
+const RECENTLY_PLAYED_ENDPOINT = `https://api.spotify.com/v1/me/player/recently-played?limit=1`;
 
 const getAccessToken = async () => {
   const response = await fetch(TOKEN_ENDPOINT, {
@@ -19,6 +20,7 @@ const getAccessToken = async () => {
       grant_type: 'refresh_token',
       refresh_token,
     }),
+    cache: 'no-store', // 🔥 TAMBAHAN 1: Biar token gak nyangkut
   });
 
   return response.json();
@@ -31,5 +33,17 @@ export const getNowPlaying = async () => {
     headers: {
       Authorization: `Bearer ${access_token}`,
     },
+    cache: 'no-store', // 🔥 TAMBAHAN 2: Wajib fresh
+  });
+};
+
+export const getRecentlyPlayed = async () => {
+  const { access_token } = await getAccessToken();
+
+  return fetch(RECENTLY_PLAYED_ENDPOINT, {
+    headers: {
+      Authorization: `Bearer ${access_token}`,
+    },
+    cache: 'no-store', // 🔥 TAMBAHAN 3: Wajib fresh buat history
   });
 };
