@@ -7,13 +7,17 @@ export default function Portfolio() {
   
   // --- CONFIG SLIDER SPOTIFY ---
   const spotifyEmbeds = [
+    // 1. Lagu Baru (2112) - Urutan Pertama
+    "https://open.spotify.com/embed/track/5Gxwk3TSekI4GVMpFvPBEc?utm_source=generator",
+    // 2. Lagu Lama
     "https://open.spotify.com/embed/track/2dIBMHByUGcNPzmYBJ6OAj?utm_source=generator&theme=0",
+    // 3. Lagu Lama
     "https://open.spotify.com/embed/track/4XHijJfABTtUCW3Bp6KFvr?utm_source=generator&theme=0",
   ];
 
   const [currentSong, setCurrentSong] = useState(0);
-  const [touchStart, setTouchStart] = useState<number | null>(null);
-  const [touchEnd, setTouchEnd] = useState<number | null>(null);
+  const [touchStart, setTouchStart] = useState(null);
+  const [touchEnd, setTouchEnd] = useState(null);
 
   // Fungsi Ganti Lagu
   const nextSong = () => {
@@ -27,12 +31,12 @@ export default function Portfolio() {
   // --- LOGIC SWIPE UNTUK MOBILE ---
   const minSwipeDistance = 50; 
 
-  const onTouchStart = (e: React.TouchEvent) => {
+  const onTouchStart = (e) => {
     setTouchEnd(null);
     setTouchStart(e.targetTouches[0].clientX);
   };
 
-  const onTouchMove = (e: React.TouchEvent) => {
+  const onTouchMove = (e) => {
     setTouchEnd(e.targetTouches[0].clientX);
   };
 
@@ -65,7 +69,8 @@ export default function Portfolio() {
           Open to Work
         </div>
 
-        <h1 className="text-5xl md:text-7xl font-bold mb-6 leading-tight">
+        {/* JUDUL SUDAH DIBUAT BOLD MAKSIMAL (font-black) */}
+        <h1 className="text-5xl md:text-7xl font-black mb-6 leading-tight tracking-tight">
           BUILDING. <br />
           <span className="bg-gradient-to-r from-cyan-400 via-blue-500 to-purple-600 bg-clip-text text-transparent">
             THE. FUTURE.
@@ -104,7 +109,7 @@ export default function Portfolio() {
             <div className="absolute inset-0 bg-slate-800 group-hover:scale-105 transition-transform duration-700 bg-[url('/thumbnail/thumb-isbn.png')] bg-cover bg-center opacity-50" />
             <div className="absolute inset-0 bg-gradient-to-t from-slate-950 via-slate-950/20 to-transparent" />
             <div className="absolute bottom-0 left-0 p-6 md:p-8 w-full">
-               <div className="flex justify-between items-end">
+                <div className="flex justify-between items-end">
                 <div>
                   <span className="bg-green-500/20 text-green-400 text-[10px] md:text-xs font-bold px-2 py-1 rounded mb-3 inline-block border border-green-500/30 backdrop-blur-sm">
                     DEPLOYED AT UPN "VETERAN" YOGYAKARTA
@@ -138,7 +143,7 @@ export default function Portfolio() {
                 </div>
                 <h3 className="text-xl font-bold text-white mb-2 text-shadow-sm">Nonton Nyantai App</h3>
                 <p className="text-slate-300 text-sm mb-4 font-medium leading-relaxed">
-                  A movie discovery app powered by **OMDB API**. Features real-time movie data and a location-based cinema finder in Yogyakarta.
+                  A movie discovery app powered by OMDB API. Features real-time movie data and a location-based cinema finder in Yogyakarta.
                 </p>
                 <a href="https://nonton-nyantai-nopeakbar-porto.web.app/" target="_blank" className="flex items-center gap-2 text-sm text-purple-300 font-bold cursor-pointer hover:text-purple-100 transition-colors w-fit">
                   View Demo <ArrowRight size={16} />
