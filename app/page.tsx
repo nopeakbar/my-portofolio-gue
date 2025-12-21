@@ -9,6 +9,8 @@ export default function Portfolio() {
   const spotifyEmbeds = [
     // 1. Lagu Baru (2112) - Urutan Pertama
     "https://open.spotify.com/embed/track/5Gxwk3TSekI4GVMpFvPBEc?utm_source=generator",
+    // shut up, BEHAVE!
+    "https://open.spotify.com/embed/track/1vIjNW49tdoICOsZjPnNo2?utm_source=generator",
     // baruuu
     "https://open.spotify.com/embed/track/0lAwrV80YlQCGeqPtMIQjB?utm_source=generator",
     // 2. Lagu Lama
