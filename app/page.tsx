@@ -204,7 +204,7 @@ export default function Portfolio() {
                 <p className="text-slate-400 text-sm mb-4">
                   Automation tool to mass download images from Colorbox and Uniqlo websites seamlessly.
                 </p>
-                <a href="https://github.com/nopeakbar/web-auto-clicker-nopeakbar.git" target="_blank" className="flex items-center gap-2 text-sm text-teal-400 font-medium hover:text-teal-300">
+                <a href="https://github.com/nopeakbar/web-auto-clicker-nopeakbar.git" target="_blank" className="flex items-center gap-2 text-teal-400 font-medium hover:text-teal-300 text-sm">
                   <Github size={14} /> View Script
                 </a>
              </div>
@@ -416,7 +416,7 @@ export default function Portfolio() {
         </a>
 
         {/* Social Links */}
-        <div className="flex justify-center gap-8 mb-12">
+        <div className="flex justify-center gap-8 mb-12 items-center">
           {/* LinkedIn */}
           <a href="https://www.linkedin.com/in/noveanto-nur-akbar/" target="_blank" className="text-slate-400 hover:text-blue-500 transition-colors transform hover:scale-110">
             <Linkedin size={32} />
@@ -431,6 +431,24 @@ export default function Portfolio() {
           <a href="https://medium.com/@nopeakbar" target="_blank" className="text-slate-400 hover:text-white transition-colors transform hover:scale-110">
             <FileText size={32} />
           </a>
+
+          {/* --- BAGIAN INI DITAMBAHKAN SESUAI REQUEST (SPOTIFY ICON) --- */}
+          <a href="https://open.spotify.com/user/67tbuc3v934pih7w5u2nefkt1?si=07fcb99ad27e46e5" target="_blank" className="relative w-8 h-8 transform hover:scale-110 transition-transform group">
+            {/* Image Default (Gray) - Hilang pas hover */}
+            <img 
+              src="/thumbnail/spotify.png" 
+              alt="Spotify" 
+              className="absolute inset-0 w-full h-full object-contain transition-opacity duration-300 group-hover:opacity-0"
+            />
+            {/* Image Hover (Green) - Muncul pas hover */}
+            <img 
+              src="/thumbnail/spotify-hover.png" 
+              alt="Spotify Hover" 
+              className="absolute inset-0 w-full h-full object-contain transition-opacity duration-300 opacity-0 group-hover:opacity-100"
+            />
+          </a>
+          {/* ----------------------------------------------------------- */}
+
         </div>
 
         <div className="border-t border-slate-900 pt-8 pb-8 text-slate-600 text-sm">
