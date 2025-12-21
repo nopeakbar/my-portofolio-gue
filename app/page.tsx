@@ -7,7 +7,11 @@ export default function Portfolio() {
   
   // --- CONFIG SLIDER SPOTIFY ---
   const spotifyEmbeds = [
+    // 1. Lagu Baru (2112) - Urutan Pertama
+    "https://open.spotify.com/embed/track/5Gxwk3TSekI4GVMpFvPBEc?utm_source=generator",
+    // 2. Lagu Lama
     "https://open.spotify.com/embed/track/2dIBMHByUGcNPzmYBJ6OAj?utm_source=generator&theme=0",
+    // 3. Lagu Lama
     "https://open.spotify.com/embed/track/4XHijJfABTtUCW3Bp6KFvr?utm_source=generator&theme=0",
   ];
 
@@ -189,7 +193,7 @@ export default function Portfolio() {
              <div className="absolute bottom-0 left-0 p-8 z-20">
                 <h3 className="text-xl font-bold text-white mb-2">Auto Clicker</h3>
                 <p className="text-slate-400 text-sm mb-4">
-                  Lightweight automation script for repetitive clicking tasks on web interfaces.
+                  Automation tool to mass download images from Colorbox and Uniqlo websites seamlessly.
                 </p>
                 <a href="https://github.com/nopeakbar/web-auto-clicker-nopeakbar.git" target="_blank" className="flex items-center gap-2 text-sm text-teal-400 font-medium hover:text-teal-300">
                   <Github size={14} /> View Script
@@ -304,7 +308,7 @@ export default function Portfolio() {
               </div>
 
               <div className="absolute top-4 left-1/2 -translate-x-1/2 z-10 flex items-center gap-2 text-green-500 text-xs font-bold bg-black/80 px-4 py-1.5 rounded-full backdrop-blur-md border border-green-900 shadow-xl">
-                <Music size={12} className="animate-pulse"/> MY LAGU GUE ({currentSong + 1}/{spotifyEmbeds.length})
+                <Music size={12} className="animate-pulse"/> MY JAM ({currentSong + 1}/{spotifyEmbeds.length})
               </div>
 
               <div className="w-full h-full relative">
