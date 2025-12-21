@@ -354,6 +354,22 @@ export default function Portfolio() {
             <Instagram size={32} />
           </a>
 
+          {/* Spotify - Custom Image dengan Hover Effect */}
+          <a href="https://open.spotify.com/user/67tbuc3v934pih7w5u2nefkt1?si=035ba658aaac4039" target="_blank" className="relative group transform hover:scale-110 transition-transform">
+            {/* Default Image (Abu-abu) */}
+            <img 
+              src="/thumbnail/spotify.png" 
+              alt="Spotify" 
+              className="w-8 h-8 transition-opacity duration-300 group-hover:opacity-0" 
+            />
+            {/* Hover Image (Hijau) */}
+            <img 
+              src="/thumbnail/spotify-hover.png" 
+              alt="Spotify" 
+              className="w-8 h-8 absolute top-0 left-0 opacity-0 transition-opacity duration-300 group-hover:opacity-100" 
+            />
+          </a>
+
           {/* Medium */}
           <a href="https://medium.com/@nopeakbar" target="_blank" className="text-slate-400 hover:text-white transition-colors transform hover:scale-110">
             <FileText size={32} />
