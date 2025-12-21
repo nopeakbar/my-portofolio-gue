@@ -377,7 +377,7 @@ export default function Portfolio() {
         </div>
 
         <div className="border-t border-slate-900 pt-8 pb-8 text-slate-600 text-sm">
-          <p>© {new Date().getFullYear()} My Portfolio. Built with Next.js.</p>
+          <p>© {new Date().getFullYear()} Nov Akbar's Portfolio. Built with Next.js.</p>
         </div>
       </footer>
     </main>
