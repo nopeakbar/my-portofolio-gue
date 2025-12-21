@@ -234,7 +234,7 @@ export default function Portfolio() {
                     <Binary size={18} />
                     <span className="text-xs font-bold tracking-widest uppercase">Data Science</span>
                  </div>
-                 <h3 className="text-3xl md:text-4xl font-bold text-white mb-4">Writing Journey on Medium</h3>
+                 <h3 className="text-3xl md:text-4xl font-bold text-white mb-4">Writing on Medium</h3>
                  <p className="text-slate-300 text-base md:text-lg mb-8 max-w-2xl leading-relaxed">
                    Documenting my experiments in Data Science and breaking down complex concepts into actionable insights for everyone.
                  </p>
