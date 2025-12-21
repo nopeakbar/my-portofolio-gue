@@ -257,7 +257,7 @@ export default function Portfolio() {
              <div className="absolute bottom-0 left-0 p-8 md:p-12 z-20">
                 <h3 className="text-3xl md:text-4xl font-bold text-white mb-4">Coffee Shop Hunter</h3>
                 <p className="text-slate-300 text-base md:text-lg mb-8 max-w-2xl">
-                  A personal curation of the best coffee spots in Yogyakarta. Reviewed based on ambiance, coffee quality, and work-friendliness.
+                  A personal curation of the best coffee spots in Yogyakarta. Reviewed based on ambiance, coffee quality, and skripsi-friendliness.
                 </p>
                 <a href="https://treasure-clef-482.notion.site/d73789d729ac46da85500df19a83e3a4?v=a8f299db8e804d88ba26ba13e88a06e7&source=copy_link" target="_blank" className="flex items-center gap-2 text-amber-400 font-bold hover:text-amber-300 text-lg">
                   Visit Notion Page <ExternalLink size={18} />
