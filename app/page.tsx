@@ -1,21 +1,26 @@
 "use client";
 
 import React, { useState } from 'react';
+import useSWR from 'swr'; // 1. INI DITAMBAHKAN
 import { Github, ExternalLink, Smartphone, Book, FileText, Mail, ArrowRight, Music, ChevronLeft, ChevronRight, Binary, Instagram, Linkedin, Coffee, Mic, MousePointerClick } from 'lucide-react';
+
+// 2. INI DITAMBAHKAN (Fetcher untuk API)
+const fetcher = (url: string) => fetch(url).then((r) => r.json());
 
 export default function Portfolio() {
   
+  // 3. INI DITAMBAHKAN (Hook buat ambil data Spotify tiap 5 detik)
+  const { data } = useSWR('/api/spotify', fetcher, { refreshInterval: 5000 });
+
   // --- CONFIG SLIDER SPOTIFY ---
   const spotifyEmbeds = [
-    // 1. Lagu Baru (2112) - Urutan Pertama
+    // 1. 2112
     "https://open.spotify.com/embed/track/5Gxwk3TSekI4GVMpFvPBEc?utm_source=generator",
-    // shut up, BEHAVE!
-    "https://open.spotify.com/embed/track/1vIjNW49tdoICOsZjPnNo2?utm_source=generator",
-    // baruuu
+    // 2. Lagu Baru
     "https://open.spotify.com/embed/track/0lAwrV80YlQCGeqPtMIQjB?utm_source=generator",
-    // 2. Lagu Lama
-    "https://open.spotify.com/embed/track/2dIBMHByUGcNPzmYBJ6OAj?utm_source=generator&theme=0",
     // 3. Lagu Lama
+    "https://open.spotify.com/embed/track/2dIBMHByUGcNPzmYBJ6OAj?utm_source=generator&theme=0",
+    // 4. Lagu Lama
     "https://open.spotify.com/embed/track/4XHijJfABTtUCW3Bp6KFvr?utm_source=generator&theme=0",
   ];
 
@@ -123,8 +128,8 @@ export default function Portfolio() {
                     Digitized the ISBN submission workflow for the university. Transformed a previously manual application process into a fully integrated web system.
                   </p>
                   <div className="flex gap-2">
-                    <span className="text-xs bg-slate-950/80 border border-slate-700 px-2 py-1 rounded text-slate-300">PHP</span>
-                    {/* <span className="text-xs bg-slate-950/80 border border-slate-700 px-2 py-1 rounded text-slate-300">NodeJS</span> */}
+                    <span className="text-xs bg-slate-950/80 border border-slate-700 px-2 py-1 rounded text-slate-300">React</span>
+                    <span className="text-xs bg-slate-950/80 border border-slate-700 px-2 py-1 rounded text-slate-300">NodeJS</span>
                   </div>
                 </div>
                 <a href="https://penerbitlppm.site/v2" target="_blank" className="p-3 bg-white text-slate-950 rounded-full hover:bg-cyan-400 hover:scale-110 transition-all shadow-lg">
@@ -261,11 +266,80 @@ export default function Portfolio() {
              <div className="absolute bottom-0 left-0 p-8 md:p-12 z-20">
                 <h3 className="text-3xl md:text-4xl font-bold text-white mb-4">Coffee Shop Hunter</h3>
                 <p className="text-slate-300 text-base md:text-lg mb-8 max-w-2xl">
-                  A personal curation of the best coffee spots in Yogyakarta. Reviewed based on ambiance, coffee quality, and skripsi-friendliness.
+                  A personal curation of the best coffee spots in Yogyakarta. Reviewed based on ambiance, coffee quality, and work-friendliness.
                 </p>
                 <a href="https://treasure-clef-482.notion.site/d73789d729ac46da85500df19a83e3a4?v=a8f299db8e804d88ba26ba13e88a06e7&source=copy_link" target="_blank" className="flex items-center gap-2 text-amber-400 font-bold hover:text-amber-300 text-lg">
                   Visit Notion Page <ExternalLink size={18} />
                 </a>
+             </div>
+          </div>
+        </div>
+      </section>
+
+      {/* ========================================= */}
+      {/* SEGMENT 3.5: NOW PLAYING (SPOTIFY API)  */}
+      {/* ========================================= */}
+      {/* 4. BAGIAN INI SAYA UPDATE DENGAN DATA DARI API */}
+      <section id="nowplaying" className="max-w-5xl mx-auto px-6 py-10">
+         <div className="flex items-center gap-4 mb-8">
+           <div className="h-10 w-1 bg-green-400 rounded-full"></div>
+           <h2 className="text-3xl font-bold text-white">Currently Listening To</h2>
+        </div>
+
+        <div className="grid grid-cols-1 gap-6">
+          {/* NOW PLAYING CARD */}
+          <div className="relative group overflow-hidden rounded-3xl bg-gradient-to-br from-green-900/40 via-slate-900 to-slate-900 border border-green-500/30 hover:border-green-400/50 transition-all duration-300 p-8">
+             
+             {/* Background Decoration */}
+             <div className="absolute top-0 right-0 w-64 h-64 bg-green-500/10 rounded-full blur-3xl"></div>
+             
+             <div className="relative z-10">
+               <div className="flex items-center gap-3 mb-6">
+                 {/* UPDATE: Indikator nyala kalau lagi main lagu */}
+                 <div className={`w-3 h-3 rounded-full ${data?.isPlaying ? "bg-green-400 animate-pulse" : "bg-red-500"}`}></div>
+                 <span className="text-green-400 font-bold text-sm tracking-wider uppercase">
+                    {data?.isPlaying ? "Live from Spotify" : "Offline / Paused"}
+                 </span>
+               </div>
+
+               <div className="flex flex-col md:flex-row gap-6 items-start md:items-center">
+                 {/* UPDATE: Album Art dari API */}
+                 <div className="w-32 h-32 bg-slate-800 rounded-2xl flex items-center justify-center border-2 border-slate-700 group-hover:border-green-500/50 transition-all duration-300 flex-shrink-0 overflow-hidden relative">
+                   {data?.isPlaying && data?.albumImageUrl ? (
+                      <img src={data.albumImageUrl} alt={data.album} className="w-full h-full object-cover animate-in fade-in duration-700" />
+                   ) : (
+                      <Music size={48} className="text-slate-600" />
+                   )}
+                 </div>
+
+                 {/* UPDATE: Track Info dari API */}
+                 <div className="flex-1">
+                   <h3 className="text-2xl md:text-3xl font-bold text-white mb-2 line-clamp-1">
+                     {data?.isPlaying ? data.title : "Not playing right now"}
+                   </h3>
+                   <p className="text-slate-400 text-lg mb-4 line-clamp-1">
+                     {data?.isPlaying ? data.artist : "Check back later to see what I'm listening to!"}
+                   </p>
+                   <div className="flex items-center gap-4">
+                     <a 
+                       href={data?.isPlaying ? data.songUrl : "https://open.spotify.com/user/67tbuc3v934pih7w5u2nefkt1?si=035ba658aaac4039"} 
+                       target="_blank"
+                       className="inline-flex items-center gap-2 px-5 py-2.5 bg-green-600 hover:bg-green-500 text-white font-semibold rounded-full transition-all text-sm"
+                     >
+                       <Music size={16} /> {data?.isPlaying ? "Listen on Spotify" : "Follow on Spotify"}
+                     </a>
+                   </div>
+                 </div>
+               </div>
+
+               {/* Note for Setup (Boleh dihapus nanti kalau sudah lancar) */}
+               {!data?.isPlaying && (
+                 <div className="mt-6 p-4 bg-slate-800/50 rounded-xl border border-slate-700">
+                   <p className="text-slate-400 text-sm">
+                     💡 <strong className="text-white">Note:</strong> Lagu akan muncul otomatis di sini saat kamu memutar Spotify.
+                   </p>
+                 </div>
+               )}
              </div>
           </div>
         </div>
@@ -312,7 +386,7 @@ export default function Portfolio() {
               </div>
 
               <div className="absolute top-4 left-1/2 -translate-x-1/2 z-10 flex items-center gap-2 text-green-500 text-xs font-bold bg-black/80 px-4 py-1.5 rounded-full backdrop-blur-md border border-green-900 shadow-xl">
-                <Music size={12} className="animate-pulse"/> MY LAGU GUE ({currentSong + 1}/{spotifyEmbeds.length})
+                <Music size={12} className="animate-pulse"/> MY JAM ({currentSong + 1}/{spotifyEmbeds.length})
               </div>
 
               <div className="w-full h-full relative">
@@ -356,22 +430,6 @@ export default function Portfolio() {
             <Instagram size={32} />
           </a>
 
-          {/* Spotify - Custom Image dengan Hover Effect */}
-          <a href="https://open.spotify.com/user/67tbuc3v934pih7w5u2nefkt1?si=035ba658aaac4039" target="_blank" className="relative group transform hover:scale-110 transition-transform">
-            {/* Default Image (Abu-abu) */}
-            <img 
-              src="/thumbnail/spotify.png" 
-              alt="Spotify" 
-              className="w-8 h-8 transition-opacity duration-300 group-hover:opacity-0" 
-            />
-            {/* Hover Image (Hijau) */}
-            <img 
-              src="/thumbnail/spotify-hover.png" 
-              alt="Spotify" 
-              className="w-8 h-8 absolute top-0 left-0 opacity-0 transition-opacity duration-300 group-hover:opacity-100" 
-            />
-          </a>
-
           {/* Medium */}
           <a href="https://medium.com/@nopeakbar" target="_blank" className="text-slate-400 hover:text-white transition-colors transform hover:scale-110">
             <FileText size={32} />
@@ -379,7 +437,7 @@ export default function Portfolio() {
         </div>
 
         <div className="border-t border-slate-900 pt-8 pb-8 text-slate-600 text-sm">
-          <p>© {new Date().getFullYear()} Nov Akbar's Portfolio. Built with Next.js.</p>
+          <p>© {new Date().getFullYear()} My Portfolio. Built with Next.js.</p>
         </div>
       </footer>
     </main>

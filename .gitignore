@@ -39,3 +39,20 @@ yarn-error.log*
 # typescript
 *.tsbuildinfo
 next-env.d.ts
+
+# --- TAMBAHAN ---
+
+# Windows system files (Biar gak ada file sampah Thumbs.db)
+Thumbs.db
+ehthumbs.db
+Desktop.ini
+$RECYCLE.BIN/
+
+# VS Code settings (Opsional, biar settingan personalmu gak ke-upload)
+.vscode/
+
+# Logs (Biar log error npm gak ngotorin repo)
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+pnpm-debug.log*
