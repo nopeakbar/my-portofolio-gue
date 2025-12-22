@@ -264,7 +264,7 @@ export default function Portfolio() {
              <Coffee className="absolute top-8 right-8 text-amber-500/20 w-32 h-32 group-hover:text-amber-500/40 transition-colors" />
 
              <div className="absolute bottom-0 left-0 p-8 md:p-12 z-20">
-                <h3 className="text-3xl md:text-4xl font-bold text-white mb-4">Coffee Shop Hunter</h3>
+                <h3 className="text-3xl md:text-4xl font-bold text-white mb-4">Coffee Shop Hunter for Skripsi</h3>
                 <p className="text-slate-300 text-base md:text-lg mb-8 max-w-2xl">
                   A personal curation of the best coffee spots in Yogyakarta. Reviewed based on ambiance, coffee quality, and skripsi-friendliness.
                 </p>
