@@ -1,15 +1,13 @@
 "use client";
 
 import React, { useState } from 'react';
-import useSWR from 'swr'; // 1. INI DITAMBAHKAN
-import { Github, ExternalLink, Smartphone, Book, FileText, Mail, ArrowRight, Music, ChevronLeft, ChevronRight, Binary, Instagram, Linkedin, Coffee, Mic, MousePointerClick } from 'lucide-react';
+import useSWR from 'swr'; 
+import { Github, ExternalLink, Smartphone, Book, FileText, Mail, ArrowRight, Music, ChevronLeft, ChevronRight, Binary, Instagram, Linkedin, Coffee, Mic, MousePointerClick, Quote, Shuffle } from 'lucide-react';
 
-// 2. INI DITAMBAHKAN (Fetcher untuk API)
 const fetcher = (url: string) => fetch(url).then((r) => r.json());
 
 export default function Portfolio() {
   
-  // 3. INI DITAMBAHKAN (Hook buat ambil data Spotify tiap 5 detik)
   const { data } = useSWR('/api/spotify', fetcher, { refreshInterval: 5000 });
 
   // --- CONFIG SLIDER SPOTIFY ---
@@ -59,6 +57,39 @@ export default function Portfolio() {
     if (isRightSwipe) prevSong();
   };
 
+  // --- SEGMENT 5: LYRIC DATA (MANUAL) ---
+  const favoriteLyrics = [
+    {
+      text: 'Bersama nyanyikan, Lagu-lagu The Adams, "Jangan Konservatif" ujarmu padaku keras',
+      song: "Aku Ada Untukmu",
+      artist: "Perunggu",
+      color: "#4a5466", // Warna request Perunggu
+      image: "/album/dalam-dinamika-perunggu.png" // Ganti path ini
+    },
+    {
+      text: "Oh why am i not enough for you? It breaks my heart in two",
+      song: "Enough for You",
+      artist: "Reality Club",
+      color: "#535358", // Warna request Reality Club
+      image: "/album/who-knows-realityclub.jpg",
+      position: "center 35%",
+      scale: "50"       
+
+    }
+  ];
+
+  const [lyricIndex, setLyricIndex] = useState(0);
+
+  const randomizeLyric = () => {
+    let newIndex;
+    do {
+      newIndex = Math.floor(Math.random() * favoriteLyrics.length);
+    } while (newIndex === lyricIndex && favoriteLyrics.length > 1);
+    setLyricIndex(newIndex);
+  };
+
+  const currentLyric = favoriteLyrics[lyricIndex];
+
   return (
     <main className="min-h-screen bg-slate-950 text-slate-200 selection:bg-cyan-500 selection:text-white pb-20 overflow-x-hidden">
       
@@ -78,7 +109,6 @@ export default function Portfolio() {
           Open to Work
         </div>
 
-        {/* JUDUL SUDAH DIBUAT BOLD MAKSIMAL (font-black) */}
         <h1 className="text-5xl md:text-7xl font-black mb-6 leading-tight tracking-tight">
           BUILDING. <br />
           <span className="bg-gradient-to-r from-cyan-400 via-blue-500 to-purple-600 bg-clip-text text-transparent">
@@ -129,7 +159,6 @@ export default function Portfolio() {
                   </p>
                   <div className="flex gap-2">
                     <span className="text-xs bg-slate-950/80 border border-slate-700 px-2 py-1 rounded text-slate-300">PHP</span>
-                    {/* <span className="text-xs bg-slate-950/80 border border-slate-700 px-2 py-1 rounded text-slate-300">NodeJS</span> */}
                   </div>
                 </div>
                 <a href="https://penerbitlppm.site/v2" target="_blank" className="p-3 bg-white text-slate-950 rounded-full hover:bg-cyan-400 hover:scale-110 transition-all shadow-lg">
@@ -279,10 +308,6 @@ export default function Portfolio() {
       {/* ========================================= */}
       {/* SEGMENT 3.5: NOW PLAYING (SPOTIFY API)  */}
       {/* ========================================= */}
-      {/* 4. BAGIAN INI SAYA UPDATE DENGAN DATA DARI API */}
-      {/* ========================================= */}
-      {/* SEGMENT 3.5: NOW PLAYING (SPOTIFY API)  */}
-      {/* ========================================= */}
       <section id="nowplaying" className="max-w-5xl mx-auto px-6 py-10">
          <div className="flex items-center gap-4 mb-8">
            <div className="h-10 w-1 bg-green-400 rounded-full"></div>
@@ -297,17 +322,14 @@ export default function Portfolio() {
              
              <div className="relative z-10">
                <div className="flex items-center gap-3 mb-6">
-                 {/* UPDATE: Logic Warna (Hijau=Play, Abu=History) */}
                  <div className={`w-3 h-3 rounded-full ${data?.isPlaying ? "bg-green-400 animate-pulse" : "bg-slate-500"}`}></div>
                  
-                 {/* UPDATE: Logic Teks (Live vs Last Played) */}
                  <span className={`font-bold text-sm tracking-wider uppercase ${data?.isPlaying ? "text-green-400" : "text-slate-400"}`}>
                     {data?.isPlaying ? "Live from Spotify" : data?.lastPlayed ? `Last Played ${data.lastPlayed}` : "Offline"}
                  </span>
                </div>
 
                <div className="flex flex-col md:flex-row gap-6 items-start md:items-center">
-                 {/* UPDATE: Gambar jadi Hitam Putih kalau Offline */}
                  <div className="w-32 h-32 bg-slate-800 rounded-2xl flex items-center justify-center border-2 border-slate-700 group-hover:border-green-500/50 transition-all duration-300 flex-shrink-0 overflow-hidden relative">
                    {data?.albumImageUrl ? (
                       <img src={data.albumImageUrl} alt={data.album} className={`w-full h-full object-cover animate-in fade-in duration-700 ${!data.isPlaying && "grayscale opacity-70"}`} />
@@ -325,7 +347,6 @@ export default function Portfolio() {
                      {data?.artist || "Spotify is currently offline"}
                    </p>
                    <div className="flex items-center gap-4">
-                     {/* UPDATE: Tombol berubah jadi abu-abu kalau offline */}
                      <a 
                        href={data?.songUrl || "https://open.spotify.com"} 
                        target="_blank"
@@ -406,6 +427,61 @@ export default function Portfolio() {
         </div>
       </section>
 
+      {/* ========================================= */}
+      {/* SEGMENT 5: LYRIC QUOTE (MANUAL)         */}
+      {/* ========================================= */}
+      <section id="lyrics" className="max-w-5xl mx-auto px-6 py-10 pb-20">
+         <div className="flex items-center gap-4 mb-8">
+           <div className="h-10 w-1 bg-pink-500 rounded-full"></div>
+           <h2 className="text-3xl font-bold text-white">Penggalan</h2>
+        </div>
+
+        {/* CONTAINER DINAMIS SESUAI WARNA */}
+        <div 
+          className="relative group overflow-hidden rounded-3xl border border-slate-800 hover:border-pink-500/50 transition-all duration-700 p-8 md:p-12 text-center"
+          style={{ backgroundColor: currentLyric.color }}
+        >
+          
+          {/* BACKGROUND IMAGE DARI ALBUM (DENGAN OPACITY) */}
+          <div 
+            className="absolute inset-0 bg-no-repeat transition-all duration-700 opacity-40 mix-blend-overlay"
+            style={{ 
+              backgroundImage: `url('${currentLyric.image}')`,
+              // 👇 Logika baru: Ambil settingan manual, kalau tidak ada pakai default
+              backgroundPosition: currentLyric.position || 'center', 
+              backgroundSize: currentLyric.scale || 'cover' 
+            }}
+          />
+
+          {/* GRADIENT OVERLAY SUPAYA TEKS TETAP TERBACA */}
+          <div className="absolute inset-0 bg-gradient-to-b from-transparent to-black/60 z-0"></div>
+
+          {/* Background Decoration (Matching style) */}
+          <div className="absolute top-0 right-0 w-64 h-64 bg-pink-500/10 rounded-full blur-3xl opacity-50 pointer-events-none z-0"></div>
+          <Quote className="absolute top-6 left-6 text-slate-800 w-16 h-16 md:w-24 md:h-24 opacity-50 z-0" />
+          
+          <div className="relative z-10 flex flex-col items-center justify-center min-h-[200px]">
+            <blockquote className="text-2xl md:text-3xl font-serif italic text-slate-200 mb-8 leading-relaxed max-w-3xl animate-in fade-in slide-in-from-bottom-4 duration-700" key={lyricIndex}>
+              "{currentLyric.text}"
+            </blockquote>
+
+            <div className="flex flex-col items-center gap-1 mb-8">
+               <p className="text-lg font-bold text-white tracking-wide shadow-black drop-shadow-md">{currentLyric.song}</p>
+               <p className="text-pink-400 text-sm font-medium tracking-widest uppercase shadow-black drop-shadow-sm">{currentLyric.artist}</p>
+            </div>
+
+            {/* Tombol Shuffle */}
+            <button 
+              onClick={randomizeLyric}
+              className="group/btn flex items-center gap-2 px-6 py-2 rounded-full bg-slate-800/80 backdrop-blur-sm hover:bg-pink-600 text-slate-400 hover:text-white transition-all border border-slate-700 hover:border-pink-500 shadow-lg"
+            >
+              <Shuffle size={16} className="group-hover/btn:rotate-180 transition-transform duration-500" />
+              <span className="text-sm font-semibold">Shuffle Lyric</span>
+            </button>
+          </div>
+        </div>
+      </section>
+
       {/* --- FOOTER (CONTACT) --- */}
       <footer id="contact" className="max-w-5xl mx-auto px-6 pt-10 text-center">
         <h2 className="text-2xl font-bold mb-6">Let's Connect</h2>
@@ -432,22 +508,19 @@ export default function Portfolio() {
             <FileText size={32} />
           </a>
 
-          {/* --- BAGIAN INI DITAMBAHKAN SESUAI REQUEST (SPOTIFY ICON) --- */}
+          {/* Spotify Icon */}
           <a href="https://open.spotify.com/user/67tbuc3v934pih7w5u2nefkt1?si=07fcb99ad27e46e5" target="_blank" className="relative w-8 h-8 transform hover:scale-110 transition-transform group">
-            {/* Image Default (Gray) - Hilang pas hover */}
             <img 
               src="/thumbnail/spotify.png" 
               alt="Spotify" 
               className="absolute inset-0 w-full h-full object-contain transition-opacity duration-300 group-hover:opacity-0"
             />
-            {/* Image Hover (Green) - Muncul pas hover */}
             <img 
               src="/thumbnail/spotify-hover.png" 
               alt="Spotify Hover" 
               className="absolute inset-0 w-full h-full object-contain transition-opacity duration-300 opacity-0 group-hover:opacity-100"
             />
           </a>
-          {/* ----------------------------------------------------------- */}
 
         </div>
 
