@@ -490,7 +490,7 @@ export default function Portfolio() {
         
         {/* Email */}
         <a href="mailto:nopeakbar.blog@gmail.com" className="flex justify-center items-center gap-2 text-slate-400 hover:text-cyan-400 transition-colors mb-8 text-lg">
-          <Mail size={24} /> nopeakbar.blog@gmail.com
+          <Mail size={24} /> nopeakbar@gmail.com
         </a>
 
         {/* Social Links */}
