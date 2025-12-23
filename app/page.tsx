@@ -4,7 +4,7 @@ import React, { useState } from 'react';
 import useSWR from 'swr'; 
 import { Analytics } from '@vercel/analytics/next';
 import { Github, ExternalLink, Smartphone, Book, FileText, Mail, ArrowRight, Music, ChevronLeft, ChevronRight, Binary, Instagram, Linkedin, Coffee, Mic, MousePointerClick, Quote, Shuffle, Briefcase, ShieldCheck, Copy, Check  } from 'lucide-react';
-import { SpeedInsights } from '@vercel/speed-insights/next';
+import { SpeedInsights } from "@vercel/speed-insights/next";
 
 const fetcher = (url: string) => fetch(url).then((r) => r.json());
 
