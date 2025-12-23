@@ -101,7 +101,7 @@ const experiences = [
     description: "Designed and implemented dynamic user interfaces using PHP for the ISBN Management System at UPN 'Veteran' Yogyakarta.",
     // tech: ["React", "Tailwind", "Redux"],
     tech: ["PHP", "Figma", "MySQL"],
-    logo: "/logos/company-a.png" // Opsional
+    logo: "/logo/logo-upn.png" 
   },
   // {
   //   role: "Mobile Developer Intern",
@@ -109,7 +109,6 @@ const experiences = [
   //   period: "Jan 2024 - Apr 2024",
   //   description: "Membangun aplikasi mobile attendance dengan Flutter, terintegrasi dengan Firebase dan Google Maps API.",
   //   tech: ["Flutter", "Dart", "Firebase"],
-  //   logo: "/logos/company-b.png" // Opsional
   // }
 ];
 
@@ -190,11 +189,27 @@ const experiences = [
                   {exp.period}
                 </span>
               </div>
+
+              {/* Company Name & Logo */}
+              <div className="text-lg font-medium text-slate-400 mb-4 flex items-center gap-3">
+                {exp.logo ? (
+                  // Jika ada logo, tampilkan gambar
+                  <img 
+                    src={exp.logo} 
+                    alt={exp.company} 
+                    className="w-8 h-8 object-contain bg-slate-800 rounded-full border border-slate-700 p-1" 
+                  />
+                ) : (
+                  <Briefcase size={18} className="text-blue-500/50" />
+                )}
+                
+                <span>{exp.company}</span>
+              </div>
               
-              <div className="text-lg font-medium text-slate-400 mb-4 flex items-center gap-2">
+              {/* <div className="text-lg font-medium text-slate-400 mb-4 flex items-center gap-2">
                 <Briefcase size={18} className="text-blue-500/50" />
                 {exp.company}
-              </div>
+              </div> */}
               
               <p className="text-slate-400 leading-relaxed mb-4 max-w-3xl">
                 {exp.description}
