@@ -2,7 +2,9 @@
 
 import React, { useState } from 'react';
 import useSWR from 'swr'; 
+import { Analytics } from '@vercel/analytics/next';
 import { Github, ExternalLink, Smartphone, Book, FileText, Mail, ArrowRight, Music, ChevronLeft, ChevronRight, Binary, Instagram, Linkedin, Coffee, Mic, MousePointerClick, Quote, Shuffle, Briefcase, ShieldCheck, Copy, Check  } from 'lucide-react';
+import { SpeedInsights } from '@vercel/speed-insights/next';
 
 const fetcher = (url: string) => fetch(url).then((r) => r.json());
 
@@ -126,7 +128,8 @@ const experiences = [
 
   return (
     <main className="min-h-screen bg-slate-950 text-slate-200 selection:bg-cyan-500 selection:text-white pb-20 overflow-x-hidden">
-      
+      <Analytics />
+      <SpeedInsights />
       {/* --- NAVBAR FLOATING --- */}
       <nav className="fixed top-6 left-1/2 -translate-x-1/2 z-50 bg-slate-900/80 backdrop-blur-md border border-slate-700 rounded-full px-6 py-3 flex gap-6 shadow-2xl">
         <a href="#home" className="hover:text-cyan-400 transition-colors text-sm font-medium">Home</a>
