@@ -96,7 +96,7 @@ export default function Portfolio() {
 const experiences = [
   {
     role: "Frontend Developer Intern",
-    company: "LPPM UPN 'Veteran' Yogyakarta",
+    company: 'LPPM UPN "Veteran" Yogyakarta',
     period: "Feb 2025 - April 2025",
     description: "Designed and implemented dynamic user interfaces using PHP for the ISBN Management System at UPN 'Veteran' Yogyakarta.",
     // tech: ["React", "Tailwind", "Redux"],
@@ -115,7 +115,7 @@ const experiences = [
 
     const [isCopied, setIsCopied] = useState(false);
   const credentialId = "193107451110-11"; 
-  const noSertifikat = "193107451110-11/VSGA/BLSDM KOMDIGI/2025";
+  // const noSertifikat = "193107451110-11/VSGA/BLSDM KOMDIGI/2025";
 
   const handleCopy = (e: React.MouseEvent) => {
     e.preventDefault(); // Mencegah link terbuka saat tombol copy diklik
