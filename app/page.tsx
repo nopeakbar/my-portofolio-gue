@@ -14,7 +14,7 @@ export default function Portfolio() {
 
   // --- CONFIG SLIDER SPOTIFY ---
   const spotifyEmbeds = [
-    // 1. 2112
+    // 1. 2112 asekkk
     "https://open.spotify.com/embed/track/5Gxwk3TSekI4GVMpFvPBEc?utm_source=generator",
     // 2. Ini Abadi
     "https://open.spotify.com/embed/track/6cgBRhTzwk0OBhRX2E5F3V?utm_source=generator",
