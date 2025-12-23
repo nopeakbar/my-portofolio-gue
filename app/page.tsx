@@ -97,6 +97,7 @@ const experiences = [
   {
     role: "Frontend Developer Intern",
     company: 'LPPM UPN "Veteran" Yogyakarta',
+    companyUrl: "https://lppm.upnyk.ac.id/",
     period: "Feb 2025 - April 2025",
     description: "Designed and implemented dynamic user interfaces using PHP for the ISBN Management System at UPN 'Veteran' Yogyakarta.",
     // tech: ["React", "Tailwind", "Redux"],
@@ -193,7 +194,6 @@ const experiences = [
               {/* Company Name & Logo */}
               <div className="text-lg font-medium text-slate-400 mb-4 flex items-center gap-3">
                 {exp.logo ? (
-                  // Jika ada logo, tampilkan gambar
                   <img 
                     src={exp.logo} 
                     alt={exp.company} 
@@ -202,8 +202,24 @@ const experiences = [
                 ) : (
                   <Briefcase size={18} className="text-blue-500/50" />
                 )}
+
+                {/* NAMA PERUSAHAAN (CLICKABLE) */}
+                {exp.companyUrl ? (
+                  <a 
+                    href={exp.companyUrl}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="hover:text-blue-400 transition-colors flex items-center gap-1 group/link"
+                  >
+                    {exp.company}
+                    {/* Icon kecil penanda link */}
+                    <ExternalLink size={12} className="opacity-50 group-hover/link:opacity-100 transition-opacity" />
+                  </a>
+                ) : (
+                  <span>{exp.company}</span>
+                )}
                 
-                <span>{exp.company}</span>
+                {/* <span>{exp.company}</span> */}
               </div>
               
               {/* <div className="text-lg font-medium text-slate-400 mb-4 flex items-center gap-2">
