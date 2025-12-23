@@ -387,7 +387,7 @@ const experiences = [
   
   {/* 2. Bungkus nomor di span dengan class 'break-all' */}
   <span className="break-all font-mono text-xs text-slate-300">
-     Nomor Sertifikat: 193107451110-11/VSGA/BLSDM KOMDIGI/2025
+     Certificate Number: 193107451110-11/VSGA/BLSDM KOMDIGI/2025
   </span>
 </p>
                  {/* <p className="text-slate-400 text-sm mb-2">
