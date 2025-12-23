@@ -2,7 +2,7 @@
 
 import React, { useState } from 'react';
 import useSWR from 'swr'; 
-import { Github, ExternalLink, Smartphone, Book, FileText, Mail, ArrowRight, Music, ChevronLeft, ChevronRight, Binary, Instagram, Linkedin, Coffee, Mic, MousePointerClick, Quote, Shuffle } from 'lucide-react';
+import { Github, ExternalLink, Smartphone, Book, FileText, Mail, ArrowRight, Music, ChevronLeft, ChevronRight, Binary, Instagram, Linkedin, Coffee, Mic, MousePointerClick, Quote, Shuffle, Briefcase, ShieldCheck, Copy, Check  } from 'lucide-react';
 
 const fetcher = (url: string) => fetch(url).then((r) => r.json());
 
@@ -92,6 +92,38 @@ export default function Portfolio() {
 
   const currentLyric = favoriteLyrics[lyricIndex];
 
+  // Masukkan ini di luar component Portfolio atau di file terpisah
+const experiences = [
+  {
+    role: "Frontend Developer Intern",
+    company: "LPPM UPN 'Veteran' Yogyakarta",
+    period: "Feb 2025 - April 2025",
+    description: "Designed and implemented dynamic user interfaces using PHP for the ISBN Management System at UPN 'Veteran' Yogyakarta.",
+    // tech: ["React", "Tailwind", "Redux"],
+    tech: ["PHP", "Figma", "MySQL"],
+    logo: "/logos/company-a.png" // Opsional
+  },
+  // {
+  //   role: "Mobile Developer Intern",
+  //   company: "Startup Keren",
+  //   period: "Jan 2024 - Apr 2024",
+  //   description: "Membangun aplikasi mobile attendance dengan Flutter, terintegrasi dengan Firebase dan Google Maps API.",
+  //   tech: ["Flutter", "Dart", "Firebase"],
+  //   logo: "/logos/company-b.png" // Opsional
+  // }
+];
+
+    const [isCopied, setIsCopied] = useState(false);
+  const credentialId = "193107451110-11"; 
+  const noSertifikat = "193107451110-11/VSGA/BLSDM KOMDIGI/2025";
+
+  const handleCopy = (e: React.MouseEvent) => {
+    e.preventDefault(); // Mencegah link terbuka saat tombol copy diklik
+    navigator.clipboard.writeText(credentialId);
+    setIsCopied(true);
+    setTimeout(() => setIsCopied(false), 2000);
+  };
+
   return (
     <main className="min-h-screen bg-slate-950 text-slate-200 selection:bg-cyan-500 selection:text-white pb-20 overflow-x-hidden">
       
@@ -131,6 +163,53 @@ export default function Portfolio() {
           <a href="https://github.com/nopeakbar" target="_blank" className="px-7 py-3 border border-slate-700 hover:border-slate-500 hover:bg-slate-900 rounded-full transition-all flex items-center gap-2">
             <Github size={20} /> GitHub
           </a>
+        </div>
+      </section>
+
+       {/* ========================================= */}
+      {/* SEGMENT: EXPERIENCE (TIMELINE STYLE)    */}
+      {/* ========================================= */}
+      <section id="experience" className="max-w-5xl mx-auto px-6 py-10">
+        <div className="flex items-center gap-4 mb-12">
+           <div className="h-10 w-1 bg-blue-500 rounded-full"></div>
+           <h2 className="text-3xl font-bold text-white">Experience</h2>
+        </div>
+
+        <div className="relative border-l border-slate-800 ml-3 md:ml-6 space-y-12">
+          {experiences.map((exp, index) => (
+            <div key={index} className="relative pl-8 md:pl-12 group">
+              {/* Timeline Dot */}
+              <div className="absolute -left-[5px] md:-left-[9px] top-2 w-3 h-3 md:w-5 md:h-5 rounded-full border-4 border-slate-950 bg-slate-600 group-hover:bg-blue-500 transition-colors shadow-[0_0_10px_rgba(59,130,246,0.5)]"></div>
+              
+              {/* Content Card */}
+              <div className="flex flex-col sm:flex-row gap-4 sm:justify-between sm:items-baseline mb-2">
+                <h3 className="text-xl md:text-2xl font-bold text-slate-200 group-hover:text-blue-400 transition-colors">
+                  {exp.role}
+                </h3>
+                <span className="text-sm font-mono text-slate-500 bg-slate-900 px-3 py-1 rounded-full border border-slate-800">
+                  {exp.period}
+                </span>
+              </div>
+              
+              <div className="text-lg font-medium text-slate-400 mb-4 flex items-center gap-2">
+                <Briefcase size={18} className="text-blue-500/50" />
+                {exp.company}
+              </div>
+              
+              <p className="text-slate-400 leading-relaxed mb-4 max-w-3xl">
+                {exp.description}
+              </p>
+
+              {/* Tech Stack Tags */}
+              <div className="flex flex-wrap gap-2">
+                {exp.tech.map((t, i) => (
+                  <span key={i} className="text-xs font-medium text-slate-300 bg-slate-800/50 px-3 py-1 rounded-full border border-slate-700 hover:border-blue-500/30 transition-colors">
+                    {t}
+                  </span>
+                ))}
+              </div>
+            </div>
+          ))}
         </div>
       </section>
 
@@ -240,6 +319,88 @@ export default function Portfolio() {
                 </a>
              </div>
           </div>
+        </div>
+      </section>
+
+      {/* ========================================= */}
+      {/* SEGMENT: CERTIFICATIONS (MANUAL + COPY) */}
+      {/* ========================================= */}
+      <section id="certifications" className="max-w-5xl mx-auto px-6 py-10">
+         <div className="flex items-center gap-4 mb-8">
+           <div className="h-10 w-1 bg-yellow-500 rounded-full"></div>
+           <h2 className="text-3xl font-bold text-white">Licenses & Certifications</h2>
+        </div>
+
+        <div className="grid grid-cols-1 gap-4">
+          
+          {/* CARD MANUAL 1: KOMDIGI */}
+          <div className="relative p-6 rounded-2xl bg-slate-900 border border-slate-800 flex flex-col md:flex-row items-start md:items-center gap-6 hover:border-yellow-500/50 transition-colors group w-full">
+              
+              {/* Icon Garuda/Shield */}
+              <div className="w-14 h-14 rounded-full bg-slate-800 flex items-center justify-center border border-slate-700 group-hover:bg-yellow-500/10 group-hover:border-yellow-500/50 transition-all flex-shrink-0">
+                 <ShieldCheck size={28} className="text-yellow-500" />
+              </div>
+              
+              {/* Content Tengah */}
+              <div className="flex-1">
+                 <h3 className="text-lg font-bold text-white group-hover:text-yellow-400 transition-colors">
+                   Junior Mobile Computing
+                 </h3>
+                 <p className="text-slate-400 text-sm mb-2">
+  Badan Nasional Sertifikasi Profesi (BNSP)
+  {/* 1. Pakai <br/> biar turun baris */}
+  <br /> 
+  
+  {/* 2. Bungkus nomor di span dengan class 'break-all' */}
+  <span className="break-all font-mono text-xs text-slate-300">
+     Nomor Sertifikat: 193107451110-11/VSGA/BLSDM KOMDIGI/2025
+  </span>
+</p>
+                 {/* <p className="text-slate-400 text-sm mb-2">
+                   Nomor Sertifikat: 193107451110-11/VSGA/BLSDM KOMDIGI/2025 
+                 </p> */}
+                 
+                 {/* TOMBOL COPY ID (MANUAL) */}
+                 <div className="flex items-center gap-3 mb-3">
+                   <span className="text-xs text-slate-500 font-mono bg-slate-950 px-2 py-1 rounded border border-slate-800">
+                     ID: {credentialId}
+                   </span>
+                   <button 
+                     onClick={handleCopy}
+                     className="flex items-center gap-1.5 text-xs font-bold text-slate-400 hover:text-white transition-colors bg-slate-800 hover:bg-slate-700 px-3 py-1 rounded-full active:scale-95 border border-slate-700"
+                   >
+                     {isCopied ? (
+                       <> <Check size={12} className="text-green-400"/> Copied! </>
+                     ) : (
+                       <> <Copy size={12}/> Copy ID </>
+                     )}
+                   </button>
+                 </div>
+
+                 {/* Tags */}
+                 <div className="flex flex-wrap gap-2">
+                   <span className="text-[10px] font-bold bg-yellow-500/20 text-yellow-400 px-2 py-0.5 rounded border border-yellow-500/30">
+                     KOMPETEN
+                   </span>
+                   <span className="text-[10px] font-mono text-slate-500 border border-slate-700 px-2 py-0.5 rounded">
+                     Komdigi Digital Talent
+                   </span>
+                 </div>
+              </div>
+
+              {/* Tombol Link ke Website */}
+              <a 
+                href="https://digitalent.komdigi.go.id/cek-sertifikat" 
+                target="_blank" 
+                rel="noopener noreferrer"
+                className="mt-4 md:mt-0 px-5 py-2.5 rounded-full border border-slate-700 bg-slate-800/50 hover:bg-yellow-500 hover:text-slate-900 hover:border-yellow-500 text-slate-300 text-sm font-semibold transition-all flex items-center gap-2 group/btn"
+              >
+                Verify Status <ExternalLink size={16} className="group-hover/btn:translate-x-1 transition-transform"/>
+              </a>
+
+          </div>
+          {/* END CARD 1 */}
+
         </div>
       </section>
 
@@ -456,7 +617,7 @@ export default function Portfolio() {
           />
 
           {/* GRADIENT OVERLAY SUPAYA TEKS TETAP TERBACA */}
-          <div className="absolute inset-0 bg-gradient-to-b from-transparent to-black/60 z-0"></div>
+          <div className="2 inset-0 bg-gradient-to-b from-transparent to-black/60 z-0"></div>
 
           {/* Background Decoration (Matching style) */}
           <div className="absolute top-0 right-0 w-64 h-64 bg-pink-500/10 rounded-full blur-3xl opacity-50 pointer-events-none z-0"></div>
@@ -483,6 +644,8 @@ export default function Portfolio() {
           </div>
         </div>
       </section>
+
+     
 
       {/* --- FOOTER (CONTACT) --- */}
       <footer id="contact" className="max-w-5xl mx-auto px-6 pt-10 text-center">
