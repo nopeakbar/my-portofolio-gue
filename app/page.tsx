@@ -378,7 +378,7 @@ const experiences = [
               {/* Content Tengah */}
               <div className="flex-1">
                  <h3 className="text-lg font-bold text-white group-hover:text-yellow-400 transition-colors">
-                   Junior Mobile Computing
+                   Junior Mobile Programmer
                  </h3>
                  <p className="text-slate-400 text-sm mb-2">
   Badan Nasional Sertifikasi Profesi (BNSP)
