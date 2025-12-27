@@ -3,7 +3,31 @@
 import React, { useState } from 'react';
 import useSWR from 'swr'; 
 import { Analytics } from '@vercel/analytics/next';
-import { Github, ExternalLink, Smartphone, Book, FileText, Mail, ArrowRight, Music, ChevronLeft, ChevronRight, Binary, Instagram, Linkedin, Coffee, Mic, MousePointerClick, Quote, Shuffle, Briefcase, ShieldCheck, Copy, Check  } from 'lucide-react';
+import { 
+  Github, 
+  ExternalLink, 
+  Smartphone, 
+  Book, 
+  FileText, 
+  Mail, 
+  ArrowRight, 
+  Music, 
+  ChevronLeft, 
+  ChevronRight, 
+  Binary, 
+  Instagram, 
+  Linkedin, 
+  Coffee, 
+  Mic, 
+  MousePointerClick, 
+  Quote, 
+  Shuffle, 
+  Briefcase, 
+  ShieldCheck, 
+  Copy, 
+  Check,
+  AlertTriangle // <-- Icon baru untuk warning dev mode
+} from 'lucide-react';
 import { SpeedInsights } from "@vercel/speed-insights/next";
 
 const fetcher = (url: string) => fetch(url).then((r) => r.json());
@@ -94,30 +118,21 @@ export default function Portfolio() {
 
   const currentLyric = favoriteLyrics[lyricIndex];
 
-  // Masukkan ini di luar component Portfolio atau di file terpisah
-const experiences = [
-  {
-    role: "Frontend Developer Intern",
-    company: 'LPPM UPN "Veteran" Yogyakarta',
-    companyUrl: "https://lppm.upnyk.ac.id/",
-    period: "Feb 2025 - April 2025",
-    description: "Designed and implemented dynamic user interfaces using PHP for the ISBN Management System at UPN 'Veteran' Yogyakarta.",
-    // tech: ["React", "Tailwind", "Redux"],
-    tech: ["PHP", "Figma", "MySQL"],
-    logo: "/logo/logo-upn.png" 
-  },
-  // {
-  //   role: "Mobile Developer Intern",
-  //   company: "Startup Keren",
-  //   period: "Jan 2024 - Apr 2024",
-  //   description: "Membangun aplikasi mobile attendance dengan Flutter, terintegrasi dengan Firebase dan Google Maps API.",
-  //   tech: ["Flutter", "Dart", "Firebase"],
-  // }
-];
+  // Data Experience
+  const experiences = [
+    {
+      role: "Frontend Developer Intern",
+      company: 'LPPM UPN "Veteran" Yogyakarta',
+      companyUrl: "https://lppm.upnyk.ac.id/",
+      period: "Feb 2025 - April 2025",
+      description: "Designed and implemented dynamic user interfaces using PHP for the ISBN Management System at UPN 'Veteran' Yogyakarta.",
+      tech: ["PHP", "Figma", "MySQL"],
+      logo: "/logo/logo-upn.png" 
+    },
+  ];
 
-    const [isCopied, setIsCopied] = useState(false);
+  const [isCopied, setIsCopied] = useState(false);
   const credentialId = "193107451110-11"; 
-  // const noSertifikat = "193107451110-11/VSGA/BLSDM KOMDIGI/2025";
 
   const handleCopy = (e: React.MouseEvent) => {
     e.preventDefault(); // Mencegah link terbuka saat tombol copy diklik
@@ -215,20 +230,12 @@ const experiences = [
                     className="hover:text-blue-400 transition-colors flex items-center gap-1 group/link"
                   >
                     {exp.company}
-                    {/* Icon kecil penanda link */}
                     <ExternalLink size={12} className="opacity-50 group-hover/link:opacity-100 transition-opacity" />
                   </a>
                 ) : (
                   <span>{exp.company}</span>
                 )}
-                
-                {/* <span>{exp.company}</span> */}
               </div>
-              
-              {/* <div className="text-lg font-medium text-slate-400 mb-4 flex items-center gap-2">
-                <Briefcase size={18} className="text-blue-500/50" />
-                {exp.company}
-              </div> */}
               
               <p className="text-slate-400 leading-relaxed mb-4 max-w-3xl">
                 {exp.description}
@@ -256,9 +263,10 @@ const experiences = [
            <h2 className="text-3xl font-bold text-white">Featured Projects</h2>
         </div>
         
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-6 auto-rows-[350px] md:auto-rows-[400px]">
+        {/* UBAH GRID DISINI: Jadi 2 kolom (md:grid-cols-2) agar bawahnya bisa 2x2 pas */}
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-6 auto-rows-[350px] md:auto-rows-[400px]">
           
-          {/* CARD 1: ISBN (2 Cols) */}
+          {/* 1. ISBN (FULL WIDTH -> col-span-2) */}
           <div className="md:col-span-2 relative group overflow-hidden rounded-3xl bg-slate-900 border border-slate-800 hover:border-cyan-500/50 transition-all duration-300">
             <div className="absolute inset-0 bg-slate-800 group-hover:scale-105 transition-transform duration-700 bg-[url('/thumbnail/thumb-isbn.png')] bg-cover bg-center opacity-50" />
             <div className="absolute inset-0 bg-gradient-to-t from-slate-950 via-slate-950/20 to-transparent" />
@@ -283,7 +291,48 @@ const experiences = [
             </div>
           </div>
 
-          {/* CARD 2: MOBILE (1 Col) */}
+          {/* 2. SEPOTIFI (FULL WIDTH -> col-span-2) */}
+          {/* Note: Karena full width, background image akan melebar, pastikan resolusi cukup bagus */}
+          <div className="md:col-span-2 relative group overflow-hidden rounded-3xl bg-slate-900 border border-slate-800 hover:border-green-500/50 transition-all duration-300">
+             <div className="absolute inset-0 bg-slate-900 group-hover:scale-105 transition-transform duration-700 bg-[url('/thumbnail/thumb-spotify.jpg')] bg-cover bg-center opacity-40" />
+             <div className="absolute inset-0 bg-gradient-to-tr from-green-900/40 to-slate-950 z-10" />
+
+             <Music className="absolute top-4 right-4 text-green-500/20 w-32 h-32 group-hover:text-green-500/40 transition-colors rotate-12" />
+
+             <div className="absolute bottom-0 left-0 p-8 z-20 h-full flex flex-col justify-end w-full">
+                
+                {/* Badge Dev Mode */}
+                <div className="mb-auto">
+                   <div className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-yellow-500/10 border border-yellow-500/20 backdrop-blur-md">
+                      <AlertTriangle size={12} className="text-yellow-400" />
+                      <span className="text-[10px] font-bold text-yellow-400 uppercase tracking-wider">
+                        Dev Mode
+                      </span>
+                   </div>
+                </div>
+
+                <div className="max-w-2xl">
+                    <h3 className="text-2xl md:text-3xl font-bold text-white mb-2 mt-4">Sepotifi Wrapped</h3>
+                    
+                    <p className="text-slate-300 text-sm md:text-base mb-6 font-medium leading-relaxed">
+                      A personalized Spotify Wrapped clone to visualize your top tracks & artists. 
+                      <span className="block mt-1 text-slate-500 text-xs italic font-normal">
+                        *Invite only (API Quota limited).
+                      </span>
+                    </p>
+
+                    <div className="flex flex-wrap gap-3 items-center">
+                      <a href="https://nopeakbar-sepotifi.vercel.app/" target="_blank" className="flex items-center gap-2 text-sm text-green-400 font-bold hover:text-green-300 transition-colors bg-green-900/20 px-5 py-2.5 rounded-full border border-green-500/30 hover:bg-green-900/40">
+                        Try Demo <ExternalLink size={14} />
+                      </a>
+                    </div>
+                </div>
+             </div>
+          </div>
+
+          {/* --- MULAI GRID 2x2 DI BAWAH --- */}
+
+          {/* 3. NONTON NYANTAI (1 Col) */}
           <div className="md:col-span-1 relative group overflow-hidden rounded-3xl bg-slate-900 border border-slate-800 hover:border-purple-500/50 transition-all duration-300">
              <div className="absolute inset-0 bg-slate-900 group-hover:scale-105 transition-transform duration-700 bg-[url('/thumbnail/thumb-nonton-nyantai.png')] bg-cover bg-center opacity-40" />
              <div className="absolute inset-0 bg-gradient-to-t from-slate-950 via-purple-900/40 to-transparent z-10" />
@@ -296,7 +345,7 @@ const experiences = [
                 </div>
                 <h3 className="text-xl font-bold text-white mb-2 text-shadow-sm">Nonton Nyantai App</h3>
                 <p className="text-slate-300 text-sm mb-4 font-medium leading-relaxed">
-                  A movie discovery app powered by OMDB API. Features real-time movie data and a location-based cinema finder in Yogyakarta.
+                  A movie discovery app powered by OMDB API. Features real-time movie data.
                 </p>
                 <a href="https://nonton-nyantai-nopeakbar-porto.web.app/" target="_blank" className="flex items-center gap-2 text-sm text-purple-300 font-bold cursor-pointer hover:text-purple-100 transition-colors w-fit">
                   View Demo <ArrowRight size={16} />
@@ -304,7 +353,7 @@ const experiences = [
              </div>
           </div>
 
-          {/* CARD 3: BOOK EXCHANGE (1 Col) */}
+          {/* 4. BOOK EXCHANGE (1 Col) */}
           <div className="md:col-span-1 relative group overflow-hidden rounded-3xl bg-slate-900 border border-slate-800 hover:border-orange-500/50 transition-all duration-300">
              <div className="absolute inset-0 bg-slate-900 group-hover:scale-105 transition-transform duration-700 bg-[url('/thumbnail/thumb-book-exchange.png')] bg-cover bg-center opacity-40" />
              <div className="absolute inset-0 bg-gradient-to-tr from-orange-900/30 to-slate-950 z-10" />
@@ -312,7 +361,7 @@ const experiences = [
              <div className="absolute bottom-0 left-0 p-8 z-20">
                 <h3 className="text-xl font-bold text-white mb-2">Book Exchange</h3>
                 <p className="text-slate-400 text-sm mb-4">
-                  A peer-to-peer platform for book lovers. Connects readers to swap their favorite titles.
+                  A peer-to-peer platform for book lovers. Connects readers to swap titles.
                 </p>
                 <a href="https://bukutukar-nopeakbar.vercel.app/" target="_blank" className="flex items-center gap-2 text-sm text-orange-400 font-medium hover:text-orange-300">
                   Visit Platform <ExternalLink size={14} />
@@ -320,7 +369,7 @@ const experiences = [
              </div>
           </div>
 
-          {/* CARD 4: AUDIO TRANSCRIBE (1 Col) */}
+          {/* 5. AUDIO TRANSCRIBE (1 Col) */}
           <div className="md:col-span-1 relative group overflow-hidden rounded-3xl bg-slate-900 border border-slate-800 hover:border-pink-500/50 transition-all duration-300">
              <div className="absolute inset-0 bg-slate-900 group-hover:scale-105 transition-transform duration-700 bg-[url('/thumbnail/thumb-audio.gif')] bg-cover bg-center opacity-40" />
              <div className="absolute inset-0 bg-gradient-to-r from-pink-900/30 to-slate-950 z-10" />
@@ -337,7 +386,7 @@ const experiences = [
              </div>
           </div>
 
-          {/* CARD 5: WEB AUTO CLICKER (1 Col) */}
+          {/* 6. AUTO CLICKER (1 Col) */}
           <div className="md:col-span-1 relative group overflow-hidden rounded-3xl bg-slate-900 border border-slate-800 hover:border-teal-500/50 transition-all duration-300">
              <div className="absolute inset-0 bg-slate-900 group-hover:scale-105 transition-transform duration-700 bg-[url('/thumbnail/thumb-colorbox.jpg')] bg-cover bg-center opacity-40" />
              <div className="absolute inset-0 bg-gradient-to-tr from-teal-900/30 to-slate-950 z-10" />
@@ -346,13 +395,14 @@ const experiences = [
              <div className="absolute bottom-0 left-0 p-8 z-20">
                 <h3 className="text-xl font-bold text-white mb-2">Auto Clicker</h3>
                 <p className="text-slate-400 text-sm mb-4">
-                  Automation tool to mass download images from Colorbox and Uniqlo websites seamlessly.
+                  Automation tool to mass download images from Colorbox and Uniqlo websites.
                 </p>
                 <a href="https://github.com/nopeakbar/web-auto-clicker-nopeakbar.git" target="_blank" className="flex items-center gap-2 text-teal-400 font-medium hover:text-teal-300 text-sm">
                   <Github size={14} /> View Script
                 </a>
              </div>
           </div>
+          
         </div>
       </section>
 
@@ -381,18 +431,12 @@ const experiences = [
                    Junior Mobile Programmer
                  </h3>
                  <p className="text-slate-400 text-sm mb-2">
-  Badan Nasional Sertifikasi Profesi (BNSP)
-  {/* 1. Pakai <br/> biar turun baris */}
-  <br /> 
-  
-  {/* 2. Bungkus nomor di span dengan class 'break-all' */}
-  <span className="break-all font-mono text-xs text-slate-300">
-     Certificate Number: 193107451110-11/VSGA/BLSDM KOMDIGI/2025
-  </span>
-</p>
-                 {/* <p className="text-slate-400 text-sm mb-2">
-                   Nomor Sertifikat: 193107451110-11/VSGA/BLSDM KOMDIGI/2025 
-                 </p> */}
+                  Badan Nasional Sertifikasi Profesi (BNSP)
+                  <br /> 
+                  <span className="break-all font-mono text-xs text-slate-300">
+                     Certificate Number: 193107451110-11/VSGA/BLSDM KOMDIGI/2025
+                  </span>
+                </p>
                  
                  {/* TOMBOL COPY ID (MANUAL) */}
                  <div className="flex items-center gap-3 mb-3">
@@ -644,7 +688,6 @@ const experiences = [
             className="absolute inset-0 bg-no-repeat transition-all duration-700 opacity-40 mix-blend-overlay"
             style={{ 
               backgroundImage: `url('${currentLyric.image}')`,
-              // 👇 Logika baru: Ambil settingan manual, kalau tidak ada pakai default
               backgroundPosition: currentLyric.position || 'center', 
               backgroundSize: currentLyric.scale || 'cover' 
             }}
@@ -678,8 +721,6 @@ const experiences = [
           </div>
         </div>
       </section>
-
-     
 
       {/* --- FOOTER (CONTACT) --- */}
       <footer id="contact" className="max-w-5xl mx-auto px-6 pt-10 text-center">
