@@ -359,7 +359,7 @@ export default function Portfolio() {
           <div className="md:col-span-2 relative group overflow-hidden rounded-3xl bg-slate-900 border border-slate-800 hover:border-green-500/50 transition-all duration-300 flex flex-col md:flex-row">
              
              {/* BACKGROUND DECORATION */}
-             <div className="absolute inset-0 bg-slate-900 group-hover:scale-105 transition-transform duration-700 bg-[url('/thumbnail/thumb-sepotifi.png')] bg-cover bg-center opacity-10" />
+             <div className="absolute inset-0 bg-slate-900 group-hover:scale-105 transition-transform duration-700 bg-[url('/thumbnail/thumb-spotify.jpg')] bg-cover bg-center opacity-80" />
              <div className="absolute inset-0 bg-gradient-to-r from-slate-950 via-slate-950/90 to-green-900/10 z-10" />
 
              {/* KONTEN KIRI: DESKRIPSI (50%) */}
