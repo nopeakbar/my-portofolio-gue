@@ -26,7 +26,9 @@ import {
   ShieldCheck, 
   Copy, 
   Check,
-  AlertTriangle 
+  AlertTriangle,
+  X,   // Ditambahkan
+  Eye  // Ditambahkan
 } from 'lucide-react';
 import { SpeedInsights } from "@vercel/speed-insights/next";
 
@@ -37,9 +39,10 @@ export default function Portfolio() {
   const { data } = useSWR('/api/spotify', fetcher, { refreshInterval: 5000 });
 
   // ==========================================
-  // 1. CONFIG: SEPOTIFI CAROUSEL (NEW)
+  // 1. CONFIG: SEPOTIFI CAROUSEL & MODAL
   // ==========================================
   const [currentDocIndex, setCurrentDocIndex] = useState(0);
+  const [isModalOpen, setIsModalOpen] = useState(false); // State untuk Popup Mobile
 
   const sepotifiDocs = [
     {
@@ -352,7 +355,7 @@ export default function Portfolio() {
             </div>
           </div>
 
-          {/* 2. SEPOTIFI (FULL WIDTH -> col-span-2 + Split Layout) */}
+          {/* 2. SEPOTIFI (FULL WIDTH -> col-span-2 + Split Layout) - MODIFIED FOR MOBILE */}
           <div className="md:col-span-2 relative group overflow-hidden rounded-3xl bg-slate-900 border border-slate-800 hover:border-green-500/50 transition-all duration-300 flex flex-col md:flex-row">
              
              {/* BACKGROUND DECORATION */}
@@ -385,13 +388,21 @@ export default function Portfolio() {
                   <a href="https://nopeakbar-sepotifi.vercel.app/" target="_blank" className="flex items-center gap-2 text-sm text-green-400 font-bold hover:text-green-300 transition-colors bg-green-900/20 px-5 py-2.5 rounded-full border border-green-500/30 hover:bg-green-900/40">
                     Try Demo <ExternalLink size={14} />
                   </a>
+
+                   {/* --- TOMBOL KHUSUS MOBILE (TRIGGER POPUP) --- */}
+                   <button 
+                    onClick={() => setIsModalOpen(true)}
+                    className="md:hidden flex items-center gap-2 text-sm text-slate-200 font-bold bg-slate-800 px-5 py-2.5 rounded-full border border-slate-700 hover:bg-slate-700 transition-colors"
+                  >
+                     <Eye size={14} /> View Gallery
+                  </button>
                 </div>
              </div>
 
-             {/* KONTEN KANAN: CAROUSEL / SLIDER (50%) */}
-             <div className="relative z-20 w-full md:w-1/2 p-6 flex flex-col items-center justify-center bg-black/20 border-t md:border-t-0 md:border-l border-white/5">
+             {/* KONTEN KANAN: CAROUSEL / SLIDER (HANYA MUNCUL DI DESKTOP) */}
+             <div className="hidden md:flex relative z-20 w-full md:w-1/2 p-6 flex-col items-center justify-center bg-black/20 border-t md:border-t-0 md:border-l border-white/5">
                 
-                {/* FRAME HP */}
+                {/* FRAME HP (DESKTOP) */}
                 <div className="relative w-[180px] md:w-[200px] aspect-[9/16] bg-slate-950 rounded-2xl border-4 border-slate-800 shadow-2xl overflow-hidden group/slider">
                     
                     {/* GAMBAR (ANIMATED) */}
@@ -443,73 +454,73 @@ export default function Portfolio() {
 
           {/* 3. NONTON NYANTAI (1 Col) */}
           <div className="md:col-span-1 relative group overflow-hidden rounded-3xl bg-slate-900 border border-slate-800 hover:border-purple-500/50 transition-all duration-300">
-             <div className="absolute inset-0 bg-slate-900 group-hover:scale-105 transition-transform duration-700 bg-[url('/thumbnail/thumb-nonton-nyantai.png')] bg-cover bg-center opacity-40" />
-             <div className="absolute inset-0 bg-gradient-to-t from-slate-950 via-purple-900/40 to-transparent z-10" />
-             <Smartphone className="absolute -top-6 -right-6 text-purple-900/20 w-40 h-40 rotate-12 z-10" />
-             <div className="absolute bottom-0 left-0 p-8 z-20 h-full flex flex-col justify-end">
-                <div className="mb-auto mt-4">
-                  <div className="w-12 h-12 bg-purple-900/50 backdrop-blur-md rounded-xl flex items-center justify-center border border-purple-500/30 mb-4 text-purple-300 shadow-lg">
-                    <Smartphone size={24}/>
-                  </div>
-                </div>
-                <h3 className="text-xl font-bold text-white mb-2 text-shadow-sm">Nonton Nyantai App</h3>
-                <p className="text-slate-300 text-sm mb-4 font-medium leading-relaxed">
-                  A movie discovery app powered by OMDB API. Features real-time movie data.
-                </p>
-                <a href="https://nonton-nyantai-nopeakbar-porto.web.app/" target="_blank" className="flex items-center gap-2 text-sm text-purple-300 font-bold cursor-pointer hover:text-purple-100 transition-colors w-fit">
-                  View Demo <ArrowRight size={16} />
-                </a>
-             </div>
+              <div className="absolute inset-0 bg-slate-900 group-hover:scale-105 transition-transform duration-700 bg-[url('/thumbnail/thumb-nonton-nyantai.png')] bg-cover bg-center opacity-40" />
+              <div className="absolute inset-0 bg-gradient-to-t from-slate-950 via-purple-900/40 to-transparent z-10" />
+              <Smartphone className="absolute -top-6 -right-6 text-purple-900/20 w-40 h-40 rotate-12 z-10" />
+              <div className="absolute bottom-0 left-0 p-8 z-20 h-full flex flex-col justify-end">
+                 <div className="mb-auto mt-4">
+                   <div className="w-12 h-12 bg-purple-900/50 backdrop-blur-md rounded-xl flex items-center justify-center border border-purple-500/30 mb-4 text-purple-300 shadow-lg">
+                     <Smartphone size={24}/>
+                   </div>
+                 </div>
+                 <h3 className="text-xl font-bold text-white mb-2 text-shadow-sm">Nonton Nyantai App</h3>
+                 <p className="text-slate-300 text-sm mb-4 font-medium leading-relaxed">
+                   A movie discovery app powered by OMDB API. Features real-time movie data.
+                 </p>
+                 <a href="https://nonton-nyantai-nopeakbar-porto.web.app/" target="_blank" className="flex items-center gap-2 text-sm text-purple-300 font-bold cursor-pointer hover:text-purple-100 transition-colors w-fit">
+                   View Demo <ArrowRight size={16} />
+                 </a>
+              </div>
           </div>
 
           {/* 4. BOOK EXCHANGE (1 Col) */}
           <div className="md:col-span-1 relative group overflow-hidden rounded-3xl bg-slate-900 border border-slate-800 hover:border-orange-500/50 transition-all duration-300">
-             <div className="absolute inset-0 bg-slate-900 group-hover:scale-105 transition-transform duration-700 bg-[url('/thumbnail/thumb-book-exchange.png')] bg-cover bg-center opacity-40" />
-             <div className="absolute inset-0 bg-gradient-to-tr from-orange-900/30 to-slate-950 z-10" />
-             <Book className="absolute top-4 right-4 text-slate-800 w-24 h-24 group-hover:text-orange-500/10 transition-colors" />
-             <div className="absolute bottom-0 left-0 p-8 z-20">
-                <h3 className="text-xl font-bold text-white mb-2">Book Exchange</h3>
-                <p className="text-slate-400 text-sm mb-4">
-                  A peer-to-peer platform for book lovers. Connects readers to swap titles.
-                </p>
-                <a href="https://bukutukar-nopeakbar.vercel.app/" target="_blank" className="flex items-center gap-2 text-sm text-orange-400 font-medium hover:text-orange-300">
-                  Visit Platform <ExternalLink size={14} />
-                </a>
-             </div>
+              <div className="absolute inset-0 bg-slate-900 group-hover:scale-105 transition-transform duration-700 bg-[url('/thumbnail/thumb-book-exchange.png')] bg-cover bg-center opacity-40" />
+              <div className="absolute inset-0 bg-gradient-to-tr from-orange-900/30 to-slate-950 z-10" />
+              <Book className="absolute top-4 right-4 text-slate-800 w-24 h-24 group-hover:text-orange-500/10 transition-colors" />
+              <div className="absolute bottom-0 left-0 p-8 z-20">
+                 <h3 className="text-xl font-bold text-white mb-2">Book Exchange</h3>
+                 <p className="text-slate-400 text-sm mb-4">
+                   A peer-to-peer platform for book lovers. Connects readers to swap titles.
+                 </p>
+                 <a href="https://bukutukar-nopeakbar.vercel.app/" target="_blank" className="flex items-center gap-2 text-sm text-orange-400 font-medium hover:text-orange-300">
+                   Visit Platform <ExternalLink size={14} />
+                 </a>
+              </div>
           </div>
 
           {/* 5. AUDIO TRANSCRIBE (1 Col) */}
           <div className="md:col-span-1 relative group overflow-hidden rounded-3xl bg-slate-900 border border-slate-800 hover:border-pink-500/50 transition-all duration-300">
-             <div className="absolute inset-0 bg-slate-900 group-hover:scale-105 transition-transform duration-700 bg-[url('/thumbnail/thumb-audio.gif')] bg-cover bg-center opacity-40" />
-             <div className="absolute inset-0 bg-gradient-to-r from-pink-900/30 to-slate-950 z-10" />
-             <Mic className="absolute top-4 right-4 text-pink-500/20 w-24 h-24 group-hover:text-pink-500/40 transition-colors" />
+              <div className="absolute inset-0 bg-slate-900 group-hover:scale-105 transition-transform duration-700 bg-[url('/thumbnail/thumb-audio.gif')] bg-cover bg-center opacity-40" />
+              <div className="absolute inset-0 bg-gradient-to-r from-pink-900/30 to-slate-950 z-10" />
+              <Mic className="absolute top-4 right-4 text-pink-500/20 w-24 h-24 group-hover:text-pink-500/40 transition-colors" />
 
-             <div className="absolute bottom-0 left-0 p-8 z-20">
-                <h3 className="text-xl font-bold text-white mb-2">Audio Transcribe</h3>
-                <p className="text-slate-400 text-sm mb-4">
-                  Automated speech-to-text conversion tool built with Python. Efficient and accurate.
-                </p>
-                <a href="https://github.com/nopeakbar/audio-transcribe-nopeakbar.git" target="_blank" className="flex items-center gap-2 text-sm text-pink-400 font-medium hover:text-pink-300">
-                  <Github size={14} /> View Repo
-                </a>
-             </div>
+              <div className="absolute bottom-0 left-0 p-8 z-20">
+                 <h3 className="text-xl font-bold text-white mb-2">Audio Transcribe</h3>
+                 <p className="text-slate-400 text-sm mb-4">
+                   Automated speech-to-text conversion tool built with Python. Efficient and accurate.
+                 </p>
+                 <a href="https://github.com/nopeakbar/audio-transcribe-nopeakbar.git" target="_blank" className="flex items-center gap-2 text-sm text-pink-400 font-medium hover:text-pink-300">
+                   <Github size={14} /> View Repo
+                 </a>
+              </div>
           </div>
 
           {/* 6. AUTO CLICKER (1 Col) */}
           <div className="md:col-span-1 relative group overflow-hidden rounded-3xl bg-slate-900 border border-slate-800 hover:border-teal-500/50 transition-all duration-300">
-             <div className="absolute inset-0 bg-slate-900 group-hover:scale-105 transition-transform duration-700 bg-[url('/thumbnail/thumb-colorbox.jpg')] bg-cover bg-center opacity-40" />
-             <div className="absolute inset-0 bg-gradient-to-tr from-teal-900/30 to-slate-950 z-10" />
-             <MousePointerClick className="absolute top-4 right-4 text-teal-500/20 w-24 h-24 group-hover:text-teal-500/40 transition-colors" />
+              <div className="absolute inset-0 bg-slate-900 group-hover:scale-105 transition-transform duration-700 bg-[url('/thumbnail/thumb-colorbox.jpg')] bg-cover bg-center opacity-40" />
+              <div className="absolute inset-0 bg-gradient-to-tr from-teal-900/30 to-slate-950 z-10" />
+              <MousePointerClick className="absolute top-4 right-4 text-teal-500/20 w-24 h-24 group-hover:text-teal-500/40 transition-colors" />
 
-             <div className="absolute bottom-0 left-0 p-8 z-20">
-                <h3 className="text-xl font-bold text-white mb-2">Auto Clicker</h3>
-                <p className="text-slate-400 text-sm mb-4">
-                  Automation tool to mass download images from Colorbox and Uniqlo websites.
-                </p>
-                <a href="https://github.com/nopeakbar/web-auto-clicker-nopeakbar.git" target="_blank" className="flex items-center gap-2 text-teal-400 font-medium hover:text-teal-300 text-sm">
-                  <Github size={14} /> View Script
-                </a>
-             </div>
+              <div className="absolute bottom-0 left-0 p-8 z-20">
+                 <h3 className="text-xl font-bold text-white mb-2">Auto Clicker</h3>
+                 <p className="text-slate-400 text-sm mb-4">
+                   Automation tool to mass download images from Colorbox and Uniqlo websites.
+                 </p>
+                 <a href="https://github.com/nopeakbar/web-auto-clicker-nopeakbar.git" target="_blank" className="flex items-center gap-2 text-teal-400 font-medium hover:text-teal-300 text-sm">
+                   <Github size={14} /> View Script
+                 </a>
+              </div>
           </div>
         </div>
       </section>
@@ -542,7 +553,7 @@ export default function Portfolio() {
                   Badan Nasional Sertifikasi Profesi (BNSP)
                   <br /> 
                   <span className="break-all font-mono text-xs text-slate-300">
-                     Certificate Number: 193107451110-11/VSGA/BLSDM KOMDIGI/2025
+                      Certificate Number: 193107451110-11/VSGA/BLSDM KOMDIGI/2025
                   </span>
                 </p>
                  
@@ -599,25 +610,25 @@ export default function Portfolio() {
         <div className="grid grid-cols-1 md:grid-cols-3 gap-6 auto-rows-[350px]">
           {/* CARD 6: MEDIUM (FULL WIDTH 3 COLS biar standout) */}
           <div className="md:col-span-3 relative group overflow-hidden rounded-3xl bg-slate-900 border border-slate-800 hover:border-white/50 transition-all duration-300">
-             <div className="absolute inset-0 bg-slate-900 group-hover:scale-105 transition-transform duration-700 bg-[url('/thumbnail/thumb-medium.gif')] bg-cover bg-center opacity-40" />
-             <div className="absolute inset-0 bg-gradient-to-tr from-slate-950 via-slate-950/40 to-transparent z-10" />
-             <FileText className="absolute top-8 right-8 text-white/10 w-32 h-32 rotate-[-15deg] group-hover:rotate-0 transition-transform duration-500" />
+              <div className="absolute inset-0 bg-slate-900 group-hover:scale-105 transition-transform duration-700 bg-[url('/thumbnail/thumb-medium.gif')] bg-cover bg-center opacity-40" />
+              <div className="absolute inset-0 bg-gradient-to-tr from-slate-950 via-slate-950/40 to-transparent z-10" />
+              <FileText className="absolute top-8 right-8 text-white/10 w-32 h-32 rotate-[-15deg] group-hover:rotate-0 transition-transform duration-500" />
 
-             <div className="absolute bottom-0 left-0 p-8 md:p-12 z-20 w-full flex flex-col justify-end h-full">
-               <div className="mt-auto">
-                 <div className="flex items-center gap-2 text-white/70 mb-2">
-                    <Binary size={18} />
-                    <span className="text-xs font-bold tracking-widest uppercase">Data Science</span>
-                 </div>
-                 <h3 className="text-3xl md:text-4xl font-bold text-white mb-4">Writing on Medium</h3>
-                 <p className="text-slate-300 text-base md:text-lg mb-8 max-w-2xl leading-relaxed">
-                   Documenting my experiments in Data Science and breaking down complex concepts into actionable insights for everyone.
-                 </p>
-                 <a href="https://medium.com/@nopeakbar" target="_blank" className="inline-flex items-center gap-2 px-6 py-3 bg-white text-black rounded-full text-sm font-bold hover:bg-slate-200 transition-colors">
-                   Read Articles <ExternalLink size={16} />
-                 </a>
-               </div>
-             </div>
+              <div className="absolute bottom-0 left-0 p-8 md:p-12 z-20 w-full flex flex-col justify-end h-full">
+                <div className="mt-auto">
+                  <div className="flex items-center gap-2 text-white/70 mb-2">
+                     <Binary size={18} />
+                     <span className="text-xs font-bold tracking-widest uppercase">Data Science</span>
+                  </div>
+                  <h3 className="text-3xl md:text-4xl font-bold text-white mb-4">Writing on Medium</h3>
+                  <p className="text-slate-300 text-base md:text-lg mb-8 max-w-2xl leading-relaxed">
+                    Documenting my experiments in Data Science and breaking down complex concepts into actionable insights for everyone.
+                  </p>
+                  <a href="https://medium.com/@nopeakbar" target="_blank" className="inline-flex items-center gap-2 px-6 py-3 bg-white text-black rounded-full text-sm font-bold hover:bg-slate-200 transition-colors">
+                    Read Articles <ExternalLink size={16} />
+                  </a>
+                </div>
+              </div>
           </div>
         </div>
       </section>
@@ -634,19 +645,19 @@ export default function Portfolio() {
         <div className="grid grid-cols-1 md:grid-cols-3 gap-6 auto-rows-[350px]">
           {/* CARD 7: NOTION (FULL WIDTH 3 COLS) */}
           <div className="md:col-span-3 relative group overflow-hidden rounded-3xl bg-slate-900 border border-slate-800 hover:border-amber-500/50 transition-all duration-300">
-             <div className="absolute inset-0 bg-slate-900 group-hover:scale-105 transition-transform duration-700 bg-[url('/thumbnail/thumb-notion.png')] bg-cover bg-center opacity-40" />
-             <div className="absolute inset-0 bg-gradient-to-tr from-amber-900/30 to-slate-950 z-10" />
-             <Coffee className="absolute top-8 right-8 text-amber-500/20 w-32 h-32 group-hover:text-amber-500/40 transition-colors" />
+              <div className="absolute inset-0 bg-slate-900 group-hover:scale-105 transition-transform duration-700 bg-[url('/thumbnail/thumb-notion.png')] bg-cover bg-center opacity-40" />
+              <div className="absolute inset-0 bg-gradient-to-tr from-amber-900/30 to-slate-950 z-10" />
+              <Coffee className="absolute top-8 right-8 text-amber-500/20 w-32 h-32 group-hover:text-amber-500/40 transition-colors" />
 
-             <div className="absolute bottom-0 left-0 p-8 md:p-12 z-20">
-                <h3 className="text-3xl md:text-4xl font-bold text-white mb-4">Coffee Shop Hunter for Skripsi</h3>
-                <p className="text-slate-300 text-base md:text-lg mb-8 max-w-2xl">
-                  A personal curation of the best coffee spots in Yogyakarta. Reviewed based on ambiance, coffee quality, and skripsi-friendliness.
-                </p>
-                <a href="https://treasure-clef-482.notion.site/d73789d729ac46da85500df19a83e3a4?v=a8f299db8e804d88ba26ba13e88a06e7&source=copy_link" target="_blank" className="flex items-center gap-2 text-amber-400 font-bold hover:text-amber-300 text-lg">
-                  Visit Notion Page <ExternalLink size={18} />
-                </a>
-             </div>
+              <div className="absolute bottom-0 left-0 p-8 md:p-12 z-20">
+                 <h3 className="text-3xl md:text-4xl font-bold text-white mb-4">Coffee Shop Hunter for Skripsi</h3>
+                 <p className="text-slate-300 text-base md:text-lg mb-8 max-w-2xl">
+                   A personal curation of the best coffee spots in Yogyakarta. Reviewed based on ambiance, coffee quality, and skripsi-friendliness.
+                 </p>
+                 <a href="https://treasure-clef-482.notion.site/d73789d729ac46da85500df19a83e3a4?v=a8f299db8e804d88ba26ba13e88a06e7&source=copy_link" target="_blank" className="flex items-center gap-2 text-amber-400 font-bold hover:text-amber-300 text-lg">
+                   Visit Notion Page <ExternalLink size={18} />
+                 </a>
+              </div>
           </div>
         </div>
       </section>
@@ -755,7 +766,7 @@ export default function Portfolio() {
 
               <div className="w-full h-full relative">
                 {spotifyEmbeds.map((link, index) => (
-                   <iframe 
+                    <iframe 
                     key={index}
                     style={{borderRadius: "12px", display: index === currentSong ? 'block' : 'none'}} 
                     src={link}
@@ -857,6 +868,61 @@ export default function Portfolio() {
           <p>© {new Date().getFullYear()} Nov Akbar's Portfolio. Built with Next.js.</p>
         </div>
       </footer>
+
+      {/* --- POPUP MODAL (KHUSUS MOBILE) --- */}
+      {isModalOpen && (
+            <div className="fixed inset-0 z-[100] bg-slate-950/90 backdrop-blur-md flex flex-col items-center justify-center p-4 animate-in fade-in duration-300">
+                {/* Tombol Close */}
+                <button 
+                  onClick={() => setIsModalOpen(false)}
+                  className="absolute top-6 right-6 p-2 bg-slate-800 rounded-full text-slate-400 hover:text-white hover:bg-red-500/20 transition-all"
+                >
+                  <X size={24} />
+                </button>
+
+                <h3 className="text-white font-bold text-xl mb-6">Gallery Preview</h3>
+
+                {/* LOGIC SLIDER YANG SAMA (Reused) */}
+                <div className="relative w-[260px] aspect-[9/16] bg-slate-950 rounded-[2rem] border-8 border-slate-800 shadow-2xl overflow-hidden">
+                    <div key={currentDocIndex} className="w-full h-full relative animate-in fade-in zoom-in duration-300">
+                        <img 
+                          src={sepotifiDocs[currentDocIndex].src} 
+                          alt={sepotifiDocs[currentDocIndex].title}
+                          className="w-full h-full object-cover"
+                        />
+                        <div className="absolute inset-0 bg-gradient-to-t from-black/90 via-transparent to-transparent"></div>
+                        <div className="absolute bottom-8 left-0 w-full text-center px-4">
+                           <p className="text-white font-bold text-lg">{sepotifiDocs[currentDocIndex].title}</p>
+                           <p className="text-slate-400 text-xs">{sepotifiDocs[currentDocIndex].desc}</p>
+                        </div>
+                    </div>
+                </div>
+
+                {/* KONTROL SLIDER DI POPUP */}
+                <div className="flex items-center gap-6 mt-8">
+                   <button 
+                     onClick={prevDoc} 
+                     className="p-4 bg-slate-800 rounded-full text-white hover:bg-green-500 transition-colors"
+                   >
+                      <ChevronLeft size={24} />
+                   </button>
+                   
+                   <div className="flex gap-2">
+                      {sepotifiDocs.map((_, idx) => (
+                        <div key={idx} className={`h-2 rounded-full transition-all ${idx === currentDocIndex ? "w-6 bg-green-500" : "w-2 bg-slate-700"}`} />
+                      ))}
+                   </div>
+
+                   <button 
+                     onClick={nextDoc}
+                     className="p-4 bg-slate-800 rounded-full text-white hover:bg-green-500 transition-colors"
+                   >
+                      <ChevronRight size={24} />
+                   </button>
+                </div>
+            </div>
+      )}
+
     </main>
   );
 }
