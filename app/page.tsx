@@ -26,7 +26,7 @@ import {
   ShieldCheck, 
   Copy, 
   Check,
-  AlertTriangle // <-- Icon baru untuk warning dev mode
+  AlertTriangle 
 } from 'lucide-react';
 import { SpeedInsights } from "@vercel/speed-insights/next";
 
@@ -36,7 +36,71 @@ export default function Portfolio() {
   
   const { data } = useSWR('/api/spotify', fetcher, { refreshInterval: 5000 });
 
-  // --- CONFIG SLIDER SPOTIFY ---
+  // ==========================================
+  // 1. CONFIG: SEPOTIFI CAROUSEL (NEW)
+  // ==========================================
+  const [currentDocIndex, setCurrentDocIndex] = useState(0);
+
+  const sepotifiDocs = [
+    {
+      title: "Landing Page",
+      desc: "Halaman utama Sepotifi",
+      src: "/thumbnail/slide-sepotifi/ss1.jpeg" 
+    },
+    {
+      title: "Main Menu",
+      desc: "Pilih analsis yang kamu mau! Asek!",
+      src: "/thumbnail/slide-sepotifi/ss2.jpeg" 
+    },
+    {
+      title: "Your Wrapped",
+      desc: "Halaman 1 dari Story Sepotifi",
+      src: "/thumbnail/slide-sepotifi/ss3.jpeg" 
+    },
+    {
+      title: "Vibe Elo!",
+      desc: "Halaman 2 dari Story Sepotifi",
+      src: "/thumbnail/slide-sepotifi/ss4.jpeg" 
+    },
+    {
+      title: "Top 3 Lagu Asek!",
+      desc: "Halaman 3 dari Story Sepotifi",
+      src: "/thumbnail/slide-sepotifi/ss5.jpeg" 
+    },
+    {
+      title: "On Repeat!",
+      desc: "Halaman 4 dari Story Sepotifi",
+      src: "/thumbnail/slide-sepotifi/ss6.jpeg"  
+    },
+    {
+      title: "Ga Terkenal, tapi lo suka",
+     desc: "Halaman 5 dari Story Sepotifi",
+      src: "/thumbnail/slide-sepotifi/ss7.jpeg" 
+    },
+    {
+      title: "Tembok Kebanggaan",
+      desc: "Halaman 6 dari Story Sepotifi",
+      src: "/thumbnail/slide-sepotifi/ss8.jpeg" 
+    },
+    {
+      title: "Top 10 Lagu Lo!",
+      desc: "Halaman 7 dari Story Sepotifi",
+      src: "/thumbnail/slide-sepotifi/ss9.jpeg" 
+    },
+  ];
+
+  const nextDoc = () => {
+    setCurrentDocIndex((prev) => (prev === sepotifiDocs.length - 1 ? 0 : prev + 1));
+  };
+
+  const prevDoc = () => {
+    setCurrentDocIndex((prev) => (prev === 0 ? sepotifiDocs.length - 1 : prev - 1));
+  };
+
+
+  // ==========================================
+  // 2. CONFIG: SLIDER ON REPEAT
+  // ==========================================
   const spotifyEmbeds = [
     // 1. 2112 asekkk
     "https://open.spotify.com/embed/track/5Gxwk3TSekI4GVMpFvPBEc?utm_source=generator",
@@ -63,18 +127,15 @@ export default function Portfolio() {
     setCurrentSong((prev) => (prev === 0 ? spotifyEmbeds.length - 1 : prev - 1));
   };
 
-  // --- LOGIC SWIPE UNTUK MOBILE ---
+  // Logic Swipe Mobile
   const minSwipeDistance = 50; 
-
   const onTouchStart = (e: React.TouchEvent) => {
     setTouchEnd(null);
     setTouchStart(e.targetTouches[0].clientX);
   };
-
   const onTouchMove = (e: React.TouchEvent) => {
     setTouchEnd(e.targetTouches[0].clientX);
   };
-
   const onTouchEnd = () => {
     if (!touchStart || !touchEnd) return;
     const distance = touchStart - touchEnd;
@@ -85,29 +146,29 @@ export default function Portfolio() {
     if (isRightSwipe) prevSong();
   };
 
-  // --- SEGMENT 5: LYRIC DATA (MANUAL) ---
+  // ==========================================
+  // 3. CONFIG: LYRICS
+  // ==========================================
   const favoriteLyrics = [
     {
       text: 'Bersama nyanyikan, Lagu-lagu The Adams, "Jangan Konservatif" ujarmu padaku keras',
       song: "Aku Ada Untukmu",
       artist: "Perunggu",
-      color: "#4a5466", // Warna request Perunggu
-      image: "/album/dalam-dinamika-perunggu.png" // Ganti path ini
+      color: "#4a5466",
+      image: "/album/dalam-dinamika-perunggu.png"
     },
     {
       text: "Oh why am i not enough for you? It breaks my heart in two",
       song: "Enough for You",
       artist: "Reality Club",
-      color: "#535358", // Warna request Reality Club
+      color: "#535358",
       image: "/album/who-knows-realityclub.jpg",
       position: "center 35%",
       scale: "50"       
-
     }
   ];
 
   const [lyricIndex, setLyricIndex] = useState(0);
-
   const randomizeLyric = () => {
     let newIndex;
     do {
@@ -115,10 +176,11 @@ export default function Portfolio() {
     } while (newIndex === lyricIndex && favoriteLyrics.length > 1);
     setLyricIndex(newIndex);
   };
-
   const currentLyric = favoriteLyrics[lyricIndex];
 
-  // Data Experience
+  // ==========================================
+  // 4. CONFIG: EXPERIENCE & CERT
+  // ==========================================
   const experiences = [
     {
       role: "Frontend Developer Intern",
@@ -135,7 +197,7 @@ export default function Portfolio() {
   const credentialId = "193107451110-11"; 
 
   const handleCopy = (e: React.MouseEvent) => {
-    e.preventDefault(); // Mencegah link terbuka saat tombol copy diklik
+    e.preventDefault();
     navigator.clipboard.writeText(credentialId);
     setIsCopied(true);
     setTimeout(() => setIsCopied(false), 2000);
@@ -145,6 +207,7 @@ export default function Portfolio() {
     <main className="min-h-screen bg-slate-950 text-slate-200 selection:bg-cyan-500 selection:text-white pb-20 overflow-x-hidden">
       <Analytics />
       <SpeedInsights />
+      
       {/* --- NAVBAR FLOATING --- */}
       <nav className="fixed top-6 left-1/2 -translate-x-1/2 z-50 bg-slate-900/80 backdrop-blur-md border border-slate-700 rounded-full px-6 py-3 flex gap-6 shadow-2xl">
         <a href="#home" className="hover:text-cyan-400 transition-colors text-sm font-medium">Home</a>
@@ -221,7 +284,6 @@ export default function Portfolio() {
                   <Briefcase size={18} className="text-blue-500/50" />
                 )}
 
-                {/* NAMA PERUSAHAAN (CLICKABLE) */}
                 {exp.companyUrl ? (
                   <a 
                     href={exp.companyUrl}
@@ -241,7 +303,6 @@ export default function Portfolio() {
                 {exp.description}
               </p>
 
-              {/* Tech Stack Tags */}
               <div className="flex flex-wrap gap-2">
                 {exp.tech.map((t, i) => (
                   <span key={i} className="text-xs font-medium text-slate-300 bg-slate-800/50 px-3 py-1 rounded-full border border-slate-700 hover:border-blue-500/30 transition-colors">
@@ -263,7 +324,7 @@ export default function Portfolio() {
            <h2 className="text-3xl font-bold text-white">Featured Projects</h2>
         </div>
         
-        {/* UBAH GRID DISINI: Jadi 2 kolom (md:grid-cols-2) agar bawahnya bisa 2x2 pas */}
+        {/* GRID UTAMA: 2 KOLOM (Agar layout bawah jadi 2x2) */}
         <div className="grid grid-cols-1 md:grid-cols-2 gap-6 auto-rows-[350px] md:auto-rows-[400px]">
           
           {/* 1. ISBN (FULL WIDTH -> col-span-2) */}
@@ -291,18 +352,17 @@ export default function Portfolio() {
             </div>
           </div>
 
-          {/* 2. SEPOTIFI (FULL WIDTH -> col-span-2) */}
-          {/* Note: Karena full width, background image akan melebar, pastikan resolusi cukup bagus */}
-          <div className="md:col-span-2 relative group overflow-hidden rounded-3xl bg-slate-900 border border-slate-800 hover:border-green-500/50 transition-all duration-300">
-             <div className="absolute inset-0 bg-slate-900 group-hover:scale-105 transition-transform duration-700 bg-[url('/thumbnail/thumb-spotify.jpg')] bg-cover bg-center opacity-40" />
-             <div className="absolute inset-0 bg-gradient-to-tr from-green-900/40 to-slate-950 z-10" />
+          {/* 2. SEPOTIFI (FULL WIDTH -> col-span-2 + Split Layout) */}
+          <div className="md:col-span-2 relative group overflow-hidden rounded-3xl bg-slate-900 border border-slate-800 hover:border-green-500/50 transition-all duration-300 flex flex-col md:flex-row">
+             
+             {/* BACKGROUND DECORATION */}
+             <div className="absolute inset-0 bg-slate-900 group-hover:scale-105 transition-transform duration-700 bg-[url('/thumbnail/thumb-sepotifi.png')] bg-cover bg-center opacity-10" />
+             <div className="absolute inset-0 bg-gradient-to-r from-slate-950 via-slate-950/90 to-green-900/10 z-10" />
 
-             <Music className="absolute top-4 right-4 text-green-500/20 w-32 h-32 group-hover:text-green-500/40 transition-colors rotate-12" />
-
-             <div className="absolute bottom-0 left-0 p-8 z-20 h-full flex flex-col justify-end w-full">
+             {/* KONTEN KIRI: DESKRIPSI (50%) */}
+             <div className="relative z-20 p-6 md:p-8 flex flex-col justify-center w-full md:w-1/2">
                 
-                {/* Badge Dev Mode */}
-                <div className="mb-auto">
+                <div className="mb-4">
                    <div className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-yellow-500/10 border border-yellow-500/20 backdrop-blur-md">
                       <AlertTriangle size={12} className="text-yellow-400" />
                       <span className="text-[10px] font-bold text-yellow-400 uppercase tracking-wider">
@@ -311,26 +371,75 @@ export default function Portfolio() {
                    </div>
                 </div>
 
-                <div className="max-w-2xl">
-                    <h3 className="text-2xl md:text-3xl font-bold text-white mb-2 mt-4">Sepotifi Wrapped</h3>
-                    
-                    <p className="text-slate-300 text-sm md:text-base mb-6 font-medium leading-relaxed">
-                      A personalized Spotify Wrapped clone to visualize your top tracks & artists. 
-                      <span className="block mt-1 text-slate-500 text-xs italic font-normal">
-                        *Invite only (API Quota limited).
-                      </span>
-                    </p>
+                <h3 className="text-3xl font-bold text-white mb-3">Sepotifi Wrapped</h3>
+                
+                <p className="text-slate-300 text-sm leading-relaxed mb-6">
+                  A personalized clone of Spotify Wrapped. It analyzes your listening history to generate "Story-style" insights using Spotify Web API.
+                  <br/><br/>
+                  <span className="text-slate-500 text-xs italic">
+                    *Limited access (Invite Only) due to API quotas. View the gallery to see how it works.
+                  </span>
+                </p>
 
-                    <div className="flex flex-wrap gap-3 items-center">
-                      <a href="https://nopeakbar-sepotifi.vercel.app/" target="_blank" className="flex items-center gap-2 text-sm text-green-400 font-bold hover:text-green-300 transition-colors bg-green-900/20 px-5 py-2.5 rounded-full border border-green-500/30 hover:bg-green-900/40">
-                        Try Demo <ExternalLink size={14} />
-                      </a>
-                    </div>
+                <div className="flex flex-wrap gap-3">
+                  <a href="https://nopeakbar-sepotifi.vercel.app/" target="_blank" className="flex items-center gap-2 text-sm text-green-400 font-bold hover:text-green-300 transition-colors bg-green-900/20 px-5 py-2.5 rounded-full border border-green-500/30 hover:bg-green-900/40">
+                    Try Demo <ExternalLink size={14} />
+                  </a>
                 </div>
              </div>
-          </div>
 
-          {/* --- MULAI GRID 2x2 DI BAWAH --- */}
+             {/* KONTEN KANAN: CAROUSEL / SLIDER (50%) */}
+             <div className="relative z-20 w-full md:w-1/2 p-6 flex flex-col items-center justify-center bg-black/20 border-t md:border-t-0 md:border-l border-white/5">
+                
+                {/* FRAME HP */}
+                <div className="relative w-[180px] md:w-[200px] aspect-[9/16] bg-slate-950 rounded-2xl border-4 border-slate-800 shadow-2xl overflow-hidden group/slider">
+                    
+                    {/* GAMBAR (ANIMATED) */}
+                    <div key={currentDocIndex} className="w-full h-full relative animate-in fade-in duration-500">
+                        <img 
+                          src={sepotifiDocs[currentDocIndex].src} 
+                          alt={sepotifiDocs[currentDocIndex].title}
+                          className="w-full h-full object-cover"
+                        />
+                        {/* Overlay Gradient bawah */}
+                        <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-transparent to-transparent"></div>
+                        
+                        {/* Caption di dalam HP */}
+                        <div className="absolute bottom-4 left-0 w-full text-center px-2">
+                           <p className="text-white font-bold text-sm">{sepotifiDocs[currentDocIndex].title}</p>
+                           <p className="text-slate-400 text-[10px]">{sepotifiDocs[currentDocIndex].desc}</p>
+                        </div>
+                    </div>
+
+                    {/* BUTTON PREV (Floating) */}
+                    <button 
+                      onClick={prevDoc}
+                      className="absolute left-2 top-1/2 -translate-y-1/2 bg-black/50 hover:bg-green-500 text-white p-1.5 rounded-full backdrop-blur-sm transition-all opacity-0 group-hover/slider:opacity-100 translate-x-2 group-hover/slider:translate-x-0"
+                    >
+                      <ChevronLeft size={16} />
+                    </button>
+
+                    {/* BUTTON NEXT (Floating) */}
+                    <button 
+                      onClick={nextDoc}
+                      className="absolute right-2 top-1/2 -translate-y-1/2 bg-black/50 hover:bg-green-500 text-white p-1.5 rounded-full backdrop-blur-sm transition-all opacity-0 group-hover/slider:opacity-100 -translate-x-2 group-hover/slider:translate-x-0"
+                    >
+                      <ChevronRight size={16} />
+                    </button>
+                </div>
+
+                {/* Indikator Dots */}
+                <div className="flex gap-2 mt-4">
+                  {sepotifiDocs.map((_, idx) => (
+                    <div 
+                      key={idx} 
+                      className={`h-1.5 rounded-full transition-all duration-300 ${idx === currentDocIndex ? "w-6 bg-green-500" : "w-1.5 bg-slate-700"}`}
+                    />
+                  ))}
+                </div>
+
+             </div>
+          </div>
 
           {/* 3. NONTON NYANTAI (1 Col) */}
           <div className="md:col-span-1 relative group overflow-hidden rounded-3xl bg-slate-900 border border-slate-800 hover:border-purple-500/50 transition-all duration-300">
@@ -402,7 +511,6 @@ export default function Portfolio() {
                 </a>
              </div>
           </div>
-          
         </div>
       </section>
 
@@ -455,7 +563,6 @@ export default function Portfolio() {
                    </button>
                  </div>
 
-                 {/* Tags */}
                  <div className="flex flex-wrap gap-2">
                    <span className="text-[10px] font-bold bg-yellow-500/20 text-yellow-400 px-2 py-0.5 rounded border border-yellow-500/30">
                      KOMPETEN
@@ -477,8 +584,6 @@ export default function Portfolio() {
               </a>
 
           </div>
-          {/* END CARD 1 */}
-
         </div>
       </section>
 
@@ -677,12 +782,10 @@ export default function Portfolio() {
            <h2 className="text-3xl font-bold text-white">Penggalan</h2>
         </div>
 
-        {/* CONTAINER DINAMIS SESUAI WARNA */}
         <div 
           className="relative group overflow-hidden rounded-3xl border border-slate-800 hover:border-pink-500/50 transition-all duration-700 p-8 md:p-12 text-center"
           style={{ backgroundColor: currentLyric.color }}
         >
-          
           {/* BACKGROUND IMAGE DARI ALBUM (DENGAN OPACITY) */}
           <div 
             className="absolute inset-0 bg-no-repeat transition-all duration-700 opacity-40 mix-blend-overlay"
@@ -693,10 +796,7 @@ export default function Portfolio() {
             }}
           />
 
-          {/* GRADIENT OVERLAY SUPAYA TEKS TETAP TERBACA */}
           <div className="2 inset-0 bg-gradient-to-b from-transparent to-black/60 z-0"></div>
-
-          {/* Background Decoration (Matching style) */}
           <div className="absolute top-0 right-0 w-64 h-64 bg-pink-500/10 rounded-full blur-3xl opacity-50 pointer-events-none z-0"></div>
           <Quote className="absolute top-6 left-6 text-slate-800 w-16 h-16 md:w-24 md:h-24 opacity-50 z-0" />
           
@@ -710,7 +810,6 @@ export default function Portfolio() {
                <p className="text-pink-400 text-sm font-medium tracking-widest uppercase shadow-black drop-shadow-sm">{currentLyric.artist}</p>
             </div>
 
-            {/* Tombol Shuffle */}
             <button 
               onClick={randomizeLyric}
               className="group/btn flex items-center gap-2 px-6 py-2 rounded-full bg-slate-800/80 backdrop-blur-sm hover:bg-pink-600 text-slate-400 hover:text-white transition-all border border-slate-700 hover:border-pink-500 shadow-lg"
@@ -726,29 +825,20 @@ export default function Portfolio() {
       <footer id="contact" className="max-w-5xl mx-auto px-6 pt-10 text-center">
         <h2 className="text-2xl font-bold mb-6">Let's Connect</h2>
         
-        {/* Email */}
         <a href="mailto:nopeakbar.blog@gmail.com" className="flex justify-center items-center gap-2 text-slate-400 hover:text-cyan-400 transition-colors mb-8 text-lg">
           <Mail size={24} /> nopeakbar@gmail.com
         </a>
 
-        {/* Social Links */}
         <div className="flex justify-center gap-8 mb-12 items-center">
-          {/* LinkedIn */}
           <a href="https://www.linkedin.com/in/noveanto-nur-akbar/" target="_blank" className="text-slate-400 hover:text-blue-500 transition-colors transform hover:scale-110">
             <Linkedin size={32} />
           </a>
-          
-          {/* Instagram */}
           <a href="https://instagram.com/nopeakbar" target="_blank" className="text-slate-400 hover:text-pink-500 transition-colors transform hover:scale-110">
             <Instagram size={32} />
           </a>
-
-          {/* Medium */}
           <a href="https://medium.com/@nopeakbar" target="_blank" className="text-slate-400 hover:text-white transition-colors transform hover:scale-110">
             <FileText size={32} />
           </a>
-
-          {/* Spotify Icon */}
           <a href="https://open.spotify.com/user/67tbuc3v934pih7w5u2nefkt1?si=07fcb99ad27e46e5" target="_blank" className="relative w-8 h-8 transform hover:scale-110 transition-transform group">
             <img 
               src="/thumbnail/spotify.png" 
@@ -761,7 +851,6 @@ export default function Portfolio() {
               className="absolute inset-0 w-full h-full object-contain transition-opacity duration-300 opacity-0 group-hover:opacity-100"
             />
           </a>
-
         </div>
 
         <div className="border-t border-slate-900 pt-8 pb-8 text-slate-600 text-sm">
