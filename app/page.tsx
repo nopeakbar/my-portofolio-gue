@@ -168,7 +168,7 @@ export default function Portfolio() {
       image: "/album/dalam-dinamika-perunggu.png"
     },
     {
-      text: "Oh why am i not enough for you? It breaks my heart in two",
+      text: "Oh why am i not enough for you? \nIt breaks my heart in two",
       song: "Enough for You",
       artist: "Reality Club",
       color: "#535358",
