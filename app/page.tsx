@@ -154,6 +154,13 @@ export default function Portfolio() {
   // ==========================================
   const favoriteLyrics = [
     {
+      text: 'Jika dahulu ku tak cepat berubah, \nini maafku untukmu...',
+      song: "Rumah ke Rumah",
+      artist: "Hindia",
+      color: "#65503c",
+      image: "/album/menari-hindia.jpg"
+    },
+    {
       text: 'Bersama nyanyikan, Lagu-lagu The Adams, "Jangan Konservatif" ujarmu padaku keras',
       song: "Aku Ada Untukmu",
       artist: "Perunggu",
@@ -812,8 +819,11 @@ export default function Portfolio() {
           <Quote className="absolute top-6 left-6 text-slate-800 w-16 h-16 md:w-24 md:h-24 opacity-50 z-0" />
           
           <div className="relative z-10 flex flex-col items-center justify-center min-h-[200px]">
-            <blockquote className="text-2xl md:text-3xl font-serif italic text-slate-200 mb-8 leading-relaxed max-w-3xl animate-in fade-in slide-in-from-bottom-4 duration-700" key={lyricIndex}>
-              "{currentLyric.text}"
+            <blockquote 
+        className="text-2xl md:text-3xl font-serif italic text-slate-200 mb-8 leading-relaxed max-w-3xl animate-in fade-in slide-in-from-bottom-4 duration-700 whitespace-pre-line" 
+        key={lyricIndex}
+      >
+        "{currentLyric.text}"
             </blockquote>
 
             <div className="flex flex-col items-center gap-1 mb-8">
