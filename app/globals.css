@@ -4,12 +4,14 @@
 
 :root {
   --foreground-rgb: 255, 255, 255;
-  --background-start-rgb: 2, 6, 23; /* Warna Slate-950 */
+  --background-start-rgb: 2, 6, 23;
+  /* Warna Slate-950 */
   --background-end-rgb: 2, 6, 23;
 }
 
 html {
-  scroll-behavior: smooth; /* Efek scroll halus */
+  scroll-behavior: smooth;
+  /* Efek scroll halus */
 }
 
 body {
@@ -22,13 +24,16 @@ body {
 ::-webkit-scrollbar {
   width: 10px;
 }
+
 ::-webkit-scrollbar-track {
   background: #020617;
 }
+
 ::-webkit-scrollbar-thumb {
   background: #1e293b;
   border-radius: 5px;
 }
+
 ::-webkit-scrollbar-thumb:hover {
   background: #334155;
 }
