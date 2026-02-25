@@ -315,8 +315,8 @@ export default function Portfolio() {
           <h2 className="text-3xl font-bold text-white">Featured Projects</h2>
         </div>
 
-        {/* GRID UTAMA: 2 KOLOM (Agar layout bawah jadi 2x2) */}
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-6 auto-rows-[350px] md:auto-rows-[400px]">
+        {/* MENGGUNAKAN minmax AGAR TINGGI BISA MENYESUAIKAN KONTEN BILA LEBIH DARI 350px */}
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-6 auto-rows-[minmax(350px,auto)] md:auto-rows-[minmax(400px,auto)]">
 
           {/* 1. ISBN (FULL WIDTH -> col-span-2) */}
           <div className="md:col-span-2 relative group overflow-hidden rounded-3xl bg-slate-900 border border-slate-800 hover:border-cyan-500/50 transition-all duration-300">
@@ -345,15 +345,7 @@ export default function Portfolio() {
 
 
           {/* 1.5. AI SMART EXPENSE TRACKER (NEW - FULL WIDTH -> col-span-2 + Split Layout) */}
-          {/*
-           * FIX: Tambahkan `h-auto` dan `min-h-[350px] md:min-h-[400px]` pada card ini.
-           * Root cause: grid `auto-rows-[350px]` memaksakan tinggi FIXED 350px pada SEMUA card.
-           * Konten Bot card (2 badges + judul + 2 paragraf panjang + tombol) melebihi 350px di mobile,
-           * sehingga tombol ter-clip oleh `overflow-hidden` dan tidak terlihat.
-           * Solusi: Override tinggi grid dengan `h-auto` + `min-h` agar card bisa tumbuh secara alami
-           * mengikuti kontennya di mobile, tapi tetap normal di desktop (md:auto-rows-[400px]).
-           */}
-          <div className="md:col-span-2 h-auto min-h-[350px] md:min-h-[400px] relative group overflow-hidden rounded-3xl bg-slate-900 border border-slate-800 hover:border-blue-500/50 transition-all duration-300 flex flex-col md:flex-row">
+          <div className="md:col-span-2 relative group overflow-hidden rounded-3xl bg-slate-900 border border-slate-800 hover:border-blue-500/50 transition-all duration-300 flex flex-col md:flex-row">
             {/* BACKGROUND DECORATION */}
             <div className="absolute inset-0 bg-slate-900 group-hover:scale-105 transition-transform duration-700 bg-[url('/thumbnail/thumb-bot.jpg')] bg-cover bg-center opacity-40" />
             <div className="absolute inset-0 bg-gradient-to-r from-slate-950 via-slate-950/90 to-blue-900/10 z-10" />
@@ -373,23 +365,13 @@ export default function Portfolio() {
 
               <h3 className="text-3xl font-bold text-white mb-3">AI Expense Tracker Bot</h3>
 
-              {/*
-               * FIX: Paragraf dipecah jadi dua bagian.
-               * - Paragraf 1 (kalimat utama): selalu tampil di mobile & desktop.
-               * - Paragraf 2 (detail fitur): HANYA tampil di desktop (`hidden md:block`).
-               * Ini memastikan tombol View Gallery & View Source tidak ter-push keluar
-               * batas card yang fixed height di mobile.
-               */}
-              <p className="text-slate-300 text-sm leading-relaxed mb-3">
+              <p className="text-slate-300 text-sm leading-relaxed mb-6">
                 A smart Telegram bot that extracts financial data from natural language and receipt images using a cost-optimized Multi-LLM architecture (Gemini & Groq).
-              </p>
-              <p className="hidden md:block text-slate-300 text-sm leading-relaxed mb-6">
+                <br /><br />
                 Features conversational state management to prompt users for missing details and seamlessly syncs with Google Sheets for complete CRUD operations.
               </p>
-              {/* Spacer mb hanya untuk mobile agar jarak ke tombol tetap rapi */}
-              <div className="mb-3 md:mb-0"></div>
 
-              <div className="flex gap-3 w-fit">
+              <div className="flex flex-wrap gap-3">
                 <a href="https://github.com/nopeakbar/personal-expense-tracker.git" target="_blank" className="flex items-center gap-2 text-sm text-blue-400 font-bold hover:text-blue-300 transition-colors bg-blue-900/20 px-5 py-2.5 rounded-full border border-blue-500/30 hover:bg-blue-900/40">
                   <Github size={16} /> View Source
                 </a>
@@ -697,7 +679,8 @@ export default function Portfolio() {
           <h2 className="text-3xl font-bold text-white">Writing & Thoughts</h2>
         </div>
 
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-6 auto-rows-[350px]">
+        {/* MENGGUNAKAN minmax */}
+        <div className="grid grid-cols-1 md:grid-cols-3 gap-6 auto-rows-[minmax(350px,auto)]">
           {/* CARD 6: MEDIUM (FULL WIDTH 3 COLS biar standout) */}
           <div className="md:col-span-3 relative group overflow-hidden rounded-3xl bg-slate-900 border border-slate-800 hover:border-white/50 transition-all duration-300">
             <div className="absolute inset-0 bg-slate-900 group-hover:scale-105 transition-transform duration-700 bg-[url('/thumbnail/thumb-medium.gif')] bg-cover bg-center opacity-40" />
@@ -732,7 +715,8 @@ export default function Portfolio() {
           <h2 className="text-3xl font-bold text-white">Curated Collections</h2>
         </div>
 
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-6 auto-rows-[350px]">
+        {/* MENGGUNAKAN minmax */}
+        <div className="grid grid-cols-1 md:grid-cols-3 gap-6 auto-rows-[minmax(350px,auto)]">
           {/* CARD 7: NOTION (FULL WIDTH 3 COLS) */}
           <div className="md:col-span-3 relative group overflow-hidden rounded-3xl bg-slate-900 border border-slate-800 hover:border-amber-500/50 transition-all duration-300">
             <div className="absolute inset-0 bg-slate-900 group-hover:scale-105 transition-transform duration-700 bg-[url('/thumbnail/thumb-notion.png')] bg-cover bg-center opacity-40" />
