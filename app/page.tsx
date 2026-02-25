@@ -389,7 +389,7 @@ export default function Portfolio() {
               {/* Spacer mb hanya untuk mobile agar jarak ke tombol tetap rapi */}
               <div className="mb-3 md:mb-0"></div>
 
-              <div className="flex flex-wrap gap-3">
+              <div className="flex gap-3">
                 <a href="https://github.com/nopeakbar/personal-expense-tracker.git" target="_blank" className="flex items-center gap-2 text-sm text-blue-400 font-bold hover:text-blue-300 transition-colors bg-blue-900/20 px-5 py-2.5 rounded-full border border-blue-500/30 hover:bg-blue-900/40">
                   <Github size={16} /> View Source
                 </a>
