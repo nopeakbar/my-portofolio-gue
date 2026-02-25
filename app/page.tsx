@@ -371,15 +371,15 @@ export default function Portfolio() {
                 Features conversational state management to prompt users for missing details and seamlessly syncs with Google Sheets for complete CRUD operations.
               </p>
 
-              <div className="flex flex-wrap gap-3">
-                <a href="https://github.com/nopeakbar/personal-expense-tracker.git" target="_blank" className="flex items-center gap-2 text-sm text-blue-400 font-bold hover:text-blue-300 transition-colors bg-blue-900/20 px-5 py-2.5 rounded-full border border-blue-500/30 hover:bg-blue-900/40">
+              <div className="flex items-center gap-2 md:gap-3">
+                <a href="https://github.com/nopeakbar/personal-expense-tracker.git" target="_blank" className="flex items-center gap-1.5 md:gap-2 text-xs md:text-sm text-blue-400 font-bold hover:text-blue-300 transition-colors bg-blue-900/20 px-4 md:px-5 py-2 md:py-2.5 rounded-full border border-blue-500/30 hover:bg-blue-900/40 whitespace-nowrap">
                   <Github size={16} /> View Source
                 </a>
 
                 {/* --- TOMBOL KHUSUS MOBILE (TRIGGER POPUP) --- */}
                 <button
                   onClick={() => setIsBotModalOpen(true)}
-                  className="md:hidden flex items-center gap-2 text-sm text-slate-200 font-bold bg-slate-800 px-5 py-2.5 rounded-full border border-slate-700 hover:bg-slate-700 transition-colors"
+                  className="md:hidden flex items-center gap-1.5 md:gap-2 text-xs md:text-sm text-slate-200 font-bold bg-slate-800 px-4 md:px-5 py-2 md:py-2.5 rounded-full border border-slate-700 hover:bg-slate-700 transition-colors whitespace-nowrap"
                 >
                   <Eye size={14} /> View Gallery
                 </button>
