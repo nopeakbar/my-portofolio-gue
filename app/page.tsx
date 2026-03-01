@@ -346,9 +346,18 @@ export default function Portfolio() {
 
           {/* 1.5. AI SMART EXPENSE TRACKER (NEW - FULL WIDTH -> col-span-2 + Split Layout) */}
           <div className="md:col-span-2 relative group overflow-hidden rounded-3xl bg-slate-900 border border-slate-800 hover:border-blue-500/50 transition-all duration-300 flex flex-col md:flex-row">
-            {/* BACKGROUND DECORATION */}
-            <div className="absolute inset-0 bg-slate-900 group-hover:scale-105 transition-transform duration-700 bg-[url('/thumbnail/thumb-bot.jpg')] bg-cover bg-center opacity-40" />
-            <div className="absolute inset-0 bg-gradient-to-r from-slate-950 via-slate-950/90 to-blue-900/10 z-10" />
+            {/* BACKGROUND DECORATION (FIXED: Menggunakan MP4) */}
+            <div className="absolute inset-0 group-hover:scale-105 transition-transform duration-700 overflow-hidden opacity-60">
+              <video 
+                autoPlay 
+                loop 
+                muted 
+                playsInline 
+                className="w-full h-full object-cover"
+                src="/thumbnail/thumb-bot.mp4" 
+              />
+            </div>
+            <div className="absolute inset-0 bg-gradient-to-r from-slate-950 via-slate-950/80 to-blue-900/30 z-10" />
 
             {/* KONTEN KIRI: DESKRIPSI (50%) */}
             <div className="relative z-20 p-6 md:p-8 flex flex-col justify-center w-full md:w-1/2">
