@@ -73,6 +73,7 @@ export default function Portfolio() {
   const [isBotModalOpen, setIsBotModalOpen] = useState(false);
 
   const botDocs = [
+    { title: "Bandha Mobile App", desc: "UI interaktif berbasis Flutter untuk mencatat pengeluaran.", src: "/bot/bandha.mp4" }, // Pastikan sesuaikan nama file & path gambarnya
     { title: "Natural Language Input", desc: "Ketik pengeluaran santai, AI otomatis ekstrak datanya.", src: "/bot/bot1.png" },
     { title: "Smart OCR Vision", desc: "Kirim foto struk, Gemini langsung scan detail belanjaan.", src: "/bot/bot2.jpeg" },
     { title: "Google Sheets Sync", desc: "Data terstruktur langsung masuk ke spreadsheet via API.", src: "/bot/bot3.mp4" },
@@ -364,31 +365,38 @@ export default function Portfolio() {
               <div className="mb-4 flex flex-wrap gap-2">
                 <div className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-blue-500/10 border border-blue-500/20 backdrop-blur-md">
                   <Bot size={12} className="text-blue-400" />
-                  <span className="text-[10px] font-bold text-blue-400 uppercase tracking-wider">AI Engineering</span>
+                  <span className="text-[10px] font-bold text-blue-400 uppercase tracking-wider">AI Telegram Bot</span>
+                </div>
+                <div className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-teal-500/10 border border-teal-500/20 backdrop-blur-md">
+                  <Smartphone size={12} className="text-teal-400" />
+                  <span className="text-[10px] font-bold text-teal-400 uppercase tracking-wider">Flutter App</span>
                 </div>
                 <div className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-emerald-500/10 border border-emerald-500/20 backdrop-blur-md">
                   <Database size={12} className="text-emerald-400" />
-                  <span className="text-[10px] font-bold text-emerald-400 uppercase tracking-wider">Backend Node.js</span>
+                  <span className="text-[10px] font-bold text-emerald-400 uppercase tracking-wider">Node.js Backend</span>
                 </div>
               </div>
 
-              <h3 className="text-3xl font-bold text-white mb-3">AI Expense Tracker Bot</h3>
+              <h3 className="text-2xl md:text-3xl font-bold text-white mb-3">Bandha: AI Expense Tracker Ecosystem</h3>
 
               <p className="text-slate-300 text-sm leading-relaxed mb-6">
-                A smart Telegram bot that extracts financial data from natural language and receipt images using a cost-optimized Multi-LLM architecture (Gemini & Groq).
-                <br /><br />
-                Features conversational state management to prompt users for missing details and seamlessly syncs with Google Sheets for complete CRUD operations.
+                A unified financial tracking ecosystem featuring a <strong>Flutter mobile app (Bandha)</strong> and a smart <strong>Telegram bot</strong>. Powered by a centralized Node.js backend, it extracts data from natural language and receipt images using a cost-optimized Multi-LLM architecture (Gemini & Groq).<br /><br />
+                Seamlessly syncs with Google Sheets for complete CRUD operations, offering users the flexibility to log expenses via chat or a dedicated UI.
               </p>
 
-              <div className="flex items-center gap-2 md:gap-3">
-                <a href="https://github.com/nopeakbar/v2-expense-tracker.git" target="_blank" className="flex items-center gap-1.5 md:gap-2 text-xs md:text-sm text-blue-400 font-bold hover:text-blue-300 transition-colors bg-blue-900/20 px-4 md:px-5 py-2 md:py-2.5 rounded-full border border-blue-500/30 hover:bg-blue-900/40 whitespace-nowrap">
-                  <Github size={16} /> View Source
+              <div className="flex flex-wrap items-center gap-2 md:gap-3">
+                <a href="https://github.com/nopeakbar/personal-expense-tracker.git" target="_blank" className="flex items-center gap-1.5 md:gap-2 text-xs text-blue-400 font-bold hover:text-blue-300 transition-colors bg-blue-900/20 px-3 md:px-4 py-2 md:py-2.5 rounded-full border border-blue-500/30 hover:bg-blue-900/40 whitespace-nowrap">
+                  <Github size={16} /> Backend/Bot
+                </a>
+                
+                <a href="https://github.com/nopeakbar/aplikasi-integrasi-expense-tracker.git" target="_blank" className="flex items-center gap-1.5 md:gap-2 text-xs text-teal-400 font-bold hover:text-teal-300 transition-colors bg-teal-900/20 px-3 md:px-4 py-2 md:py-2.5 rounded-full border border-teal-500/30 hover:bg-teal-900/40 whitespace-nowrap">
+                  <Github size={16} /> Flutter App
                 </a>
 
                 {/* --- TOMBOL KHUSUS MOBILE (TRIGGER POPUP) --- */}
                 <button
                   onClick={() => setIsBotModalOpen(true)}
-                  className="md:hidden flex items-center gap-1.5 md:gap-2 text-xs md:text-sm text-slate-200 font-bold bg-slate-800 px-4 md:px-5 py-2 md:py-2.5 rounded-full border border-slate-700 hover:bg-slate-700 transition-colors whitespace-nowrap"
+                  className="md:hidden flex items-center gap-1.5 md:gap-2 text-xs text-slate-200 font-bold bg-slate-800 px-3 md:px-4 py-2 md:py-2.5 rounded-full border border-slate-700 hover:bg-slate-700 transition-colors whitespace-nowrap"
                 >
                   <Eye size={14} /> View Gallery
                 </button>
