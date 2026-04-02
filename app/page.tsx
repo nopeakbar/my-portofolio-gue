@@ -381,7 +381,7 @@ export default function Portfolio() {
               </p>
 
               <div className="flex items-center gap-2 md:gap-3">
-                <a href="https://github.com/nopeakbar/personal-expense-tracker.git" target="_blank" className="flex items-center gap-1.5 md:gap-2 text-xs md:text-sm text-blue-400 font-bold hover:text-blue-300 transition-colors bg-blue-900/20 px-4 md:px-5 py-2 md:py-2.5 rounded-full border border-blue-500/30 hover:bg-blue-900/40 whitespace-nowrap">
+                <a href="https://github.com/nopeakbar/v2-expense-tracker.git" target="_blank" className="flex items-center gap-1.5 md:gap-2 text-xs md:text-sm text-blue-400 font-bold hover:text-blue-300 transition-colors bg-blue-900/20 px-4 md:px-5 py-2 md:py-2.5 rounded-full border border-blue-500/30 hover:bg-blue-900/40 whitespace-nowrap">
                   <Github size={16} /> View Source
                 </a>
 
