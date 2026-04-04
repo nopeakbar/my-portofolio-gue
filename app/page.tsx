@@ -29,8 +29,11 @@ import {
   AlertTriangle,
   X,
   Eye,
-  Bot,       // Ditambahkan untuk Bot Project
-  Database   // Ditambahkan untuk Bot Project
+  Bot,       
+  Database,
+  Activity,
+  TrendingUp,
+  LineChart   
 } from 'lucide-react';
 import { SpeedInsights } from "@vercel/speed-insights/next";
 
@@ -318,6 +321,60 @@ export default function Portfolio() {
 
         {/* MENGGUNAKAN minmax AGAR TINGGI BISA MENYESUAIKAN KONTEN BILA LEBIH DARI 350px */}
         <div className="grid grid-cols-1 md:grid-cols-2 gap-6 auto-rows-[minmax(350px,auto)] md:auto-rows-[minmax(400px,auto)]">
+
+          {/* 0. THESIS: NVIDIA STOCK PREDICTION (FULL WIDTH -> col-span-2) */}
+          <div className="md:col-span-2 relative group overflow-hidden rounded-3xl bg-slate-950 border border-slate-800 hover:border-indigo-500/50 transition-all duration-300 flex flex-col md:flex-row">
+            
+            {/* BACKGROUND DECORATION (Warna Solid Gradien) */}
+            <div className="absolute inset-0 bg-gradient-to-r from-slate-950 via-slate-950/90 to-indigo-950/30 z-0" />
+
+            {/* KONTEN KIRI: DESKRIPSI (Sekitar 60% di Desktop) */}
+            <div className="relative z-20 p-6 md:p-8 flex flex-col justify-center w-full md:w-3/5">
+              <div className="mb-4 flex flex-wrap gap-2">
+                <div className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-indigo-500/10 border border-indigo-500/20 backdrop-blur-md">
+                  <Activity size={12} className="text-indigo-400" />
+                  <span className="text-[10px] font-bold text-indigo-400 uppercase tracking-wider">Bachelor's Thesis</span>
+                </div>
+                <div className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-blue-500/10 border border-blue-500/20 backdrop-blur-md">
+                  <TrendingUp size={12} className="text-blue-400" />
+                  <span className="text-[10px] font-bold text-blue-400 uppercase tracking-wider">Bi-LSTM Algorithm</span>
+                </div>
+              </div>
+
+              <h3 className="text-2xl md:text-3xl font-bold text-white mb-3">NVIDIA Stock Price Prediction</h3>
+
+              <p className="text-slate-300 text-sm leading-relaxed mb-6">
+                My final year thesis research focusing on the impact of technical features on NVIDIA stock price prediction accuracy. Powered by the <strong>Bidirectional LSTM (Bi-LSTM)</strong> algorithm, this project features an interactive dashboard to analyze model configurations, window sizes, and baseline vs. optimized comparisons.
+              </p>
+
+              <div className="flex flex-wrap items-center gap-2 md:gap-3">
+                <a href="https://stocks-prediction-thesis-nopeakbar.vercel.app/" target="_blank" rel="noopener noreferrer" className="flex items-center gap-1.5 md:gap-2 text-sm text-indigo-400 font-bold hover:text-indigo-300 transition-colors bg-indigo-900/20 px-4 py-2.5 rounded-full border border-indigo-500/30 hover:bg-indigo-900/40 whitespace-nowrap">
+                  View Dashboard <ExternalLink size={16} />
+                </a>
+                
+                <a href="https://github.com/nopeakbar/stocks-prediction-thesis.git" target="_blank" rel="noopener noreferrer" className="flex items-center gap-1.5 md:gap-2 text-sm text-slate-300 font-bold hover:text-white transition-colors bg-slate-800 px-4 py-2.5 rounded-full border border-slate-700 hover:bg-slate-700 whitespace-nowrap">
+                  <Github size={16} /> Source Code
+                </a>
+              </div>
+            </div>
+
+            {/* DEKORASI KANAN: GAMBAR GRAFIK DENGAN ALPHA MASK FADE (DIJAMIN MULUS) */}
+            <div 
+              className="hidden md:block absolute top-0 right-0 w-[55%] h-full z-10 pointer-events-none translate-x-[45px]"
+              style={{
+                // Ini kuncinya: mask bikin kiri transparan (0%) lalu pelan-pelan solid (hitam) di 40% ke kanan
+                WebkitMaskImage: 'linear-gradient(to right, transparent 0%, black 40%)',
+                maskImage: 'linear-gradient(to right, transparent 0%, black 40%)'
+              }}
+            >
+              <img 
+                src="/thumbnail/thesis-stocks/logo-nvidia.jpg" 
+                alt="NVIDIA Thesis Chart" 
+                className="absolute inset-0 w-full h-full object-cover object-right opacity-30 group-hover:opacity-70 group-hover:scale-105 transition-all duration-700 mix-blend-screen mix-blend-lighten" 
+              />
+            </div>
+            
+          </div>
 
           {/* 1. ISBN (FULL WIDTH -> col-span-2) */}
           <div className="md:col-span-2 relative group overflow-hidden rounded-3xl bg-slate-900 border border-slate-800 hover:border-cyan-500/50 transition-all duration-300">
