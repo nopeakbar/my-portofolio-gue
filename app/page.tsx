@@ -227,10 +227,10 @@ export default function Portfolio() {
         </h1>
 
         <p className="text-lg md:text-xl text-slate-400 max-w-2xl leading-relaxed mb-8">
-          Hi, I'm <span className="text-white font-semibold">AKBAR</span>. I build modern web apps using
-          <span className="text-cyan-300"> React/Next.js</span> and mobile apps using
-          <span className="text-purple-400"> Flutter</span>. I focus on creating software solutions that solve real-world problems.
-        </p>
+  Hi, I'm <span className="text-white font-semibold">AKBAR</span>, a Fullstack Software Engineer & AI Researcher. 
+  I build end-to-end ecosystems across various tech stacks, including <span className="text-cyan-300">React/Next.js</span>, <span className="text-emerald-400">Node.js</span>, <span className="text-purple-400">Flutter</span>, and <span className="text-blue-300">PHP</span>. 
+  From developing smart <span className="text-blue-400">Multi-LLM bots</span> to training <span className="text-amber-400">Deep Learning</span> models, I focus on architecting scalable solutions that solve real-world problems.
+</p>
 
         <div className="flex flex-wrap gap-4">
           <a href="#projects" className="px-7 py-3 bg-cyan-600 hover:bg-cyan-500 text-white font-semibold rounded-full transition-all shadow-[0_0_20px_rgba(8,145,178,0.4)] flex items-center gap-2 group">
@@ -358,7 +358,7 @@ export default function Portfolio() {
               </div>
             </div>
 
-            {/* DEKORASI KANAN: GAMBAR GRAFIK DENGAN ALPHA MASK FADE (DIJAMIN MULUS) */}
+            {/* DEKORASI KANAN: GAMBAR GRAFIK DENGAN ALPHA MASK FADE (DIJAMIN MULUs) */}
             <div 
               className="hidden md:block absolute top-0 right-0 w-[55%] h-full z-10 pointer-events-none translate-x-[45px]"
               style={{
