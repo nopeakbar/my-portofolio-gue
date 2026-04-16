@@ -251,6 +251,9 @@ export default function Portfolio() {
           <a href="https://github.com/nopeakbar" target="_blank" className="px-7 py-3 border border-slate-700 hover:border-slate-500 hover:bg-slate-900 rounded-full transition-all flex items-center gap-2">
             <Github size={20} /> GitHub
           </a>
+          <a href="https://www.linkedin.com/in/noveanto-nur-akbar/" target="_blank" className="px-7 py-3 border border-slate-700 hover:border-slate-500 hover:bg-slate-900 rounded-full transition-all flex items-center gap-2">
+            <Linkedin size={20} /> LinkedIn
+          </a>
         </div>
       </section>
 
