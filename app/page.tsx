@@ -76,10 +76,13 @@ export default function Portfolio() {
   const [isBotModalOpen, setIsBotModalOpen] = useState(false);
 
   const botDocs = [
-    { title: "Bandha Mobile App", desc: "UI interaktif berbasis Flutter untuk mencatat pengeluaran.", src: "/bot/bandha.mp4" }, // Pastikan sesuaikan nama file & path gambarnya
-    { title: "Natural Language Input", desc: "Ketik pengeluaran santai, AI otomatis ekstrak datanya.", src: "/bot/bot1.png" },
-    { title: "Smart OCR Vision", desc: "Kirim foto struk, Gemini langsung scan detail belanjaan.", src: "/bot/bot2.jpeg" },
-    { title: "Google Sheets Sync", desc: "Data terstruktur langsung masuk ke spreadsheet via API.", src: "/bot/bot3.mp4" },
+    { title: "Bandha Mobile App", desc: "UI interaktif berbasis Flutter untuk mencatat pengeluaran.", src: "/bot/bandha.mp4" },
+    { title: "AI Assistant Chat", desc: "Diskusi keuangan dan catat pengeluaran langsung via Chatbot pintar.", src: "/bot/bandha-chat.mp4" }, 
+    { title: "In-App Receipt Scanner", desc: "Foto struk langsung dari aplikasi, otomatis diekstrak oleh Gemini.", src: "/bot/bandha-camera.mp4" },
+    { title: "Deep Financial Analysis", desc: "Dashboard analisis dan insight yang digenerate oleh GPT OSS 120b.", src: "/bot/bandha-analysis.mp4" },
+    { title: "Natural Language Input", desc: "Ketik pengeluaran santai, Llama otomatis ekstrak datanya.", src: "/bot/bot1.png" },
+    { title: "Telegram Smart OCR", desc: "Kirim foto struk via Telegram bot saat sedang terburu-buru.", src: "/bot/bot2.jpeg" },
+    { title: "Google Sheets Sync", desc: "Data terstruktur langsung masuk ke spreadsheet secara realtime.", src: "/bot/bot3.mp4" },
   ];
 
   const nextBotDoc = () => setCurrentBotDocIndex((prev) => (prev === botDocs.length - 1 ? 0 : prev + 1));
@@ -437,9 +440,12 @@ export default function Portfolio() {
               <h3 className="text-2xl md:text-3xl font-bold text-white mb-3">Bandha: AI Expense Tracker Ecosystem</h3>
 
               <p className="text-slate-300 text-sm leading-relaxed mb-6">
-                A unified financial tracking ecosystem featuring a <strong>Flutter mobile app (Bandha)</strong> and a smart <strong>Telegram bot</strong>. Powered by a centralized Node.js backend, it extracts data from natural language and receipt images using a cost-optimized Multi-LLM architecture (Gemini & Groq).<br /><br />
-                Seamlessly syncs with Google Sheets for complete CRUD operations, offering users the flexibility to log expenses via chat or a dedicated UI.
-              </p>
+  A unified financial tracking ecosystem powered by a cost-optimized <span className="font-bold text-blue-400">Multi-LLM Architecture</span>. 
+  <strong> Gemini 2.5 Flash</strong> handles Smart OCR for instant receipt extraction, 
+  while <strong>Llama 3.3 70B</strong> processes casual text into structured records. 
+  For deep insights, <strong>GPT OSS 120B</strong> drives the AI Chatbot and generates 
+  contextual financial analytics directly on the dashboard.
+</p>
 
               <div className="flex flex-wrap items-center gap-2 md:gap-3">
                 <a href="https://github.com/nopeakbar/personal-expense-tracker.git" target="_blank" className="flex items-center gap-1.5 md:gap-2 text-xs text-blue-400 font-bold hover:text-blue-300 transition-colors bg-blue-900/20 px-3 md:px-4 py-2 md:py-2.5 rounded-full border border-blue-500/30 hover:bg-blue-900/40 whitespace-nowrap">
