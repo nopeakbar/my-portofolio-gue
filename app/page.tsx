@@ -33,6 +33,7 @@ import {
   Database,
   Activity,
   TrendingUp,
+  MapPin,
   LineChart   
 } from 'lucide-react';
 import { SpeedInsights } from "@vercel/speed-insights/next";
@@ -97,6 +98,22 @@ export default function Portfolio() {
 
   const nextBotDoc = () => setCurrentBotDocIndex((prev) => (prev === botDocs.length - 1 ? 0 : prev + 1));
   const prevBotDoc = () => setCurrentBotDocIndex((prev) => (prev === 0 ? botDocs.length - 1 : prev - 1));
+  const [currentCoffeecomIndex, setCurrentCoffeecomIndex] = useState(0);
+  const coffeecomDocs = [
+    { 
+      title: "Step-by-Step Review", 
+      desc: "Proses input review yang dioptimasi dengan AI Llama 3.3.", 
+      src: "/thumbnail/coffeecom/review-coffeecom.mp4" 
+    },
+    { 
+      title: "Main Explorer", 
+      desc: "Halaman utama dengan Mapbox 3D dan custom markers.", 
+      src: "/thumbnail/coffeecom/main.jpeg" 
+    },
+  ];
+
+  const nextCoffeecom = () => setCurrentCoffeecomIndex((prev) => (prev === coffeecomDocs.length - 1 ? 0 : prev + 1));
+  const prevCoffeecom = () => setCurrentCoffeecomIndex((prev) => (prev === 0 ? coffeecomDocs.length - 1 : prev - 1));
 
 
   // ==========================================
@@ -601,6 +618,87 @@ export default function Portfolio() {
               <div className="flex gap-2 mt-4">
                 {malioboroDocs.map((_, idx) => (
                   <div key={idx} className={`h-1.5 rounded-full transition-all duration-300 ${idx === currentMalioboroIndex ? "w-6 bg-orange-500" : "w-1.5 bg-slate-700"}`} />
+                ))}
+              </div>
+            </div>
+          </div>
+
+          {/* 2.7. COFFEECOM (FULL WIDTH -> col-span-2 + Split Layout) */}
+          <div className="md:col-span-2 relative group overflow-hidden rounded-3xl bg-slate-900 border border-slate-800 hover:border-orange-500/50 transition-all duration-300 flex flex-col md:flex-row">
+            
+            {/* BACKGROUND DECORATION */}
+            <div className="absolute inset-0 bg-slate-900 group-hover:scale-105 transition-transform duration-700 bg-[url('/thumbnail/thumb-coffee-bg.jpg')] bg-cover bg-center opacity-20" />
+            <div className="absolute inset-0 bg-gradient-to-r from-slate-950 via-slate-950/90 to-orange-900/10 z-10" />
+
+            {/* KONTEN KIRI: DESKRIPSI (50%) */}
+            <div className="relative z-20 p-6 md:p-8 flex flex-col justify-center w-full md:w-1/2">
+              <div className="mb-4 flex flex-wrap gap-2">
+                <div className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-orange-500/10 border border-orange-500/20 backdrop-blur-md">
+                  <MapPin size={12} className="text-orange-400" />
+                  <span className="text-[10px] font-bold text-orange-400 uppercase tracking-wider">Mapbox Integration</span>
+                </div>
+                <div className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-blue-500/10 border border-blue-500/20 backdrop-blur-md">
+                  <Bot size={12} className="text-blue-400" />
+                  <span className="text-[10px] font-bold text-blue-400 uppercase tracking-wider">Llama 3.3 AI</span>
+                </div>
+              </div>
+
+              <h3 className="text-3xl font-bold text-white mb-3">Coffeecom</h3>
+
+              <p className="text-slate-300 text-sm leading-relaxed mb-6">
+                A community-driven platform for coffee enthusiasts in Yogyakarta. 
+                Built with <strong>Flutter</strong> and <strong>Supabase</strong>, featuring real-time map exploration via Mapbox. 
+                The app integrates <strong>Llama 3.3</strong> to intelligently refine user reviews and normalize cafe data while keeping the authentic "nongkrong" vibe.
+              </p>
+
+              <div className="flex flex-wrap gap-3">
+                <a href="https://github.com/nopeakbar/coffeecom" target="_blank" className="flex items-center gap-2 text-sm text-orange-400 font-bold hover:text-orange-300 transition-colors bg-orange-900/20 px-5 py-2.5 rounded-full border border-orange-500/30">
+                  <Github size={14} /> Source Code
+                </a>
+              </div>
+            </div>
+
+            {/* KONTEN KANAN: 2 PATH SLIDER (HP FRAME) */}
+            <div className="relative z-20 w-full md:w-1/2 p-6 flex flex-col items-center justify-center bg-black/20 border-t md:border-t-0 md:border-l border-white/5">
+              
+              <div className="relative w-[180px] md:w-[200px] aspect-[9/16] bg-slate-950 rounded-2xl border-4 border-slate-800 shadow-2xl overflow-hidden group/slider">
+                
+                <div key={currentCoffeecomIndex} className="w-full h-full relative animate-in fade-in duration-500">
+                  {coffeecomDocs[currentCoffeecomIndex].src.endsWith('.mp4') ? (
+                    <video
+                      src={coffeecomDocs[currentCoffeecomIndex].src}
+                      className="w-full h-full object-cover"
+                      autoPlay loop muted playsInline
+                    />
+                  ) : (
+                    <img
+                      src={coffeecomDocs[currentCoffeecomIndex].src}
+                      alt={coffeecomDocs[currentCoffeecomIndex].title}
+                      className="w-full h-full object-cover"
+                    />
+                  )}
+
+                  <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-transparent to-transparent"></div>
+
+                  <div className="absolute bottom-4 left-0 w-full text-center px-2">
+                    <p className="text-white font-bold text-sm">{coffeecomDocs[currentCoffeecomIndex].title}</p>
+                    <p className="text-slate-400 text-[10px]">{coffeecomDocs[currentCoffeecomIndex].desc}</p>
+                  </div>
+                </div>
+
+                <button onClick={prevCoffeecom} className="absolute left-2 top-1/2 -translate-y-1/2 bg-black/50 hover:bg-orange-500 text-white p-1.5 rounded-full backdrop-blur-sm opacity-0 group-hover/slider:opacity-100 transition-all">
+                  <ChevronLeft size={16} />
+                </button>
+
+                <button onClick={nextCoffeecom} className="absolute right-2 top-1/2 -translate-y-1/2 bg-black/50 hover:bg-orange-500 text-white p-1.5 rounded-full backdrop-blur-sm opacity-0 group-hover/slider:opacity-100 transition-all">
+                  <ChevronRight size={16} />
+                </button>
+              </div>
+
+              {/* Dots Indikator */}
+              <div className="flex gap-2 mt-4">
+                {coffeecomDocs.map((_, idx) => (
+                  <div key={idx} className={`h-1.5 rounded-full transition-all duration-300 ${idx === currentCoffeecomIndex ? "w-6 bg-orange-500" : "w-1.5 bg-slate-700"}`} />
                 ))}
               </div>
             </div>
