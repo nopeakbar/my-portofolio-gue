@@ -262,14 +262,31 @@ export default function Portfolio() {
   From developing smart <span className="text-blue-400">Multi-LLM bots</span> to training <span className="text-amber-400">Deep Learning</span> models, I focus on architecting scalable solutions that solve real-world problems.
 </p>
 
-        <div className="flex flex-wrap gap-4">
-          <a href="#projects" className="px-7 py-3 bg-cyan-600 hover:bg-cyan-500 text-white font-semibold rounded-full transition-all shadow-[0_0_20px_rgba(8,145,178,0.4)] flex items-center gap-2 group">
-            View Projects <ArrowRight size={18} className="group-hover:translate-x-1 transition-transform" />
+        <div className="grid grid-cols-2 md:flex md:flex-row gap-3 md:gap-4 w-full md:w-fit">
+          <a 
+            href="#projects" 
+            className="col-span-2 md:col-span-1 flex items-center justify-center gap-2 px-7 py-3 bg-cyan-600 hover:bg-cyan-500 text-white font-semibold rounded-full transition-all shadow-[0_0_20px_rgba(8,145,178,0.4)] group"
+          >
+            View Projects 
+            <ArrowRight 
+              size={18} 
+              className="rotate-90 md:rotate-0 transition-transform duration-300 group-hover:translate-y-1 md:group-hover:translate-y-0 md:group-hover:translate-x-1" 
+            />
           </a>
-          <a href="https://github.com/nopeakbar" target="_blank" className="px-7 py-3 border border-slate-700 hover:border-slate-500 hover:bg-slate-900 rounded-full transition-all flex items-center gap-2">
+          
+          <a 
+            href="https://github.com/nopeakbar" 
+            target="_blank" 
+            className="flex items-center justify-center gap-2 px-4 md:px-7 py-3 border border-slate-700 hover:border-slate-500 hover:bg-slate-900 rounded-full transition-all"
+          >
             <Github size={20} /> GitHub
           </a>
-          <a href="https://www.linkedin.com/in/noveanto-nur-akbar/" target="_blank" className="px-7 py-3 border border-slate-700 hover:border-slate-500 hover:bg-slate-900 rounded-full transition-all flex items-center gap-2">
+          
+          <a 
+            href="https://www.linkedin.com/in/noveanto-nur-akbar/" 
+            target="_blank" 
+            className="flex items-center justify-center gap-2 px-4 md:px-7 py-3 border border-slate-700 hover:border-slate-500 hover:bg-slate-900 rounded-full transition-all"
+          >
             <Linkedin size={20} /> LinkedIn
           </a>
         </div>
