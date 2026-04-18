@@ -86,6 +86,7 @@ export default function Portfolio() {
 
   const botDocs = [
     { title: "Bandha Mobile App", desc: "UI interaktif berbasis Flutter untuk mencatat pengeluaran.", src: "/bot/bandha.mp4" },
+    { title: "Voice-to-Transaction", desc: "Rekam suara instan yang otomatis mencatat pengeluaran ke Spreadsheet via API.", src: "/bot/voice-to-transaction.mp4" },
     { title: "AI Assistant Chat", desc: "Diskusi keuangan dan catat pengeluaran langsung via Chatbot pintar.", src: "/bot/bandha-chat.mp4" }, 
     { title: "In-App Receipt Scanner", desc: "Foto struk langsung dari aplikasi, otomatis diekstrak oleh Gemini.", src: "/bot/bandha-camera.mp4" },
     { title: "Deep Financial Analysis", desc: "Dashboard analisis dan insight yang digenerate oleh GPT OSS 120b.", src: "/bot/bandha-analysis.mp4" },
@@ -417,9 +418,9 @@ export default function Portfolio() {
           </div>
 
 
-          {/* 1.5. AI SMART EXPENSE TRACKER (NEW - FULL WIDTH -> col-span-2 + Split Layout) */}
+          {/* 1.5. BANDHA: QUAD-LLM EXPENSE TRACKER */}
           <div className="md:col-span-2 relative group overflow-hidden rounded-3xl bg-slate-900 border border-slate-800 hover:border-blue-500/50 transition-all duration-300 flex flex-col md:flex-row">
-            {/* BACKGROUND DECORATION (FIXED: Menggunakan MP4) */}
+            {/* BACKGROUND VIDEO/IMAGE */}
             <div className="absolute inset-0 group-hover:scale-105 transition-transform duration-700 overflow-hidden opacity-60">
               <video 
                 autoPlay 
@@ -432,8 +433,10 @@ export default function Portfolio() {
             </div>
             <div className="absolute inset-0 bg-gradient-to-r from-slate-950 via-slate-950/80 to-blue-900/30 z-10" />
 
-            {/* KONTEN KIRI: DESKRIPSI (50%) */}
+            {/* LEFT CONTENT */}
             <div className="relative z-20 p-6 md:p-8 flex flex-col justify-center w-full md:w-1/2">
+              
+              {/* --- BADGES (DI-MAINTAIN SESUAI GAMBAR) --- */}
               <div className="mb-4 flex flex-wrap gap-2">
                 <div className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-blue-500/10 border border-blue-500/20 backdrop-blur-md">
                   <Bot size={12} className="text-blue-400" />
@@ -452,34 +455,66 @@ export default function Portfolio() {
               <h3 className="text-2xl md:text-3xl font-bold text-white mb-3">Bandha: AI Expense Tracker Ecosystem</h3>
 
               <p className="text-slate-300 text-sm leading-relaxed mb-6">
-  A unified financial tracking ecosystem powered by a cost-optimized <span className="font-bold text-blue-400">Multi-LLM Architecture</span>. 
-  <strong> Gemini 2.5 Flash</strong> handles Smart OCR for instant receipt extraction, 
-  while <strong>Llama 3.3 70B</strong> processes casual text into structured records. 
-  For deep insights, <strong>GPT OSS 120B</strong> drives the AI Chatbot and generates 
-  contextual financial analytics directly on the dashboard.
-</p>
+                A unified financial tracking ecosystem powered by a cost-optimized <span className="font-bold text-blue-400">Quad-LLM Architecture</span>. 
+                <strong> Groq Whisper V3</strong> seamlessly transcribes voice notes, <strong>Gemini 2.5 Flash</strong> handles Smart OCR for instant receipt extraction, 
+                and <strong>Llama 3.3 70B</strong> processes casual text into structured records. 
+                For deep insights, <strong>GPT OSS 120B</strong> drives the AI Chatbot and generates 
+                contextual financial analytics directly on the dashboard.
+              </p>
 
-              <div className="flex flex-wrap items-center gap-2 md:gap-3">
-                <a href="https://github.com/nopeakbar/personal-expense-tracker.git" target="_blank" className="flex items-center gap-1.5 md:gap-2 text-xs text-blue-400 font-bold hover:text-blue-300 transition-colors bg-blue-900/20 px-3 md:px-4 py-2 md:py-2.5 rounded-full border border-blue-500/30 hover:bg-blue-900/40 whitespace-nowrap">
-                  <Github size={16} /> Backend/Bot
+              {/* --- ACTION BUTTONS (2x2 SYMMETRICAL GRID) --- */}
+              <div className="grid grid-cols-2 gap-2 md:gap-3 w-full">
+                
+                {/* 1. LIVE DEMO */}
+                <a 
+                  href="https://nopeakbar-bandha-live-demo.vercel.app/" 
+                  target="_blank" 
+                  rel="noopener noreferrer" 
+                  className="flex items-center justify-center gap-2 text-[11px] md:text-xs text-green-400 font-bold hover:text-green-300 transition-all bg-green-900/20 px-3 py-2.5 rounded-full border border-green-500/40 hover:bg-green-900/40 shadow-[0_0_15px_rgba(74,222,128,0.1)]"
+                >
+                  <Activity size={14} className="animate-pulse" /> Live Demo <ExternalLink size={12} />
+                </a>
+
+                {/* 2. LIVE SPREADSHEET (NEW!) */}
+                <a 
+                  href="https://docs.google.com/spreadsheets/d/18Pr2GU7l6girMxnfKjiAvepZDK4yez-gb89RokttERs/edit?usp=sharing" 
+                  target="_blank" 
+                  rel="noopener noreferrer" 
+                  className="flex items-center justify-center gap-2 text-[11px] md:text-xs text-amber-400 font-bold hover:text-amber-300 transition-all bg-amber-900/20 px-3 py-2.5 rounded-full border border-amber-500/40 hover:bg-amber-900/40 shadow-[0_0_15px_rgba(245,158,11,0.1)]"
+                >
+                  <Database size={14} /> Live Sheets <ExternalLink size={12} />
+                </a>
+
+                {/* 3. BACKEND REPO */}
+                <a 
+                  href="https://github.com/nopeakbar/personal-expense-tracker.git" 
+                  target="_blank" 
+                  className="flex items-center justify-center gap-2 text-[11px] md:text-xs text-blue-400 font-bold hover:text-blue-300 transition-all bg-blue-900/20 px-3 py-2.5 rounded-full border border-blue-500/30 hover:bg-blue-900/40"
+                >
+                  <Github size={14} /> Backend & Bot
                 </a>
                 
-                <a href="https://github.com/nopeakbar/aplikasi-integrasi-expense-tracker.git" target="_blank" className="flex items-center gap-1.5 md:gap-2 text-xs text-teal-400 font-bold hover:text-teal-300 transition-colors bg-teal-900/20 px-3 md:px-4 py-2 md:py-2.5 rounded-full border border-teal-500/30 hover:bg-teal-900/40 whitespace-nowrap">
-                  <Github size={16} /> Flutter App
+                {/* 4. FLUTTER REPO */}
+                <a 
+                  href="https://github.com/nopeakbar/aplikasi-integrasi-expense-tracker.git" 
+                  target="_blank" 
+                  className="flex items-center justify-center gap-2 text-[11px] md:text-xs text-teal-400 font-bold hover:text-teal-300 transition-all bg-teal-900/20 px-3 py-2.5 rounded-full border border-teal-500/30 hover:bg-teal-900/40"
+                >
+                  <Github size={14} /> Flutter App
                 </a>
 
-                {/* --- TOMBOL KHUSUS MOBILE (TRIGGER POPUP) --- */}
+                {/* Mobile Gallery Trigger (Full Width on Bottom) */}
                 <button
                   onClick={() => setIsBotModalOpen(true)}
-                  className="md:hidden flex items-center gap-1.5 md:gap-2 text-xs text-slate-200 font-bold bg-slate-800 px-3 md:px-4 py-2 md:py-2.5 rounded-full border border-slate-700 hover:bg-slate-700 transition-colors whitespace-nowrap"
+                  className="md:hidden col-span-2 mt-2 flex items-center justify-center gap-2 text-[11px] text-slate-200 font-bold bg-slate-800 px-4 py-2.5 rounded-full border border-slate-700"
                 >
-                  <Eye size={14} /> View Gallery
+                  <Eye size={14} /> View Features Gallery
                 </button>
               </div>
             </div>
 
-            {/* KONTEN KANAN: CAROUSEL / SLIDER (HANYA MUNCUL DI DESKTOP) */}
-            <div className="hidden md:flex relative z-20 w-full md:w-1/2 p-6 flex-col items-center justify-center bg-black/20 border-t md:border-t-0 md:border-l border-white/5">
+            {/* RIGHT CONTENT: CAROUSEL SLIDER */}
+            <div className="hidden md:flex relative z-20 w-full md:w-1/2 p-6 flex-col items-center justify-center bg-black/20 border-l border-white/5">
               <div className="relative w-[180px] md:w-[200px] aspect-[9/16] bg-slate-950 rounded-2xl border-4 border-slate-800 shadow-2xl overflow-hidden group/slider">
                 <div key={currentBotDocIndex} className="w-full h-full relative animate-in fade-in duration-500">
                   {botDocs[currentBotDocIndex].src.endsWith('.mp4') ? (
@@ -494,7 +529,6 @@ export default function Portfolio() {
                   ) : (
                     <img src={botDocs[currentBotDocIndex].src} alt={botDocs[currentBotDocIndex].title} className="w-full h-full object-cover" />
                   )}
-                  {/* ---------------------------------------- */}
 
                   <div className="absolute inset-0 bg-gradient-to-t from-black/90 via-black/20 to-transparent"></div>
                   <div className="absolute bottom-4 left-0 w-full text-center px-2">
@@ -503,8 +537,8 @@ export default function Portfolio() {
                   </div>
                 </div>
 
-                <button onClick={prevBotDoc} className="absolute left-2 top-1/2 -translate-y-1/2 bg-black/50 hover:bg-blue-500 text-white p-1.5 rounded-full backdrop-blur-sm transition-all opacity-0 group-hover/slider:opacity-100 translate-x-2 group-hover/slider:translate-x-0"><ChevronLeft size={16} /></button>
-                <button onClick={nextBotDoc} className="absolute right-2 top-1/2 -translate-y-1/2 bg-black/50 hover:bg-blue-500 text-white p-1.5 rounded-full backdrop-blur-sm transition-all opacity-0 group-hover/slider:opacity-100 -translate-x-2 group-hover/slider:translate-x-0"><ChevronRight size={16} /></button>
+                <button onClick={prevBotDoc} className="absolute left-2 top-1/2 -translate-y-1/2 bg-black/50 hover:bg-blue-500 text-white p-1.5 rounded-full backdrop-blur-sm transition-all opacity-0 group-hover/slider:opacity-100"><ChevronLeft size={16} /></button>
+                <button onClick={nextBotDoc} className="absolute right-2 top-1/2 -translate-y-1/2 bg-black/50 hover:bg-blue-500 text-white p-1.5 rounded-full backdrop-blur-sm transition-all opacity-0 group-hover/slider:opacity-100"><ChevronRight size={16} /></button>
               </div>
 
               <div className="flex gap-2 mt-4">
@@ -1057,7 +1091,7 @@ export default function Portfolio() {
       <footer id="contact" className="max-w-5xl mx-auto px-6 pt-10 text-center">
         <h2 className="text-2xl font-bold mb-6">Let's Connect</h2>
 
-        <a href="mailto:nopeakbar.blog@gmail.com" className="flex justify-center items-center gap-2 text-slate-400 hover:text-cyan-400 transition-colors mb-8 text-lg">
+        <a href="mailto:nopeakbar@gmail.com" className="flex justify-center items-center gap-2 text-slate-400 hover:text-cyan-400 transition-colors mb-8 text-lg">
           <Mail size={24} /> nopeakbar@gmail.com
         </a>
 
