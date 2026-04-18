@@ -268,24 +268,26 @@ export default function Portfolio() {
             className="col-span-2 md:col-span-1 flex items-center justify-center gap-2 px-7 py-3 bg-cyan-600 hover:bg-cyan-500 text-white font-semibold rounded-full transition-all shadow-[0_0_20px_rgba(8,145,178,0.4)] group"
           >
             View Projects 
-            <ArrowRight 
-              size={18} 
-              className="rotate-90 md:rotate-0 transition-transform duration-300 group-hover:translate-y-1 md:group-hover:translate-y-0 md:group-hover:translate-x-1" 
-            />
+            <ArrowRight size={18} className="rotate-90 md:rotate-0 transition-transform duration-300 group-hover:translate-y-1 md:group-hover:translate-y-0 md:group-hover:translate-x-1" />
           </a>
-          
+          <a 
+            href="/CV_Noveanto-Nur-Akbar.pdf" 
+            target="_blank" 
+            className="col-span-2 md:col-span-1 flex items-center justify-center gap-2 px-7 py-3 bg-slate-800 hover:bg-slate-700 text-white font-semibold rounded-full border border-slate-700 transition-all"
+          >
+            <FileText size={20} /> Download CV
+          </a>
           <a 
             href="https://github.com/nopeakbar" 
             target="_blank" 
-            className="flex items-center justify-center gap-2 px-4 md:px-7 py-3 border border-slate-700 hover:border-slate-500 hover:bg-slate-900 rounded-full transition-all"
+            className="flex items-center justify-center gap-2 px-4 py-3 border border-slate-700 hover:border-slate-500 hover:bg-slate-900 rounded-full transition-all"
           >
             <Github size={20} /> GitHub
           </a>
-          
           <a 
             href="https://www.linkedin.com/in/noveanto-nur-akbar/" 
             target="_blank" 
-            className="flex items-center justify-center gap-2 px-4 md:px-7 py-3 border border-slate-700 hover:border-slate-500 hover:bg-slate-900 rounded-full transition-all"
+            className="flex items-center justify-center gap-2 px-4 py-3 border border-slate-700 hover:border-slate-500 hover:bg-slate-900 rounded-full transition-all"
           >
             <Linkedin size={20} /> LinkedIn
           </a>
