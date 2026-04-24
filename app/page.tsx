@@ -34,7 +34,9 @@ import {
   Activity,
   TrendingUp,
   MapPin,
-  LineChart   
+  LineChart,
+  Server,
+  Cloud   
 } from 'lucide-react';
 import { SpeedInsights } from "@vercel/speed-insights/next";
 
@@ -257,9 +259,9 @@ export default function Portfolio() {
         </h1>
 
         <p className="text-lg md:text-xl text-slate-400 max-w-2xl leading-relaxed mb-8">
-  Hi, I'm <span className="text-white font-semibold">AKBAR</span>, a Fullstack Software Engineer & AI Researcher. 
-  I build end-to-end ecosystems across various tech stacks, including <span className="text-cyan-300">React/Next.js</span>, <span className="text-emerald-400">Node.js</span>, <span className="text-purple-400">Flutter</span>, and <span className="text-blue-300">PHP</span>. 
-  From developing smart <span className="text-blue-400">Multi-LLM bots</span> to training <span className="text-amber-400">Deep Learning</span> models, I focus on architecting scalable solutions that solve real-world problems.
+  Hi, I'm <span className="text-white font-semibold">AKBAR</span>, a Software Engineer focused on <span className="text-purple-400">AI Integration</span> and <span className="text-amber-400">Cloud Architecture</span>. 
+  I build complete digital ecosystems from the ground up and take them all the way to production. 
+  Whether it is designing intelligent <span className="text-blue-400">Multi-LLM backends</span>, automating CI/CD pipelines, or containerizing services on <span className="text-orange-400">AWS EC2</span>, I bridge the gap between solid code and reliable infrastructure to deliver scalable, real-world solutions.
 </p>
 
         <div className="grid grid-cols-2 md:flex md:flex-row gap-3 md:gap-4 w-full md:w-fit">
@@ -270,7 +272,7 @@ export default function Portfolio() {
             View Projects 
             <ArrowRight size={18} className="rotate-90 md:rotate-0 transition-transform duration-300 group-hover:translate-y-1 md:group-hover:translate-y-0 md:group-hover:translate-x-1" />
           </a>
-          <a 
+          <a
             href="/CV_Noveanto-Nur-Akbar.pdf" 
             target="_blank" 
             className="col-span-2 md:col-span-1 flex items-center justify-center gap-2 px-7 py-3 bg-slate-800 hover:bg-slate-700 text-white font-semibold rounded-full border border-slate-700 transition-all"
@@ -476,32 +478,41 @@ export default function Portfolio() {
               <div className="mb-4 flex flex-wrap gap-2">
                 <div className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-blue-500/10 border border-blue-500/20 backdrop-blur-md">
                   <Bot size={12} className="text-blue-400" />
-                  <span className="text-[10px] font-bold text-blue-400 uppercase tracking-wider">AI Telegram Bot</span>
+                  <span className="text-[10px] font-bold text-blue-400 uppercase tracking-wider">Quad-LLM AI</span>
                 </div>
                 <div className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-teal-500/10 border border-teal-500/20 backdrop-blur-md">
                   <Smartphone size={12} className="text-teal-400" />
-                  <span className="text-[10px] font-bold text-teal-400 uppercase tracking-wider">Flutter App</span>
+                  <span className="text-[10px] font-bold text-teal-400 uppercase tracking-wider">Flutter</span>
                 </div>
-                <div className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-emerald-500/10 border border-emerald-500/20 backdrop-blur-md">
-                  <Database size={12} className="text-emerald-400" />
-                  <span className="text-[10px] font-bold text-emerald-400 uppercase tracking-wider">Node.js Backend</span>
+                {/* Badge Cloud/DevOps Baru */}
+                <div className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-orange-500/10 border border-orange-500/20 backdrop-blur-md">
+                  <Cloud size={12} className="text-orange-400" />
+                  <span className="text-[10px] font-bold text-orange-400 uppercase tracking-wider">AWS EC2 & Docker</span>
                 </div>
               </div>
 
-              <h3 className="text-2xl md:text-3xl font-bold text-white mb-3">Bandha: AI Expense Tracker Ecosystem</h3>
+              <h3 className="text-2xl md:text-3xl font-bold text-white mb-3">Bandha: AI Tracker & Cloud Ecosystem</h3>
 
               <p className="text-slate-300 text-sm leading-relaxed mb-6">
-                A unified financial tracking ecosystem powered by a cost-optimized <span className="font-bold text-blue-400">Quad-LLM Architecture</span>. 
-                <strong> Groq Whisper V3</strong> seamlessly transcribes voice notes, <strong>Gemini 2.5 Flash</strong> handles Smart OCR for instant receipt extraction, 
-                and <strong>Llama 3.3 70B</strong> processes casual text into structured records. 
-                For deep insights, <strong>GPT OSS 120B</strong> drives the AI Chatbot and generates 
-                contextual financial analytics directly on the dashboard.
-              </p>
+  A unified financial tracking ecosystem powered by a cost-optimized <span className="font-bold text-blue-400">Quad-LLM Architecture</span>. 
+  Recently migrated to a <strong>production-grade infrastructure on AWS EC2</strong>, utilizing <strong>Docker</strong> containerization, Nginx reverse proxy, and fully automated CI/CD pipelines via GitHub Actions. 
+  The AI engine integrates Gemini 2.5 Flash for OCR, Groq Whisper for audio transcription, and Llama 3.3 for NLP extraction.
+</p>
 
-              {/* --- ACTION BUTTONS (2x2 SYMMETRICAL GRID) --- */}
+              {/* --- ACTION BUTTONS (GRID) --- */}
               <div className="grid grid-cols-2 gap-2 md:gap-3 w-full">
                 
-                {/* 1. LIVE DEMO */}
+                {/* 1. DEVOPS PLAYBOOK (NEW - WIDEST SPAN UNTUK HIGHLIGHT) */}
+                <a 
+                  href="https://gist.github.com/nopeakbar/21f581ce84af2fa1d7fd0c1c67a73a15" 
+                  target="_blank" 
+                  rel="noopener noreferrer" 
+                  className="col-span-2 flex items-center justify-center gap-2 text-[11px] md:text-xs text-orange-400 font-bold hover:text-orange-300 transition-all bg-orange-900/20 px-3 py-2.5 rounded-full border border-orange-500/40 hover:bg-orange-900/40 shadow-[0_0_15px_rgba(249,115,22,0.15)] group"
+                >
+                  <Server size={14} className="group-hover:animate-pulse" /> Read DevOps & CI/CD Playbook <ExternalLink size={12} />
+                </a>
+
+                {/* 2. LIVE DEMO */}
                 <a 
                   href="https://nopeakbar-bandha-live-demo.vercel.app/" 
                   target="_blank" 
