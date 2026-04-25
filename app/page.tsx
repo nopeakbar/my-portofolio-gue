@@ -98,8 +98,37 @@ export default function Portfolio() {
     { title: "Google Sheets Sync", desc: "Data terstruktur langsung masuk ke spreadsheet secara realtime.", src: "/bot/bot3.mp4" },
   ];
 
+
   const nextBotDoc = () => setCurrentBotDocIndex((prev) => (prev === botDocs.length - 1 ? 0 : prev + 1));
   const prevBotDoc = () => setCurrentBotDocIndex((prev) => (prev === 0 ? botDocs.length - 1 : prev - 1));
+
+  const [currentCloudIndex, setCurrentCloudIndex] = useState(0);
+  const [isCloudModalOpen, setIsCloudModalOpen] = useState(false);
+
+  const cloudDocs = [
+    { 
+      title: "Cloud Architecture Diagram", 
+      desc: "End-to-end infrastructure deployed on AWS EC2 (provisioned via Terraform), utilizing Docker, Nginx, and automated via GitHub Actions.", 
+      src: "/bot/aws-architecture.png" 
+    },
+    { 
+      title: "Production Server Live Status", 
+      desc: "Terminal monitoring showing active Nginx proxy, stable Docker container, and heavily optimized RAM footprint on t3.micro.", 
+      src: "/bot/aws-terminal.png" 
+    },
+    { 
+      title: "CI/CD Automated Pipeline", 
+      desc: "Zero-downtime deployment pipeline triggered on branch merge, successfully built and pushed via GitHub Actions.", 
+      src: "/bot/aws-actions.png" 
+    },
+    { 
+      title: "CloudWatch Observability", 
+      desc: "Live instance monitoring via AWS CloudWatch, ensuring optimal CPU utilization and network health for the Quad-LLM engine.", 
+      src: "/bot/aws-cloudwatch.png" 
+    }
+  ];
+  const nextCloudDoc = () => setCurrentCloudIndex((prev) => (prev === cloudDocs.length - 1 ? 0 : prev + 1));
+  const prevCloudDoc = () => setCurrentCloudIndex((prev) => (prev === 0 ? cloudDocs.length - 1 : prev - 1));
   const [currentCoffeecomIndex, setCurrentCoffeecomIndex] = useState(0);
   const coffeecomDocs = [
     { 
@@ -411,25 +440,33 @@ export default function Portfolio() {
                 </div>
               </div>
 
-              <h3 className="text-2xl md:text-3xl font-bold text-white mb-3">Bandha: AI Tracker & Cloud Ecosystem</h3>
+              <h3 className="text-2xl md:text-3xl font-bold text-white mb-3">Bandha: AI Tracker & Cloud Ecosystem (AWS EC2)</h3>
 
               <p className="text-slate-300 text-sm leading-relaxed mb-6">
-  A unified financial tracking ecosystem powered by a cost-optimized <span className="font-bold text-blue-400">Quad-LLM Architecture</span>. 
+  A unified financial tracking ecosystem powered by a <span className="font-bold text-blue-400">Quad-LLM Architecture</span>. 
   Recently migrated to a <strong>production-grade infrastructure on AWS EC2</strong>, utilizing <strong>Docker</strong> containerization, Nginx reverse proxy, and fully automated CI/CD pipelines via GitHub Actions. 
-  The AI engine integrates Gemini 2.5 Flash for OCR, Groq Whisper for audio transcription, and Llama 3.3 for NLP extraction.
+  Engineered for extreme cost-efficiency, the AI engine seamlessly integrates Gemini 2.5 Flash, GPT Whisper v3, Llama 3.3, and GPT OSS 120b while running smoothly on a t3.micro instance with a minimal memory footprint.
 </p>
 
               {/* --- ACTION BUTTONS (GRID) --- */}
               <div className="grid grid-cols-2 gap-2 md:gap-3 w-full">
                 
-                {/* 1. DEVOPS PLAYBOOK (NEW - WIDEST SPAN UNTUK HIGHLIGHT) */}
+                {/* 1. DEVOPS ARCHITECTURE BUTTON (TRIGGER MODAL LEBAR) */}
+                <button 
+                  onClick={() => setIsCloudModalOpen(true)}
+                  className="col-span-2 flex items-center justify-center gap-2 text-[11px] md:text-xs text-orange-400 font-bold hover:text-orange-300 transition-all bg-orange-900/20 px-3 py-2.5 rounded-full border border-orange-500/40 hover:bg-orange-900/40 shadow-[0_0_15px_rgba(249,115,22,0.15)] group"
+                >
+                  <Server size={14} className="group-hover:animate-pulse" /> View Cloud Architecture & CI/CD
+                </button>
+
+                {/* 1.5 DEPLOYMENT PLAYBOOK */}
                 <a 
                   href="https://gist.github.com/nopeakbar/21f581ce84af2fa1d7fd0c1c67a73a15" 
                   target="_blank" 
                   rel="noopener noreferrer" 
-                  className="col-span-2 flex items-center justify-center gap-2 text-[11px] md:text-xs text-orange-400 font-bold hover:text-orange-300 transition-all bg-orange-900/20 px-3 py-2.5 rounded-full border border-orange-500/40 hover:bg-orange-900/40 shadow-[0_0_15px_rgba(249,115,22,0.15)] group"
+                  className="col-span-2 flex items-center justify-center gap-2 text-[11px] md:text-xs text-slate-300 font-bold hover:text-white transition-all bg-slate-800 px-3 py-2.5 rounded-full border border-slate-700 hover:bg-slate-700 group"
                 >
-                  <Server size={14} className="group-hover:animate-pulse" /> Read DevOps & CI/CD Playbook <ExternalLink size={12} />
+                  <FileText size={14} /> Read Deployment Playbook <ExternalLink size={12} />
                 </a>
 
                 {/* 2. LIVE DEMO */}
@@ -1371,7 +1408,50 @@ export default function Portfolio() {
           </div>
         </div>
       )}
+      {/* --- POPUP MODAL CLOUD & DEVOPS (LEBAR / LANDSCAPE) --- */}
+      {isCloudModalOpen && (
+        <div className="fixed inset-0 z-[100] bg-slate-950/90 backdrop-blur-md flex flex-col items-center justify-center p-4 animate-in fade-in duration-300">
+          <button
+            onClick={() => setIsCloudModalOpen(false)}
+            className="absolute top-6 right-6 p-2 bg-slate-800 rounded-full text-slate-400 hover:text-white hover:bg-red-500/20 transition-all"
+          >
+            <X size={24} />
+          </button>
 
+          <h3 className="text-white font-bold text-xl mb-6 flex items-center gap-2">
+            <Cloud className="text-orange-400" /> Infrastructure Showcase
+          </h3>
+
+          <div className="relative w-[90vw] max-w-4xl aspect-video bg-slate-950 rounded-2xl border border-slate-700 shadow-[0_0_50px_rgba(249,115,22,0.1)] overflow-hidden">
+            <div key={currentCloudIndex} className="w-full h-full relative animate-in fade-in zoom-in duration-300">
+              <img
+                src={cloudDocs[currentCloudIndex].src}
+                alt={cloudDocs[currentCloudIndex].title}
+                className="w-full h-full object-contain bg-slate-900" 
+              />
+              
+              <div className="absolute inset-0 bg-gradient-to-t from-black/90 via-black/10 to-transparent pointer-events-none"></div>
+              <div className="absolute bottom-8 left-0 w-full text-center px-8">
+                <p className="text-white font-bold text-xl mb-2">{cloudDocs[currentCloudIndex].title}</p>
+                <p className="text-slate-300 text-sm text-balance mx-auto">{cloudDocs[currentCloudIndex].desc}</p>
+              </div>
+            </div>
+
+            <button onClick={prevCloudDoc} className="absolute left-4 top-1/2 -translate-y-1/2 p-3 bg-black/50 backdrop-blur-md rounded-full text-white hover:bg-orange-500 transition-colors">
+              <ChevronLeft size={24} />
+            </button>
+            <button onClick={nextCloudDoc} className="absolute right-4 top-1/2 -translate-y-1/2 p-3 bg-black/50 backdrop-blur-md rounded-full text-white hover:bg-orange-500 transition-colors">
+              <ChevronRight size={24} />
+            </button>
+          </div>
+
+          <div className="flex items-center gap-2 mt-6">
+            {cloudDocs.map((_, idx) => (
+              <div key={idx} className={`h-2 rounded-full transition-all ${idx === currentCloudIndex ? "w-8 bg-orange-500" : "w-2 bg-slate-700"}`} />
+            ))}
+          </div>
+        </div>
+      )}
     </main>
   );
 }
