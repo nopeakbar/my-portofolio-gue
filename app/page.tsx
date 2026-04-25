@@ -415,7 +415,7 @@ export default function Portfolio() {
                 muted 
                 playsInline 
                 className="w-full h-full object-cover"
-                src="/thumbnail/thumb-bot.mp4" 
+                src="/thumbnail/thumb-bot-aws.mp4" 
               />
             </div>
             <div className="absolute inset-0 bg-gradient-to-r from-slate-950 via-slate-950/80 to-blue-900/30 z-10" />
