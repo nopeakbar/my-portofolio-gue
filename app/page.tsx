@@ -491,7 +491,7 @@ export default function Portfolio() {
 
                 {/* 3. BACKEND REPO */}
                 <a 
-                  href="https://github.com/nopeakbar/v2-expense-tracker.git" 
+                  href="https://github.com/nopeakbar/aws-personal-expese.git" 
                   target="_blank" 
                   className="flex items-center justify-center gap-2 text-[11px] md:text-xs text-blue-400 font-bold hover:text-blue-300 transition-all bg-blue-900/20 px-3 py-2.5 rounded-full border border-blue-500/30 hover:bg-blue-900/40"
                 >
