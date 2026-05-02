@@ -65,6 +65,7 @@ export default function Portfolio() {
   ];
 
   const [currentMalioboroIndex, setCurrentMalioboroIndex] = useState(0);
+  const [isMalioboroModalOpen, setIsMalioboroModalOpen] = useState(false);
   const malioboroDocs = [
     { title: "Landing Page", desc: "Visualisasi utama dan judul proyek", src: "/thumbnail/malioboro/hero.jpeg" },
     { title: "Latar Belakang", desc: "UI Section penjelasan urgensi digitalisasi", src: "/thumbnail/malioboro/about.jpeg" },
@@ -98,7 +99,6 @@ export default function Portfolio() {
     { title: "Google Sheets Sync", desc: "Data terstruktur langsung masuk ke spreadsheet secara realtime.", src: "/bot/bot3.mp4" },
   ];
 
-
   const nextBotDoc = () => setCurrentBotDocIndex((prev) => (prev === botDocs.length - 1 ? 0 : prev + 1));
   const prevBotDoc = () => setCurrentBotDocIndex((prev) => (prev === 0 ? botDocs.length - 1 : prev - 1));
 
@@ -129,7 +129,9 @@ export default function Portfolio() {
   ];
   const nextCloudDoc = () => setCurrentCloudIndex((prev) => (prev === cloudDocs.length - 1 ? 0 : prev + 1));
   const prevCloudDoc = () => setCurrentCloudIndex((prev) => (prev === 0 ? cloudDocs.length - 1 : prev - 1));
+  
   const [currentCoffeecomIndex, setCurrentCoffeecomIndex] = useState(0);
+  const [isCoffeecomModalOpen, setIsCoffeecomModalOpen] = useState(false);
   const coffeecomDocs = [
     { 
       title: "Step-by-Step Review", 
@@ -145,7 +147,6 @@ export default function Portfolio() {
 
   const nextCoffeecom = () => setCurrentCoffeecomIndex((prev) => (prev === coffeecomDocs.length - 1 ? 0 : prev + 1));
   const prevCoffeecom = () => setCurrentCoffeecomIndex((prev) => (prev === 0 ? coffeecomDocs.length - 1 : prev - 1));
-
 
   // ==========================================
   // 2. CONFIG: SLIDER ON REPEAT
@@ -402,12 +403,10 @@ export default function Portfolio() {
           <h2 className="text-3xl font-bold text-white">Featured Projects</h2>
         </div>
 
-        {/* MENGGUNAKAN minmax AGAR TINGGI BISA MENYESUAIKAN KONTEN BILA LEBIH DARI 350px */}
         <div className="grid grid-cols-1 md:grid-cols-2 gap-6 auto-rows-[minmax(350px,auto)] md:auto-rows-[minmax(400px,auto)]">
 
           {/* 1.5. BANDHA: QUAD-LLM EXPENSE TRACKER */}
           <div className="md:col-span-2 relative group overflow-hidden rounded-3xl bg-slate-900 border border-slate-800 hover:border-blue-500/50 transition-all duration-300 flex flex-col md:flex-row">
-            {/* BACKGROUND VIDEO/IMAGE */}
             <div className="absolute inset-0 group-hover:scale-105 transition-transform duration-700 overflow-hidden opacity-60">
               <video 
                 autoPlay 
@@ -420,10 +419,7 @@ export default function Portfolio() {
             </div>
             <div className="absolute inset-0 bg-gradient-to-r from-slate-950 via-slate-950/80 to-blue-900/30 z-10" />
 
-            {/* LEFT CONTENT */}
             <div className="relative z-20 p-6 md:p-8 flex flex-col justify-center w-full md:w-1/2">
-              
-              {/* --- BADGES (DI-MAINTAIN SESUAI GAMBAR) --- */}
               <div className="mb-4 flex flex-wrap gap-2">
                 <div className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-blue-500/10 border border-blue-500/20 backdrop-blur-md">
                   <Bot size={12} className="text-blue-400" />
@@ -433,7 +429,6 @@ export default function Portfolio() {
                   <Smartphone size={12} className="text-teal-400" />
                   <span className="text-[10px] font-bold text-teal-400 uppercase tracking-wider">Flutter</span>
                 </div>
-                {/* Badge Cloud/DevOps Baru */}
                 <div className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-orange-500/10 border border-orange-500/20 backdrop-blur-md">
                   <Cloud size={12} className="text-orange-400" />
                   <span className="text-[10px] font-bold text-orange-400 uppercase tracking-wider">AWS EC2 & Docker</span>
@@ -443,15 +438,13 @@ export default function Portfolio() {
               <h3 className="text-2xl md:text-3xl font-bold text-white mb-3">Bandha: AI Tracker & Cloud Ecosystem (AWS EC2)</h3>
 
               <p className="text-slate-300 text-sm leading-relaxed mb-6">
-  A unified financial tracking ecosystem powered by a <span className="font-bold text-blue-400">Quad-LLM Architecture</span>. 
-  Recently migrated to a <strong>production-grade infrastructure on AWS EC2</strong>, utilizing <strong>Docker</strong> containerization, Nginx reverse proxy, and fully automated CI/CD pipelines via GitHub Actions. 
-  Engineered for extreme cost-efficiency, the AI engine seamlessly integrates Gemini 2.5 Flash, GPT Whisper v3, Llama 3.3, and GPT OSS 120b while running smoothly on a t3.micro instance with a minimal memory footprint.
-</p>
+                A unified financial tracking ecosystem powered by a <span className="font-bold text-blue-400">Quad-LLM Architecture</span>. 
+                Recently migrated to a <strong>production-grade infrastructure on AWS EC2</strong>, utilizing <strong>Docker</strong> containerization, Nginx reverse proxy, and fully automated CI/CD pipelines via GitHub Actions. 
+                Engineered for extreme cost-efficiency, the AI engine seamlessly integrates Gemini 2.5 Flash, GPT Whisper v3, Llama 3.3, and GPT OSS 120b while running smoothly on a t3.micro instance with a minimal memory footprint.
+              </p>
 
               {/* --- ACTION BUTTONS (FLEX & GRID HYBRID) --- */}
               <div className="flex flex-col gap-3 md:gap-4 w-full mt-2">
-                
-                {/* 1. DEVOPS ARCHITECTURE BUTTON (TRIGGER MODAL LEBAR) */}
                 <button 
                   onClick={() => setIsCloudModalOpen(true)}
                   className="w-full flex items-center justify-center gap-2 text-[11px] md:text-xs text-orange-400 font-bold hover:text-orange-300 transition-all bg-orange-900/20 px-3 py-2.5 md:py-3 rounded-full border border-orange-500/40 hover:bg-orange-900/40 shadow-[0_0_15px_rgba(249,115,22,0.15)] group"
@@ -459,7 +452,6 @@ export default function Portfolio() {
                   <Server size={14} className="group-hover:animate-pulse" /> View Cloud Architecture & CI/CD
                 </button>
 
-                {/* 1.5 DEPLOYMENT PLAYBOOK */}
                 <a 
                   href="https://gist.github.com/nopeakbar/21f581ce84af2fa1d7fd0c1c67a73a15" 
                   target="_blank" 
@@ -469,9 +461,7 @@ export default function Portfolio() {
                   <FileText size={14} /> Read Deployment Playbook <ExternalLink size={12} />
                 </a>
 
-                {/* --- GRID UNTUK 4 TOMBOL SEKUNDER --- */}
                 <div className="grid grid-cols-2 gap-3 w-full">
-                  {/* 2. LIVE DEMO */}
                   <a 
                     href="https://nopeakbar-bandha-live-demo.vercel.app/" 
                     target="_blank" 
@@ -481,7 +471,6 @@ export default function Portfolio() {
                     <Activity size={14} className="animate-pulse" /> Live Demo <ExternalLink size={12} />
                   </a>
 
-                  {/* 2. LIVE SPREADSHEET */}
                   <a 
                     href="https://docs.google.com/spreadsheets/d/18Pr2GU7l6girMxnfKjiAvepZDK4yez-gb89RokttERs/edit?usp=sharing" 
                     target="_blank" 
@@ -491,7 +480,6 @@ export default function Portfolio() {
                     <Database size={14} /> Live Sheets <ExternalLink size={12} />
                   </a>
 
-                  {/* 3. BACKEND REPO */}
                   <a 
                     href="https://github.com/nopeakbar/aws-personal-expese.git" 
                     target="_blank" 
@@ -500,7 +488,6 @@ export default function Portfolio() {
                     <Github size={14} /> Backend & Bot
                   </a>
                   
-                  {/* 4. FLUTTER REPO */}
                   <a 
                     href="https://github.com/nopeakbar/aplikasi-integrasi-expense-tracker.git" 
                     target="_blank" 
@@ -510,7 +497,6 @@ export default function Portfolio() {
                   </a>
                 </div>
 
-                {/* Mobile Gallery Trigger (Full Width on Bottom) */}
                 <button
                   onClick={() => setIsBotModalOpen(true)}
                   className="md:hidden w-full mt-1 flex items-center justify-center gap-2 text-[11px] text-slate-200 font-bold bg-slate-800 px-4 py-3 rounded-full border border-slate-700"
@@ -520,9 +506,6 @@ export default function Portfolio() {
               </div>
             </div>
 
-            {/* RIGHT CONTENT: CAROUSEL SLIDER */}
-
-            {/* RIGHT CONTENT: CAROUSEL SLIDER */}
             <div className="hidden md:flex relative z-20 w-full md:w-1/2 p-6 flex-col items-center justify-center bg-black/20 border-l border-white/5">
               <div className="relative w-[180px] md:w-[200px] aspect-[9/16] bg-slate-950 rounded-2xl border-4 border-slate-800 shadow-2xl overflow-hidden group/slider">
                 <div key={currentBotDocIndex} className="w-full h-full relative animate-in fade-in duration-500">
@@ -558,13 +541,11 @@ export default function Portfolio() {
             </div>
           </div>
 
-          {/* 0. THESIS: NVIDIA STOCK PREDICTION (FULL WIDTH -> col-span-2) */}
+          {/* 0. THESIS: NVIDIA STOCK PREDICTION */}
           <div className="md:col-span-2 relative group overflow-hidden rounded-3xl bg-slate-950 border border-slate-800 hover:border-indigo-500/50 transition-all duration-300 flex flex-col md:flex-row">
             
-            {/* BACKGROUND DECORATION (Warna Solid Gradien) */}
             <div className="absolute inset-0 bg-gradient-to-r from-slate-950 via-slate-950/90 to-indigo-950/30 z-0" />
 
-            {/* KONTEN KIRI: DESKRIPSI (Sekitar 60% di Desktop) */}
             <div className="relative z-20 p-6 md:p-8 flex flex-col justify-center w-full md:w-3/5">
               <div className="mb-4 flex flex-wrap gap-2">
                 <div className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-indigo-500/10 border border-indigo-500/20 backdrop-blur-md">
@@ -594,11 +575,9 @@ export default function Portfolio() {
               </div>
             </div>
 
-            {/* DEKORASI KANAN: GAMBAR GRAFIK DENGAN ALPHA MASK FADE (DIJAMIN MULUs) */}
             <div 
               className="hidden md:block absolute top-0 right-0 w-[55%] h-full z-10 pointer-events-none translate-x-[45px]"
               style={{
-                // Ini kuncinya: mask bikin kiri transparan (0%) lalu pelan-pelan solid (hitam) di 40% ke kanan
                 WebkitMaskImage: 'linear-gradient(to right, transparent 0%, black 40%)',
                 maskImage: 'linear-gradient(to right, transparent 0%, black 40%)'
               }}
@@ -612,7 +591,7 @@ export default function Portfolio() {
             
           </div>
 
-          {/* 1. ISBN (FULL WIDTH -> col-span-2) */}
+          {/* 1. ISBN */}
           <div className="md:col-span-2 relative group overflow-hidden rounded-3xl bg-slate-900 border border-slate-800 hover:border-cyan-500/50 transition-all duration-300">
             <div className="absolute inset-0 bg-slate-800 group-hover:scale-105 transition-transform duration-700 bg-[url('/thumbnail/thumb-isbn.png')] bg-cover bg-center opacity-50" />
             <div className="absolute inset-0 bg-gradient-to-t from-slate-950 via-slate-950/20 to-transparent" />
@@ -637,13 +616,9 @@ export default function Portfolio() {
             </div>
           </div>
 
-
-          
-
-          {/* 2.5. 3D WEB GIS MALIOBORO (FULL WIDTH -> col-span-2 + Split Layout) */}
+          {/* 2.5. 3D WEB GIS MALIOBORO */}
           <div className="md:col-span-2 relative group overflow-hidden rounded-3xl bg-slate-900 border border-slate-800 hover:border-orange-500/50 transition-all duration-300 flex flex-col md:flex-row">
             
-           {/* KIRI: DESKRIPSI (50%) */}
             <div className="relative z-20 p-6 md:p-8 flex flex-col justify-center w-full md:w-1/2">
               <div className="mb-4 flex flex-wrap gap-2">
                 <div className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-orange-500/10 border border-orange-500/20 backdrop-blur-md">
@@ -664,11 +639,16 @@ export default function Portfolio() {
                 <a href="https://github.com/nopeakbar/fatma-malioboro.git" target="_blank" rel="noopener noreferrer" className="p-2.5 bg-slate-800 text-slate-300 rounded-full hover:bg-slate-700 transition-all border border-slate-700">
                   <Github size={20} />
                 </a>
+                <button
+                  onClick={() => setIsMalioboroModalOpen(true)}
+                  className="md:hidden flex items-center gap-2 text-sm text-slate-200 font-bold bg-slate-800 px-5 py-2.5 rounded-full border border-slate-700 hover:bg-slate-700 transition-colors"
+                >
+                  <Eye size={14} /> View Gallery
+                </button>
               </div>
             </div>
 
-            {/* KANAN: SLIDER PREVIEW */}
-            <div className="relative z-20 w-full md:w-1/2 p-6 flex flex-col items-center justify-center bg-black/20 border-t md:border-t-0 md:border-l border-white/5">
+            <div className="hidden md:flex relative z-20 w-full md:w-1/2 p-6 flex-col items-center justify-center bg-black/20 border-l border-white/5">
               <div className="relative w-full aspect-video bg-slate-950 rounded-xl border-4 border-slate-800 shadow-2xl overflow-hidden group/slider">
                 <div key={currentMalioboroIndex} className="w-full h-full relative animate-in fade-in duration-500">
                   <img 
@@ -683,12 +663,10 @@ export default function Portfolio() {
                   </div>
                 </div>
 
-                {/* Navigation Buttons */}
                 <button onClick={prevMalioboro} className="absolute left-2 top-1/2 -translate-y-1/2 bg-black/50 hover:bg-orange-500 text-white p-1.5 rounded-full backdrop-blur-sm transition-all opacity-0 group-hover/slider:opacity-100"><ChevronLeft size={16} /></button>
                 <button onClick={nextMalioboro} className="absolute right-2 top-1/2 -translate-y-1/2 bg-black/50 hover:bg-orange-500 text-white p-1.5 rounded-full backdrop-blur-sm transition-all opacity-0 group-hover/slider:opacity-100"><ChevronRight size={16} /></button>
               </div>
 
-              {/* Dots Indicator */}
               <div className="flex gap-2 mt-4">
                 {malioboroDocs.map((_, idx) => (
                   <div key={idx} className={`h-1.5 rounded-full transition-all duration-300 ${idx === currentMalioboroIndex ? "w-6 bg-orange-500" : "w-1.5 bg-slate-700"}`} />
@@ -697,14 +675,12 @@ export default function Portfolio() {
             </div>
           </div>
 
-          {/* 2.7. COFFEECOM (FULL WIDTH -> col-span-2 + Split Layout) */}
+          {/* 2.7. COFFEECOM */}
           <div className="md:col-span-2 relative group overflow-hidden rounded-3xl bg-slate-900 border border-slate-800 hover:border-orange-500/50 transition-all duration-300 flex flex-col md:flex-row">
             
-            {/* BACKGROUND DECORATION */}
             <div className="absolute inset-0 bg-slate-900 group-hover:scale-105 transition-transform duration-700 bg-[url('/thumbnail/thumb-coffee-bg.jpg')] bg-cover bg-center opacity-20" />
             <div className="absolute inset-0 bg-gradient-to-r from-slate-950 via-slate-950/90 to-orange-900/10 z-10" />
 
-            {/* KONTEN KIRI: DESKRIPSI (50%) */}
             <div className="relative z-20 p-6 md:p-8 flex flex-col justify-center w-full md:w-1/2">
               <div className="mb-4 flex flex-wrap gap-2">
                 <div className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-orange-500/10 border border-orange-500/20 backdrop-blur-md">
@@ -729,11 +705,16 @@ export default function Portfolio() {
                 <a href="https://github.com/nopeakbar/coffeecom" target="_blank" className="flex items-center gap-2 text-sm text-orange-400 font-bold hover:text-orange-300 transition-colors bg-orange-900/20 px-5 py-2.5 rounded-full border border-orange-500/30">
                   <Github size={14} /> Source Code
                 </a>
+                <button
+                  onClick={() => setIsCoffeecomModalOpen(true)}
+                  className="md:hidden flex items-center gap-2 text-sm text-slate-200 font-bold bg-slate-800 px-5 py-2.5 rounded-full border border-slate-700 hover:bg-slate-700 transition-colors"
+                >
+                  <Eye size={14} /> View Gallery
+                </button>
               </div>
             </div>
 
-            {/* KONTEN KANAN: 2 PATH SLIDER (HP FRAME) */}
-            <div className="relative z-20 w-full md:w-1/2 p-6 flex flex-col items-center justify-center bg-black/20 border-t md:border-t-0 md:border-l border-white/5">
+            <div className="hidden md:flex relative z-20 w-full md:w-1/2 p-6 flex-col items-center justify-center bg-black/20 border-l border-white/5">
               
               <div className="relative w-[180px] md:w-[200px] aspect-[9/16] bg-slate-950 rounded-2xl border-4 border-slate-800 shadow-2xl overflow-hidden group/slider">
                 
@@ -769,7 +750,6 @@ export default function Portfolio() {
                 </button>
               </div>
 
-              {/* Dots Indikator */}
               <div className="flex gap-2 mt-4">
                 {coffeecomDocs.map((_, idx) => (
                   <div key={idx} className={`h-1.5 rounded-full transition-all duration-300 ${idx === currentCoffeecomIndex ? "w-6 bg-orange-500" : "w-1.5 bg-slate-700"}`} />
@@ -778,14 +758,12 @@ export default function Portfolio() {
             </div>
           </div>
 
-          {/* 2. SEPOTIFI (FULL WIDTH -> col-span-2 + Split Layout) - MODIFIED FOR MOBILE */}
+          {/* 2. SEPOTIFI */}
           <div className="md:col-span-2 relative group overflow-hidden rounded-3xl bg-slate-900 border border-slate-800 hover:border-green-500/50 transition-all duration-300 flex flex-col md:flex-row">
 
-            {/* BACKGROUND DECORATION */}
             <div className="absolute inset-0 bg-slate-900 group-hover:scale-105 transition-transform duration-700 bg-[url('/thumbnail/thumb-spotify.jpg')] bg-cover bg-center opacity-80" />
             <div className="absolute inset-0 bg-gradient-to-r from-slate-950 via-slate-950/90 to-green-900/10 z-10" />
 
-            {/* KONTEN KIRI: DESKRIPSI (50%) */}
             <div className="relative z-20 p-6 md:p-8 flex flex-col justify-center w-full md:w-1/2">
 
               <div className="mb-4">
@@ -812,7 +790,6 @@ export default function Portfolio() {
                   Try Demo <ExternalLink size={14} />
                 </a>
 
-                {/* --- TOMBOL KHUSUS MOBILE (TRIGGER POPUP) --- */}
                 <button
                   onClick={() => setIsModalOpen(true)}
                   className="md:hidden flex items-center gap-2 text-sm text-slate-200 font-bold bg-slate-800 px-5 py-2.5 rounded-full border border-slate-700 hover:bg-slate-700 transition-colors"
@@ -822,30 +799,24 @@ export default function Portfolio() {
               </div>
             </div>
 
-            {/* KONTEN KANAN: CAROUSEL / SLIDER (HANYA MUNCUL DI DESKTOP) */}
-            <div className="hidden md:flex relative z-20 w-full md:w-1/2 p-6 flex-col items-center justify-center bg-black/20 border-t md:border-t-0 md:border-l border-white/5">
+            <div className="hidden md:flex relative z-20 w-full md:w-1/2 p-6 flex-col items-center justify-center bg-black/20 border-l border-white/5">
 
-              {/* FRAME HP (DESKTOP) */}
               <div className="relative w-[180px] md:w-[200px] aspect-[9/16] bg-slate-950 rounded-2xl border-4 border-slate-800 shadow-2xl overflow-hidden group/slider">
 
-                {/* GAMBAR (ANIMATED) */}
                 <div key={currentDocIndex} className="w-full h-full relative animate-in fade-in duration-500">
                   <img
                     src={sepotifiDocs[currentDocIndex].src}
                     alt={sepotifiDocs[currentDocIndex].title}
                     className="w-full h-full object-cover"
                   />
-                  {/* Overlay Gradient bawah */}
                   <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-transparent to-transparent"></div>
 
-                  {/* Caption di dalam HP */}
                   <div className="absolute bottom-4 left-0 w-full text-center px-2">
                     <p className="text-white font-bold text-sm">{sepotifiDocs[currentDocIndex].title}</p>
                     <p className="text-slate-400 text-[10px]">{sepotifiDocs[currentDocIndex].desc}</p>
                   </div>
                 </div>
 
-                {/* BUTTON PREV (Floating) */}
                 <button
                   onClick={prevDoc}
                   className="absolute left-2 top-1/2 -translate-y-1/2 bg-black/50 hover:bg-green-500 text-white p-1.5 rounded-full backdrop-blur-sm transition-all opacity-0 group-hover/slider:opacity-100 translate-x-2 group-hover/slider:translate-x-0"
@@ -853,7 +824,6 @@ export default function Portfolio() {
                   <ChevronLeft size={16} />
                 </button>
 
-                {/* BUTTON NEXT (Floating) */}
                 <button
                   onClick={nextDoc}
                   className="absolute right-2 top-1/2 -translate-y-1/2 bg-black/50 hover:bg-green-500 text-white p-1.5 rounded-full backdrop-blur-sm transition-all opacity-0 group-hover/slider:opacity-100 -translate-x-2 group-hover/slider:translate-x-0"
@@ -862,7 +832,6 @@ export default function Portfolio() {
                 </button>
               </div>
 
-              {/* Indikator Dots */}
               <div className="flex gap-2 mt-4">
                 {sepotifiDocs.map((_, idx) => (
                   <div
@@ -874,7 +843,7 @@ export default function Portfolio() {
             </div>
           </div>
 
-          {/* 3. NONTON NYANTAI (1 Col) */}
+          {/* 3. NONTON NYANTAI */}
           <div className="md:col-span-1 relative group overflow-hidden rounded-3xl bg-slate-900 border border-slate-800 hover:border-purple-500/50 transition-all duration-300">
             <div className="absolute inset-0 bg-slate-900 group-hover:scale-105 transition-transform duration-700 bg-[url('/thumbnail/thumb-nonton-nyantai.png')] bg-cover bg-center opacity-40" />
             <div className="absolute inset-0 bg-gradient-to-t from-slate-950 via-purple-900/40 to-transparent z-10" />
@@ -895,7 +864,7 @@ export default function Portfolio() {
             </div>
           </div>
 
-          {/* 4. BOOK EXCHANGE (1 Col) */}
+          {/* 4. BOOK EXCHANGE */}
           <div className="md:col-span-1 relative group overflow-hidden rounded-3xl bg-slate-900 border border-slate-800 hover:border-orange-500/50 transition-all duration-300">
             <div className="absolute inset-0 bg-slate-900 group-hover:scale-105 transition-transform duration-700 bg-[url('/thumbnail/thumb-book-exchange.png')] bg-cover bg-center opacity-40" />
             <div className="absolute inset-0 bg-gradient-to-tr from-orange-900/30 to-slate-950 z-10" />
@@ -911,7 +880,7 @@ export default function Portfolio() {
             </div>
           </div>
 
-          {/* 5. AUDIO TRANSCRIBE (1 Col) */}
+          {/* 5. AUDIO TRANSCRIBE */}
           <div className="md:col-span-1 relative group overflow-hidden rounded-3xl bg-slate-900 border border-slate-800 hover:border-pink-500/50 transition-all duration-300">
             <div className="absolute inset-0 bg-slate-900 group-hover:scale-105 transition-transform duration-700 bg-[url('/thumbnail/thumb-audio.gif')] bg-cover bg-center opacity-40" />
             <div className="absolute inset-0 bg-gradient-to-r from-pink-900/30 to-slate-950 z-10" />
@@ -928,7 +897,7 @@ export default function Portfolio() {
             </div>
           </div>
 
-          {/* 6. AUTO CLICKER (1 Col) */}
+          {/* 6. AUTO CLICKER */}
           <div className="md:col-span-1 relative group overflow-hidden rounded-3xl bg-slate-900 border border-slate-800 hover:border-teal-500/50 transition-all duration-300">
             <div className="absolute inset-0 bg-slate-900 group-hover:scale-105 transition-transform duration-700 bg-[url('/thumbnail/thumb-colorbox.jpg')] bg-cover bg-center opacity-40" />
             <div className="absolute inset-0 bg-gradient-to-tr from-teal-900/30 to-slate-950 z-10" />
@@ -1029,7 +998,6 @@ export default function Portfolio() {
           <h2 className="text-3xl font-bold text-white">Writing & Thoughts</h2>
         </div>
 
-        {/* MENGGUNAKAN minmax */}
         <div className="grid grid-cols-1 md:grid-cols-3 gap-6 auto-rows-[minmax(350px,auto)]">
           {/* CARD 6: MEDIUM (FULL WIDTH 3 COLS biar standout) */}
           <div className="md:col-span-3 relative group overflow-hidden rounded-3xl bg-slate-900 border border-slate-800 hover:border-white/50 transition-all duration-300">
@@ -1065,7 +1033,6 @@ export default function Portfolio() {
           <h2 className="text-3xl font-bold text-white">Curated Collections</h2>
         </div>
 
-        {/* MENGGUNAKAN minmax */}
         <div className="grid grid-cols-1 md:grid-cols-3 gap-6 auto-rows-[minmax(350px,auto)]">
           {/* CARD 7: NOTION (FULL WIDTH 3 COLS) */}
           <div className="md:col-span-3 relative group overflow-hidden rounded-3xl bg-slate-900 border border-slate-800 hover:border-amber-500/50 transition-all duration-300">
@@ -1413,6 +1380,7 @@ export default function Portfolio() {
           </div>
         </div>
       )}
+
       {/* --- POPUP MODAL CLOUD & DEVOPS (LEBAR / LANDSCAPE) --- */}
       {isCloudModalOpen && (
         <div className="fixed inset-0 z-[100] bg-slate-950/90 backdrop-blur-md flex flex-col items-center justify-center p-4 animate-in fade-in duration-300">
@@ -1457,6 +1425,67 @@ export default function Portfolio() {
           </div>
         </div>
       )}
+
+      {/* --- POPUP MODAL MALIOBORO --- */}
+      {isMalioboroModalOpen && (
+        <div className="fixed inset-0 z-[100] bg-slate-950/90 backdrop-blur-md flex flex-col items-center justify-center p-4 animate-in fade-in duration-300">
+          <button onClick={() => setIsMalioboroModalOpen(false)} className="absolute top-6 right-6 p-2 bg-slate-800 rounded-full text-slate-400 hover:text-white hover:bg-red-500/20 transition-all">
+            <X size={24} />
+          </button>
+          <h3 className="text-white font-bold text-xl mb-6">Malioboro 3D Gallery</h3>
+          <div className="relative w-[90vw] max-w-4xl aspect-video bg-slate-950 rounded-2xl border border-slate-700 shadow-2xl overflow-hidden">
+            <div key={currentMalioboroIndex} className="w-full h-full relative animate-in fade-in zoom-in duration-300">
+              <img src={malioboroDocs[currentMalioboroIndex].src} alt={malioboroDocs[currentMalioboroIndex].title} className="w-full h-full object-cover" />
+              <div className="absolute inset-0 bg-gradient-to-t from-black/90 via-transparent to-transparent pointer-events-none"></div>
+              <div className="absolute bottom-4 left-0 w-full text-center px-4">
+                <p className="text-white font-bold text-lg">{malioboroDocs[currentMalioboroIndex].title}</p>
+                <p className="text-slate-300 text-xs">{malioboroDocs[currentMalioboroIndex].desc}</p>
+              </div>
+            </div>
+            <button onClick={prevMalioboro} className="absolute left-2 top-1/2 -translate-y-1/2 p-2 bg-black/50 backdrop-blur-md rounded-full text-white hover:bg-orange-500 transition-colors"><ChevronLeft size={20} /></button>
+            <button onClick={nextMalioboro} className="absolute right-2 top-1/2 -translate-y-1/2 p-2 bg-black/50 backdrop-blur-md rounded-full text-white hover:bg-orange-500 transition-colors"><ChevronRight size={20} /></button>
+          </div>
+          <div className="flex items-center gap-2 mt-4">
+            {malioboroDocs.map((_, idx) => (
+              <div key={idx} className={`h-2 rounded-full transition-all ${idx === currentMalioboroIndex ? "w-6 bg-orange-500" : "w-2 bg-slate-700"}`} />
+            ))}
+          </div>
+        </div>
+      )}
+
+      {/* --- POPUP MODAL COFFEECOM --- */}
+      {isCoffeecomModalOpen && (
+        <div className="fixed inset-0 z-[100] bg-slate-950/90 backdrop-blur-md flex flex-col items-center justify-center p-4 animate-in fade-in duration-300">
+          <button onClick={() => setIsCoffeecomModalOpen(false)} className="absolute top-6 right-6 p-2 bg-slate-800 rounded-full text-slate-400 hover:text-white hover:bg-red-500/20 transition-all">
+            <X size={24} />
+          </button>
+          <h3 className="text-white font-bold text-xl mb-6">Coffeecom Preview</h3>
+          <div className="relative w-[260px] aspect-[9/16] bg-slate-950 rounded-[2rem] border-8 border-slate-800 shadow-2xl overflow-hidden">
+            <div key={currentCoffeecomIndex} className="w-full h-full relative animate-in fade-in zoom-in duration-300">
+              {coffeecomDocs[currentCoffeecomIndex].src.endsWith('.mp4') ? (
+                <video src={coffeecomDocs[currentCoffeecomIndex].src} className="w-full h-full object-cover" autoPlay loop muted playsInline />
+              ) : (
+                <img src={coffeecomDocs[currentCoffeecomIndex].src} alt={coffeecomDocs[currentCoffeecomIndex].title} className="w-full h-full object-cover" />
+              )}
+              <div className="absolute inset-0 bg-gradient-to-t from-black/90 via-transparent to-transparent"></div>
+              <div className="absolute bottom-8 left-0 w-full text-center px-4">
+                <p className="text-white font-bold text-lg mb-1">{coffeecomDocs[currentCoffeecomIndex].title}</p>
+                <p className="text-slate-300 text-xs">{coffeecomDocs[currentCoffeecomIndex].desc}</p>
+              </div>
+            </div>
+          </div>
+          <div className="flex items-center gap-6 mt-8">
+            <button onClick={prevCoffeecom} className="p-4 bg-slate-800 rounded-full text-white hover:bg-orange-500 transition-colors"><ChevronLeft size={24} /></button>
+            <div className="flex gap-2">
+              {coffeecomDocs.map((_, idx) => (
+                <div key={idx} className={`h-2 rounded-full transition-all ${idx === currentCoffeecomIndex ? "w-6 bg-orange-500" : "w-2 bg-slate-700"}`} />
+              ))}
+            </div>
+            <button onClick={nextCoffeecom} className="p-4 bg-slate-800 rounded-full text-white hover:bg-orange-500 transition-colors"><ChevronRight size={24} /></button>
+          </div>
+        </div>
+      )}
+
     </main>
   );
 }
