@@ -65,7 +65,6 @@ export default function Portfolio() {
   ];
 
   const [currentMalioboroIndex, setCurrentMalioboroIndex] = useState(0);
-  const [isMalioboroModalOpen, setIsMalioboroModalOpen] = useState(false);
   const malioboroDocs = [
     { title: "Landing Page", desc: "Visualisasi utama dan judul proyek", src: "/thumbnail/malioboro/hero.jpeg" },
     { title: "Latar Belakang", desc: "UI Section penjelasan urgensi digitalisasi", src: "/thumbnail/malioboro/about.jpeg" },
@@ -131,7 +130,6 @@ export default function Portfolio() {
   const nextCloudDoc = () => setCurrentCloudIndex((prev) => (prev === cloudDocs.length - 1 ? 0 : prev + 1));
   const prevCloudDoc = () => setCurrentCloudIndex((prev) => (prev === 0 ? cloudDocs.length - 1 : prev - 1));
   const [currentCoffeecomIndex, setCurrentCoffeecomIndex] = useState(0);
-  const [isCoffeecomModalOpen, setIsCoffeecomModalOpen] = useState(false);
   const coffeecomDocs = [
     { 
       title: "Step-by-Step Review", 
@@ -666,28 +664,11 @@ export default function Portfolio() {
                 <a href="https://github.com/nopeakbar/fatma-malioboro.git" target="_blank" rel="noopener noreferrer" className="p-2.5 bg-slate-800 text-slate-300 rounded-full hover:bg-slate-700 transition-all border border-slate-700">
                   <Github size={20} />
                 </a>
-                {/* --- TOMBOL KHUSUS MOBILE (TRIGGER POPUP MALIOBORO) --- */}
-                <button
-                  onClick={() => setIsMalioboroModalOpen(true)}
-                  className="md:hidden flex items-center gap-2 text-sm text-slate-200 font-bold bg-slate-800 px-5 py-2.5 rounded-full border border-slate-700 hover:bg-slate-700 transition-colors"
-                >
-                  <Eye size={14} /> View Gallery
-                </button>
-              </div>
-            </div>
-            <div className="hidden md:flex relative z-20 w-full md:w-1/2 p-6 flex-col items-center justify-center bg-black/20 border-l border-white/5">
-              <div className="flex flex-wrap items-center gap-3">
-                <a href="https://malioboro-3d.vercel.app/" target="_blank" rel="noopener noreferrer" className="flex items-center gap-2 text-sm text-orange-400 font-bold hover:text-orange-300 transition-colors bg-orange-900/20 px-5 py-2.5 rounded-full border border-orange-500/30">
-                  View Web GIS <ExternalLink size={14} />
-                </a>
-                <a href="https://github.com/nopeakbar/fatma-malioboro.git" target="_blank" rel="noopener noreferrer" className="p-2.5 bg-slate-800 text-slate-300 rounded-full hover:bg-slate-700 transition-all border border-slate-700">
-                  <Github size={20} />
-                </a>
               </div>
             </div>
 
             {/* KANAN: SLIDER PREVIEW */}
-            <div className="hidden md:flex relative z-20 w-full md:w-1/2 p-6 flex-col items-center justify-center bg-black/20 border-l border-white/5">
+            <div className="relative z-20 w-full md:w-1/2 p-6 flex flex-col items-center justify-center bg-black/20 border-t md:border-t-0 md:border-l border-white/5">
               <div className="relative w-full aspect-video bg-slate-950 rounded-xl border-4 border-slate-800 shadow-2xl overflow-hidden group/slider">
                 <div key={currentMalioboroIndex} className="w-full h-full relative animate-in fade-in duration-500">
                   <img 
@@ -748,25 +729,11 @@ export default function Portfolio() {
                 <a href="https://github.com/nopeakbar/coffeecom" target="_blank" className="flex items-center gap-2 text-sm text-orange-400 font-bold hover:text-orange-300 transition-colors bg-orange-900/20 px-5 py-2.5 rounded-full border border-orange-500/30">
                   <Github size={14} /> Source Code
                 </a>
-                {/* --- TOMBOL KHUSUS MOBILE (TRIGGER POPUP COFFEECOM) --- */}
-                <button
-                  onClick={() => setIsCoffeecomModalOpen(true)}
-                  className="md:hidden flex items-center gap-2 text-sm text-slate-200 font-bold bg-slate-800 px-5 py-2.5 rounded-full border border-slate-700 hover:bg-slate-700 transition-colors"
-                >
-                  <Eye size={14} /> View Gallery
-                </button>
-              </div>
-            </div>
-            <div className="hidden md:flex relative z-20 w-full md:w-1/2 p-6 flex-col items-center justify-center bg-black/20 border-l border-white/5">
-              <div className="flex flex-wrap gap-3">
-                <a href="https://github.com/nopeakbar/coffeecom" target="_blank" className="flex items-center gap-2 text-sm text-orange-400 font-bold hover:text-orange-300 transition-colors bg-orange-900/20 px-5 py-2.5 rounded-full border border-orange-500/30">
-                  <Github size={14} /> Source Code
-                </a>
               </div>
             </div>
 
             {/* KONTEN KANAN: 2 PATH SLIDER (HP FRAME) */}
-            <div className="hidden md:flex relative z-20 w-full md:w-1/2 p-6 flex-col items-center justify-center bg-black/20 border-l border-white/5">
+            <div className="relative z-20 w-full md:w-1/2 p-6 flex flex-col items-center justify-center bg-black/20 border-t md:border-t-0 md:border-l border-white/5">
               
               <div className="relative w-[180px] md:w-[200px] aspect-[9/16] bg-slate-950 rounded-2xl border-4 border-slate-800 shadow-2xl overflow-hidden group/slider">
                 
@@ -1487,65 +1454,6 @@ export default function Portfolio() {
             {cloudDocs.map((_, idx) => (
               <div key={idx} className={`h-2 rounded-full transition-all ${idx === currentCloudIndex ? "w-8 bg-orange-500" : "w-2 bg-slate-700"}`} />
             ))}
-          </div>
-        </div>
-      )}
-      {/* --- POPUP MODAL MALIOBORO --- */}
-      {isMalioboroModalOpen && (
-        <div className="fixed inset-0 z-[100] bg-slate-950/90 backdrop-blur-md flex flex-col items-center justify-center p-4 animate-in fade-in duration-300">
-          <button onClick={() => setIsMalioboroModalOpen(false)} className="absolute top-6 right-6 p-2 bg-slate-800 rounded-full text-slate-400 hover:text-white hover:bg-red-500/20 transition-all">
-            <X size={24} />
-          </button>
-          <h3 className="text-white font-bold text-xl mb-6">Malioboro 3D Gallery</h3>
-          <div className="relative w-[90vw] max-w-4xl aspect-video bg-slate-950 rounded-2xl border border-slate-700 shadow-2xl overflow-hidden">
-            <div key={currentMalioboroIndex} className="w-full h-full relative animate-in fade-in zoom-in duration-300">
-              <img src={malioboroDocs[currentMalioboroIndex].src} alt={malioboroDocs[currentMalioboroIndex].title} className="w-full h-full object-cover" />
-              <div className="absolute inset-0 bg-gradient-to-t from-black/90 via-transparent to-transparent pointer-events-none"></div>
-              <div className="absolute bottom-4 left-0 w-full text-center px-4">
-                <p className="text-white font-bold text-lg">{malioboroDocs[currentMalioboroIndex].title}</p>
-                <p className="text-slate-300 text-xs">{malioboroDocs[currentMalioboroIndex].desc}</p>
-              </div>
-            </div>
-            <button onClick={prevMalioboro} className="absolute left-2 top-1/2 -translate-y-1/2 p-2 bg-black/50 backdrop-blur-md rounded-full text-white hover:bg-orange-500 transition-colors"><ChevronLeft size={20} /></button>
-            <button onClick={nextMalioboro} className="absolute right-2 top-1/2 -translate-y-1/2 p-2 bg-black/50 backdrop-blur-md rounded-full text-white hover:bg-orange-500 transition-colors"><ChevronRight size={20} /></button>
-          </div>
-          <div className="flex items-center gap-2 mt-4">
-            {malioboroDocs.map((_, idx) => (
-              <div key={idx} className={`h-2 rounded-full transition-all ${idx === currentMalioboroIndex ? "w-6 bg-orange-500" : "w-2 bg-slate-700"}`} />
-            ))}
-          </div>
-        </div>
-      )}
-
-      {/* --- POPUP MODAL COFFEECOM --- */}
-      {isCoffeecomModalOpen && (
-        <div className="fixed inset-0 z-[100] bg-slate-950/90 backdrop-blur-md flex flex-col items-center justify-center p-4 animate-in fade-in duration-300">
-          <button onClick={() => setIsCoffeecomModalOpen(false)} className="absolute top-6 right-6 p-2 bg-slate-800 rounded-full text-slate-400 hover:text-white hover:bg-red-500/20 transition-all">
-            <X size={24} />
-          </button>
-          <h3 className="text-white font-bold text-xl mb-6">Coffeecom Preview</h3>
-          <div className="relative w-[260px] aspect-[9/16] bg-slate-950 rounded-[2rem] border-8 border-slate-800 shadow-2xl overflow-hidden">
-            <div key={currentCoffeecomIndex} className="w-full h-full relative animate-in fade-in zoom-in duration-300">
-              {coffeecomDocs[currentCoffeecomIndex].src.endsWith('.mp4') ? (
-                <video src={coffeecomDocs[currentCoffeecomIndex].src} className="w-full h-full object-cover" autoPlay loop muted playsInline />
-              ) : (
-                <img src={coffeecomDocs[currentCoffeecomIndex].src} alt={coffeecomDocs[currentCoffeecomIndex].title} className="w-full h-full object-cover" />
-              )}
-              <div className="absolute inset-0 bg-gradient-to-t from-black/90 via-transparent to-transparent"></div>
-              <div className="absolute bottom-8 left-0 w-full text-center px-4">
-                <p className="text-white font-bold text-lg mb-1">{coffeecomDocs[currentCoffeecomIndex].title}</p>
-                <p className="text-slate-300 text-xs">{coffeecomDocs[currentCoffeecomIndex].desc}</p>
-              </div>
-            </div>
-          </div>
-          <div className="flex items-center gap-6 mt-8">
-            <button onClick={prevCoffeecom} className="p-4 bg-slate-800 rounded-full text-white hover:bg-orange-500 transition-colors"><ChevronLeft size={24} /></button>
-            <div className="flex gap-2">
-              {coffeecomDocs.map((_, idx) => (
-                <div key={idx} className={`h-2 rounded-full transition-all ${idx === currentCoffeecomIndex ? "w-6 bg-orange-500" : "w-2 bg-slate-700"}`} />
-              ))}
-            </div>
-            <button onClick={nextCoffeecom} className="p-4 bg-slate-800 rounded-full text-white hover:bg-orange-500 transition-colors"><ChevronRight size={24} /></button>
           </div>
         </div>
       )}
