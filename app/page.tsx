@@ -65,6 +65,7 @@ export default function Portfolio() {
   ];
 
   const [currentMalioboroIndex, setCurrentMalioboroIndex] = useState(0);
+  const [isMalioboroModalOpen, setIsMalioboroModalOpen] = useState(false);
   const malioboroDocs = [
     { title: "Landing Page", desc: "Visualisasi utama dan judul proyek", src: "/thumbnail/malioboro/hero.jpeg" },
     { title: "Latar Belakang", desc: "UI Section penjelasan urgensi digitalisasi", src: "/thumbnail/malioboro/about.jpeg" },
@@ -130,6 +131,7 @@ export default function Portfolio() {
   const nextCloudDoc = () => setCurrentCloudIndex((prev) => (prev === cloudDocs.length - 1 ? 0 : prev + 1));
   const prevCloudDoc = () => setCurrentCloudIndex((prev) => (prev === 0 ? cloudDocs.length - 1 : prev - 1));
   const [currentCoffeecomIndex, setCurrentCoffeecomIndex] = useState(0);
+  const [isCoffeecomModalOpen, setIsCoffeecomModalOpen] = useState(false);
   const coffeecomDocs = [
     { 
       title: "Step-by-Step Review", 
@@ -288,10 +290,10 @@ export default function Portfolio() {
         </h1>
 
         <p className="text-lg md:text-xl text-slate-400 max-w-2xl leading-relaxed mb-8">
-  Hi, I'm <span className="text-white font-semibold">AKBAR</span>, a Software Engineer focused on <span className="text-purple-400">AI Integration</span> and <span className="text-amber-400">Cloud Architecture</span>. 
-  I build complete digital ecosystems from the ground up and take them all the way to production. 
-  Whether it is designing intelligent <span className="text-blue-400">Multi-LLM backends</span>, automating CI/CD pipelines, or containerizing services on <span className="text-orange-400">AWS EC2</span>, I bridge the gap between solid code and reliable infrastructure to deliver scalable, real-world solutions.
-</p>
+          Hi, I'm <span className="text-white font-semibold">AKBAR</span>, an <span className="text-white font-semibold">AI & Software Engineer</span> focused on <span className="text-purple-400">AI Integration</span> and <span className="text-amber-400">Cloud Infrastructure</span>. 
+          I build complete digital ecosystems from the ground up and take them all the way to production. 
+          Whether it is <span className="text-indigo-400">training predictive models</span>, designing intelligent <span className="text-blue-400">Multi-LLM backends</span>, automating CI/CD pipelines, or containerizing services on <span className="text-orange-400">AWS EC2</span>, I bridge the gap between solid code and reliable infrastructure to deliver scalable, real-world solutions.
+        </p>
 
         <div className="grid grid-cols-2 md:flex md:flex-row gap-3 md:gap-4 w-full md:w-fit">
           <a 
@@ -448,13 +450,13 @@ export default function Portfolio() {
   Engineered for extreme cost-efficiency, the AI engine seamlessly integrates Gemini 2.5 Flash, GPT Whisper v3, Llama 3.3, and GPT OSS 120b while running smoothly on a t3.micro instance with a minimal memory footprint.
 </p>
 
-              {/* --- ACTION BUTTONS (GRID) --- */}
-              <div className="grid grid-cols-2 gap-2 md:gap-3 w-full">
+              {/* --- ACTION BUTTONS (FLEX & GRID HYBRID) --- */}
+              <div className="flex flex-col gap-3 md:gap-4 w-full mt-2">
                 
                 {/* 1. DEVOPS ARCHITECTURE BUTTON (TRIGGER MODAL LEBAR) */}
                 <button 
                   onClick={() => setIsCloudModalOpen(true)}
-                  className="col-span-2 flex items-center justify-center gap-2 text-[11px] md:text-xs text-orange-400 font-bold hover:text-orange-300 transition-all bg-orange-900/20 px-3 py-2.5 rounded-full border border-orange-500/40 hover:bg-orange-900/40 shadow-[0_0_15px_rgba(249,115,22,0.15)] group"
+                  className="w-full flex items-center justify-center gap-2 text-[11px] md:text-xs text-orange-400 font-bold hover:text-orange-300 transition-all bg-orange-900/20 px-3 py-2.5 md:py-3 rounded-full border border-orange-500/40 hover:bg-orange-900/40 shadow-[0_0_15px_rgba(249,115,22,0.15)] group"
                 >
                   <Server size={14} className="group-hover:animate-pulse" /> View Cloud Architecture & CI/CD
                 </button>
@@ -464,58 +466,63 @@ export default function Portfolio() {
                   href="https://gist.github.com/nopeakbar/21f581ce84af2fa1d7fd0c1c67a73a15" 
                   target="_blank" 
                   rel="noopener noreferrer" 
-                  className="col-span-2 flex items-center justify-center gap-2 text-[11px] md:text-xs text-slate-300 font-bold hover:text-white transition-all bg-slate-800 px-3 py-2.5 rounded-full border border-slate-700 hover:bg-slate-700 group"
+                  className="w-full flex items-center justify-center gap-2 text-[11px] md:text-xs text-slate-300 font-bold hover:text-white transition-all bg-slate-800 px-3 py-2.5 md:py-3 rounded-full border border-slate-700 hover:bg-slate-700 group"
                 >
                   <FileText size={14} /> Read Deployment Playbook <ExternalLink size={12} />
                 </a>
 
-                {/* 2. LIVE DEMO */}
-                <a 
-                  href="https://nopeakbar-bandha-live-demo.vercel.app/" 
-                  target="_blank" 
-                  rel="noopener noreferrer" 
-                  className="flex items-center justify-center gap-2 text-[11px] md:text-xs text-green-400 font-bold hover:text-green-300 transition-all bg-green-900/20 px-3 py-2.5 rounded-full border border-green-500/40 hover:bg-green-900/40 shadow-[0_0_15px_rgba(74,222,128,0.1)]"
-                >
-                  <Activity size={14} className="animate-pulse" /> Live Demo <ExternalLink size={12} />
-                </a>
+                {/* --- GRID UNTUK 4 TOMBOL SEKUNDER --- */}
+                <div className="grid grid-cols-2 gap-3 w-full">
+                  {/* 2. LIVE DEMO */}
+                  <a 
+                    href="https://nopeakbar-bandha-live-demo.vercel.app/" 
+                    target="_blank" 
+                    rel="noopener noreferrer" 
+                    className="flex items-center justify-center gap-2 text-[11px] md:text-xs text-green-400 font-bold hover:text-green-300 transition-all bg-green-900/20 px-3 py-2.5 md:py-3 rounded-full border border-green-500/40 hover:bg-green-900/40 shadow-[0_0_15px_rgba(74,222,128,0.1)]"
+                  >
+                    <Activity size={14} className="animate-pulse" /> Live Demo <ExternalLink size={12} />
+                  </a>
 
-                {/* 2. LIVE SPREADSHEET (NEW!) */}
-                <a 
-                  href="https://docs.google.com/spreadsheets/d/18Pr2GU7l6girMxnfKjiAvepZDK4yez-gb89RokttERs/edit?usp=sharing" 
-                  target="_blank" 
-                  rel="noopener noreferrer" 
-                  className="flex items-center justify-center gap-2 text-[11px] md:text-xs text-amber-400 font-bold hover:text-amber-300 transition-all bg-amber-900/20 px-3 py-2.5 rounded-full border border-amber-500/40 hover:bg-amber-900/40 shadow-[0_0_15px_rgba(245,158,11,0.1)]"
-                >
-                  <Database size={14} /> Live Sheets <ExternalLink size={12} />
-                </a>
+                  {/* 2. LIVE SPREADSHEET */}
+                  <a 
+                    href="https://docs.google.com/spreadsheets/d/18Pr2GU7l6girMxnfKjiAvepZDK4yez-gb89RokttERs/edit?usp=sharing" 
+                    target="_blank" 
+                    rel="noopener noreferrer" 
+                    className="flex items-center justify-center gap-2 text-[11px] md:text-xs text-amber-400 font-bold hover:text-amber-300 transition-all bg-amber-900/20 px-3 py-2.5 md:py-3 rounded-full border border-amber-500/40 hover:bg-amber-900/40 shadow-[0_0_15px_rgba(245,158,11,0.1)]"
+                  >
+                    <Database size={14} /> Live Sheets <ExternalLink size={12} />
+                  </a>
 
-                {/* 3. BACKEND REPO */}
-                <a 
-                  href="https://github.com/nopeakbar/aws-personal-expese.git" 
-                  target="_blank" 
-                  className="flex items-center justify-center gap-2 text-[11px] md:text-xs text-blue-400 font-bold hover:text-blue-300 transition-all bg-blue-900/20 px-3 py-2.5 rounded-full border border-blue-500/30 hover:bg-blue-900/40"
-                >
-                  <Github size={14} /> Backend & Bot
-                </a>
-                
-                {/* 4. FLUTTER REPO */}
-                <a 
-                  href="https://github.com/nopeakbar/aplikasi-integrasi-expense-tracker.git" 
-                  target="_blank" 
-                  className="flex items-center justify-center gap-2 text-[11px] md:text-xs text-teal-400 font-bold hover:text-teal-300 transition-all bg-teal-900/20 px-3 py-2.5 rounded-full border border-teal-500/30 hover:bg-teal-900/40"
-                >
-                  <Github size={14} /> Flutter App
-                </a>
+                  {/* 3. BACKEND REPO */}
+                  <a 
+                    href="https://github.com/nopeakbar/aws-personal-expese.git" 
+                    target="_blank" 
+                    className="flex items-center justify-center gap-2 text-[11px] md:text-xs text-blue-400 font-bold hover:text-blue-300 transition-all bg-blue-900/20 px-3 py-2.5 md:py-3 rounded-full border border-blue-500/30 hover:bg-blue-900/40"
+                  >
+                    <Github size={14} /> Backend & Bot
+                  </a>
+                  
+                  {/* 4. FLUTTER REPO */}
+                  <a 
+                    href="https://github.com/nopeakbar/aplikasi-integrasi-expense-tracker.git" 
+                    target="_blank" 
+                    className="flex items-center justify-center gap-2 text-[11px] md:text-xs text-teal-400 font-bold hover:text-teal-300 transition-all bg-teal-900/20 px-3 py-2.5 md:py-3 rounded-full border border-teal-500/30 hover:bg-teal-900/40"
+                  >
+                    <Github size={14} /> Flutter App
+                  </a>
+                </div>
 
                 {/* Mobile Gallery Trigger (Full Width on Bottom) */}
                 <button
                   onClick={() => setIsBotModalOpen(true)}
-                  className="md:hidden col-span-2 mt-2 flex items-center justify-center gap-2 text-[11px] text-slate-200 font-bold bg-slate-800 px-4 py-2.5 rounded-full border border-slate-700"
+                  className="md:hidden w-full mt-1 flex items-center justify-center gap-2 text-[11px] text-slate-200 font-bold bg-slate-800 px-4 py-3 rounded-full border border-slate-700"
                 >
                   <Eye size={14} /> View Features Gallery
                 </button>
               </div>
             </div>
+
+            {/* RIGHT CONTENT: CAROUSEL SLIDER */}
 
             {/* RIGHT CONTENT: CAROUSEL SLIDER */}
             <div className="hidden md:flex relative z-20 w-full md:w-1/2 p-6 flex-col items-center justify-center bg-black/20 border-l border-white/5">
@@ -659,6 +666,23 @@ export default function Portfolio() {
                 <a href="https://github.com/nopeakbar/fatma-malioboro.git" target="_blank" rel="noopener noreferrer" className="p-2.5 bg-slate-800 text-slate-300 rounded-full hover:bg-slate-700 transition-all border border-slate-700">
                   <Github size={20} />
                 </a>
+                {/* --- TOMBOL KHUSUS MOBILE (TRIGGER POPUP MALIOBORO) --- */}
+                <button
+                  onClick={() => setIsMalioboroModalOpen(true)}
+                  className="md:hidden flex items-center gap-2 text-sm text-slate-200 font-bold bg-slate-800 px-5 py-2.5 rounded-full border border-slate-700 hover:bg-slate-700 transition-colors"
+                >
+                  <Eye size={14} /> View Gallery
+                </button>
+              </div>
+            </div>
+            <div className="hidden md:flex relative z-20 w-full md:w-1/2 p-6 flex-col items-center justify-center bg-black/20 border-l border-white/5">
+              <div className="flex flex-wrap items-center gap-3">
+                <a href="https://malioboro-3d.vercel.app/" target="_blank" rel="noopener noreferrer" className="flex items-center gap-2 text-sm text-orange-400 font-bold hover:text-orange-300 transition-colors bg-orange-900/20 px-5 py-2.5 rounded-full border border-orange-500/30">
+                  View Web GIS <ExternalLink size={14} />
+                </a>
+                <a href="https://github.com/nopeakbar/fatma-malioboro.git" target="_blank" rel="noopener noreferrer" className="p-2.5 bg-slate-800 text-slate-300 rounded-full hover:bg-slate-700 transition-all border border-slate-700">
+                  <Github size={20} />
+                </a>
               </div>
             </div>
 
@@ -720,6 +744,20 @@ export default function Portfolio() {
                 The app integrates <strong>Llama 3.3</strong> to intelligently refine user reviews and normalize cafe data while keeping the authentic "nongkrong" vibe.
               </p>
 
+              <div className="flex flex-wrap gap-3">
+                <a href="https://github.com/nopeakbar/coffeecom" target="_blank" className="flex items-center gap-2 text-sm text-orange-400 font-bold hover:text-orange-300 transition-colors bg-orange-900/20 px-5 py-2.5 rounded-full border border-orange-500/30">
+                  <Github size={14} /> Source Code
+                </a>
+                {/* --- TOMBOL KHUSUS MOBILE (TRIGGER POPUP COFFEECOM) --- */}
+                <button
+                  onClick={() => setIsCoffeecomModalOpen(true)}
+                  className="md:hidden flex items-center gap-2 text-sm text-slate-200 font-bold bg-slate-800 px-5 py-2.5 rounded-full border border-slate-700 hover:bg-slate-700 transition-colors"
+                >
+                  <Eye size={14} /> View Gallery
+                </button>
+              </div>
+            </div>
+            <div className="hidden md:flex relative z-20 w-full md:w-1/2 p-6 flex-col items-center justify-center bg-black/20 border-l border-white/5">
               <div className="flex flex-wrap gap-3">
                 <a href="https://github.com/nopeakbar/coffeecom" target="_blank" className="flex items-center gap-2 text-sm text-orange-400 font-bold hover:text-orange-300 transition-colors bg-orange-900/20 px-5 py-2.5 rounded-full border border-orange-500/30">
                   <Github size={14} /> Source Code
@@ -1449,6 +1487,65 @@ export default function Portfolio() {
             {cloudDocs.map((_, idx) => (
               <div key={idx} className={`h-2 rounded-full transition-all ${idx === currentCloudIndex ? "w-8 bg-orange-500" : "w-2 bg-slate-700"}`} />
             ))}
+          </div>
+        </div>
+      )}
+      {/* --- POPUP MODAL MALIOBORO --- */}
+      {isMalioboroModalOpen && (
+        <div className="fixed inset-0 z-[100] bg-slate-950/90 backdrop-blur-md flex flex-col items-center justify-center p-4 animate-in fade-in duration-300">
+          <button onClick={() => setIsMalioboroModalOpen(false)} className="absolute top-6 right-6 p-2 bg-slate-800 rounded-full text-slate-400 hover:text-white hover:bg-red-500/20 transition-all">
+            <X size={24} />
+          </button>
+          <h3 className="text-white font-bold text-xl mb-6">Malioboro 3D Gallery</h3>
+          <div className="relative w-[90vw] max-w-4xl aspect-video bg-slate-950 rounded-2xl border border-slate-700 shadow-2xl overflow-hidden">
+            <div key={currentMalioboroIndex} className="w-full h-full relative animate-in fade-in zoom-in duration-300">
+              <img src={malioboroDocs[currentMalioboroIndex].src} alt={malioboroDocs[currentMalioboroIndex].title} className="w-full h-full object-cover" />
+              <div className="absolute inset-0 bg-gradient-to-t from-black/90 via-transparent to-transparent pointer-events-none"></div>
+              <div className="absolute bottom-4 left-0 w-full text-center px-4">
+                <p className="text-white font-bold text-lg">{malioboroDocs[currentMalioboroIndex].title}</p>
+                <p className="text-slate-300 text-xs">{malioboroDocs[currentMalioboroIndex].desc}</p>
+              </div>
+            </div>
+            <button onClick={prevMalioboro} className="absolute left-2 top-1/2 -translate-y-1/2 p-2 bg-black/50 backdrop-blur-md rounded-full text-white hover:bg-orange-500 transition-colors"><ChevronLeft size={20} /></button>
+            <button onClick={nextMalioboro} className="absolute right-2 top-1/2 -translate-y-1/2 p-2 bg-black/50 backdrop-blur-md rounded-full text-white hover:bg-orange-500 transition-colors"><ChevronRight size={20} /></button>
+          </div>
+          <div className="flex items-center gap-2 mt-4">
+            {malioboroDocs.map((_, idx) => (
+              <div key={idx} className={`h-2 rounded-full transition-all ${idx === currentMalioboroIndex ? "w-6 bg-orange-500" : "w-2 bg-slate-700"}`} />
+            ))}
+          </div>
+        </div>
+      )}
+
+      {/* --- POPUP MODAL COFFEECOM --- */}
+      {isCoffeecomModalOpen && (
+        <div className="fixed inset-0 z-[100] bg-slate-950/90 backdrop-blur-md flex flex-col items-center justify-center p-4 animate-in fade-in duration-300">
+          <button onClick={() => setIsCoffeecomModalOpen(false)} className="absolute top-6 right-6 p-2 bg-slate-800 rounded-full text-slate-400 hover:text-white hover:bg-red-500/20 transition-all">
+            <X size={24} />
+          </button>
+          <h3 className="text-white font-bold text-xl mb-6">Coffeecom Preview</h3>
+          <div className="relative w-[260px] aspect-[9/16] bg-slate-950 rounded-[2rem] border-8 border-slate-800 shadow-2xl overflow-hidden">
+            <div key={currentCoffeecomIndex} className="w-full h-full relative animate-in fade-in zoom-in duration-300">
+              {coffeecomDocs[currentCoffeecomIndex].src.endsWith('.mp4') ? (
+                <video src={coffeecomDocs[currentCoffeecomIndex].src} className="w-full h-full object-cover" autoPlay loop muted playsInline />
+              ) : (
+                <img src={coffeecomDocs[currentCoffeecomIndex].src} alt={coffeecomDocs[currentCoffeecomIndex].title} className="w-full h-full object-cover" />
+              )}
+              <div className="absolute inset-0 bg-gradient-to-t from-black/90 via-transparent to-transparent"></div>
+              <div className="absolute bottom-8 left-0 w-full text-center px-4">
+                <p className="text-white font-bold text-lg mb-1">{coffeecomDocs[currentCoffeecomIndex].title}</p>
+                <p className="text-slate-300 text-xs">{coffeecomDocs[currentCoffeecomIndex].desc}</p>
+              </div>
+            </div>
+          </div>
+          <div className="flex items-center gap-6 mt-8">
+            <button onClick={prevCoffeecom} className="p-4 bg-slate-800 rounded-full text-white hover:bg-orange-500 transition-colors"><ChevronLeft size={24} /></button>
+            <div className="flex gap-2">
+              {coffeecomDocs.map((_, idx) => (
+                <div key={idx} className={`h-2 rounded-full transition-all ${idx === currentCoffeecomIndex ? "w-6 bg-orange-500" : "w-2 bg-slate-700"}`} />
+              ))}
+            </div>
+            <button onClick={nextCoffeecom} className="p-4 bg-slate-800 rounded-full text-white hover:bg-orange-500 transition-colors"><ChevronRight size={24} /></button>
           </div>
         </div>
       )}
