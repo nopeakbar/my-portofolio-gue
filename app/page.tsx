@@ -687,7 +687,7 @@ export default function Portfolio() {
             </div>
 
             {/* KANAN: SLIDER PREVIEW */}
-            <div className="relative z-20 w-full md:w-1/2 p-6 flex flex-col items-center justify-center bg-black/20 border-t md:border-t-0 md:border-l border-white/5">
+            <div className="hidden md:flex relative z-20 w-full md:w-1/2 p-6 flex-col items-center justify-center bg-black/20 border-l border-white/5">
               <div className="relative w-full aspect-video bg-slate-950 rounded-xl border-4 border-slate-800 shadow-2xl overflow-hidden group/slider">
                 <div key={currentMalioboroIndex} className="w-full h-full relative animate-in fade-in duration-500">
                   <img 
@@ -766,7 +766,7 @@ export default function Portfolio() {
             </div>
 
             {/* KONTEN KANAN: 2 PATH SLIDER (HP FRAME) */}
-            <div className="relative z-20 w-full md:w-1/2 p-6 flex flex-col items-center justify-center bg-black/20 border-t md:border-t-0 md:border-l border-white/5">
+            <div className="hidden md:flex relative z-20 w-full md:w-1/2 p-6 flex-col items-center justify-center bg-black/20 border-l border-white/5">
               
               <div className="relative w-[180px] md:w-[200px] aspect-[9/16] bg-slate-950 rounded-2xl border-4 border-slate-800 shadow-2xl overflow-hidden group/slider">
                 
