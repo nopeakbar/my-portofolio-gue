@@ -7,7 +7,7 @@ const smartCacheHeaders = {
   headers: {
     // Vercel akan menahan cache selama 15 detik. Ribuan request dalam 15 detik ini 
     // akan disajikan dari cache Vercel, tanpa menyentuh Last.fm API sama sekali.
-    'Cache-Control': 'public, s-maxage=15, stale-while-revalidate=59',
+    'Cache-Control': 'public, s-maxage=5, stale-while-revalidate=59',
   },
 };
 

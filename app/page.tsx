@@ -43,8 +43,11 @@ import { SpeedInsights } from "@vercel/speed-insights/next";
 const fetcher = (url: string) => fetch(url).then((r) => r.json());
 
 export default function Portfolio() {
-
-  const { data } = useSWR('/api/spotify', fetcher, { refreshInterval: 15000 });
+const { data } = useSWR('/api/spotify', fetcher, { 
+    refreshInterval: 15000,
+    refreshWhenHidden: true 
+  });
+  
 
   // ==========================================
   // 1. CONFIG: SEPOTIFI CAROUSEL & MODAL
