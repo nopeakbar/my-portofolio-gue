@@ -47,11 +47,8 @@ const { data } = useSWR('/api/spotify', fetcher, {
     refreshInterval: 15000,
     refreshWhenHidden: true 
   });
-  
 
-  // ==========================================
-  // 1. CONFIG: SEPOTIFI CAROUSEL & MODAL
-  // ==========================================
+  const [isTopStatsModalOpen, setIsTopStatsModalOpen] = useState(false);
   const [currentDocIndex, setCurrentDocIndex] = useState(0);
   const [isModalOpen, setIsModalOpen] = useState(false); // State untuk Popup Mobile
 
@@ -1097,7 +1094,7 @@ const { data } = useSWR('/api/spotify', fetcher, {
                   <p className="text-slate-400 text-lg mb-4 line-clamp-1">
                     {data?.artist || "Spotify is currently offline"}
                   </p>
-                  <div className="flex items-center gap-4">
+                  <div className="flex flex-wrap items-center gap-3 md:gap-4">
                     <a
                       href={data?.songUrl || "https://open.spotify.com"}
                       target="_blank"
@@ -1105,6 +1102,12 @@ const { data } = useSWR('/api/spotify', fetcher, {
                     >
                       <Music size={16} /> {data?.isPlaying ? "Listen on Spotify" : "Open Spotify"}
                     </a>
+                    <button 
+                      onClick={() => setIsTopStatsModalOpen(true)}
+                      className="inline-flex items-center gap-2 px-5 py-2.5 font-semibold rounded-full transition-all text-sm bg-slate-800/80 hover:bg-slate-700 text-slate-300 border border-slate-700 hover:border-green-500/50 hover:text-green-400"
+                    >
+                      <Activity size={16} /> View Top Stats
+                    </button>
                   </div>
                 </div>
               </div>
@@ -1488,7 +1491,54 @@ const { data } = useSWR('/api/spotify', fetcher, {
           </div>
         </div>
       )}
+      {/* --- POPUP MODAL TOP 5 STATS --- */}
+      {isTopStatsModalOpen && (
+        <div className="fixed inset-0 z-[100] bg-slate-950/90 backdrop-blur-md flex flex-col items-center justify-center p-4 animate-in fade-in zoom-in duration-300">
+          <button onClick={() => setIsTopStatsModalOpen(false)} className="absolute top-6 right-6 p-2 bg-slate-800 rounded-full text-slate-400 hover:text-white hover:bg-red-500/20 transition-all">
+            <X size={24} />
+          </button>
+          
+          <h3 className="text-white font-black text-2xl md:text-3xl mb-6">My Top 5 <span className="text-green-400">This Month</span></h3>
 
+          <div className="w-full max-w-2xl bg-slate-900 rounded-3xl border border-slate-800 shadow-[0_0_40px_rgba(34,197,94,0.1)] overflow-hidden p-6 md:p-8 flex flex-col md:flex-row gap-8">
+            
+            {/* Top Tracks Column */}
+            <div className="flex-1">
+              <h4 className="text-green-400 font-bold mb-4 flex items-center gap-2 border-b border-slate-800 pb-2"><Music size={16}/> Top Tracks</h4>
+              <div className="space-y-4">
+                {data?.topTracks?.map((track: any, idx: number) => (
+                  <a key={idx} href={track.url} target="_blank" className="flex items-center gap-3 group">
+                    <span className="text-slate-600 font-mono text-sm font-bold w-4">{idx + 1}</span>
+                    <div className="flex-1">
+                      <p className="text-slate-200 text-sm font-semibold group-hover:text-green-400 transition-colors line-clamp-1">{track.name}</p>
+                      <p className="text-slate-500 text-xs line-clamp-1">{track.artist}</p>
+                    </div>
+                  </a>
+                ))}
+              </div>
+            </div>
+
+            {/* Garis Pemisah Mobile/Desktop */}
+            <div className="w-full h-px md:w-px md:h-auto bg-slate-800"></div>
+
+            {/* Top Artists Column */}
+            <div className="flex-1">
+              <h4 className="text-green-400 font-bold mb-4 flex items-center gap-2 border-b border-slate-800 pb-2"><Mic size={16}/> Top Artists</h4>
+              <div className="space-y-4">
+                {data?.topArtists?.map((artist: any, idx: number) => (
+                  <a key={idx} href={artist.url} target="_blank" className="flex items-center gap-3 group">
+                    <span className="text-slate-600 font-mono text-sm font-bold w-4">{idx + 1}</span>
+                    <div className="flex-1">
+                      <p className="text-slate-200 text-sm font-semibold group-hover:text-green-400 transition-colors line-clamp-1">{artist.name}</p>
+                    </div>
+                  </a>
+                ))}
+              </div>
+            </div>
+
+          </div>
+        </div>
+      )}
     </main>
   );
 }
