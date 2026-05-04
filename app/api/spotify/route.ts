@@ -1,65 +1,88 @@
 import { NextResponse } from 'next/server';
-import { getNowPlaying, getRecentlyPlayed } from '@/lib/spotify';
 
 export const dynamic = 'force-dynamic';
 
 export async function GET() {
   try {
-    // 1. Cek dulu, lagi main lagu gak?
-    const response = await getNowPlaying();
+    const username = process.env.LASTFM_USERNAME;
+    const apiKey = process.env.LASTFM_API_KEY;    
+    
+    // Memanggil endpoint user.getrecenttracks dengan limit=1
+    const endpoint = `https://ws.audioscrobbler.com/2.0/?method=user.getrecenttracks&user=${username}&api_key=${apiKey}&format=json&limit=1`;
 
-    if (response.status === 200) {
-      const song = await response.json();
-      
-      // Kalau lagi main, kirim datanya
-      if (song.item) {
-        return NextResponse.json({
-          isPlaying: true,
-          title: song.item.name,
-          artist: song.item.artists.map((_artist: any) => _artist.name).join(', '),
-          album: song.item.album.name,
-          albumImageUrl: song.item.album.images[0].url,
-          songUrl: song.item.external_urls.spotify,
-          lastPlayed: null // Null karena sedang main
-        });
-      }
+    const response = await fetch(endpoint, {
+      method: 'GET',
+      headers: {
+        'User-Agent': 'PortfolioWidget/1.0', // Header User-Agent diwajibkan oleh Last.fm
+        'Accept': 'application/json'
+      },
+      cache: 'no-store', 
+    });
+
+    if (!response.ok) {
+      return NextResponse.json({ isPlaying: false });
     }
 
-    // 2. Kalau GAK main (Offline), ambil data History
-    const recentResponse = await getRecentlyPlayed();
-    const recentData = await recentResponse.json();
+    const data = await response.json();
+    const tracksArray = data?.recenttracks?.track;
 
-    if (recentData.items && recentData.items.length > 0) {
-      const track = recentData.items[0].track;
-      const playedAt = recentData.items[0].played_at; // Waktu terakhir didengar
+    if (!tracksArray || tracksArray.length === 0) {
+      return NextResponse.json({ isPlaying: false });
+    }
 
-      // 👇 INI LOGIKA MENGHITUNG WAKTU MUNDUR
-      const now = new Date();
-      const playedDate = new Date(playedAt);
-      const diffInSeconds = Math.floor((now.getTime() - playedDate.getTime()) / 1000);
-      
-      let timeAgo = "";
-      if (diffInSeconds < 60) timeAgo = "Just now";
-      else if (diffInSeconds < 3600) timeAgo = `${Math.floor(diffInSeconds / 60)} mins ago`;
-      else if (diffInSeconds < 86400) timeAgo = `${Math.floor(diffInSeconds / 3600)} hours ago`;
-      else timeAgo = `${Math.floor(diffInSeconds / 86400)} days ago`;
+    // Resolusi anomali struktur objek vs array dari Last.fm
+    const latestTrack = Array.isArray(tracksArray) ? tracksArray[0] : tracksArray;
+
+    // Evaluasi string "true" pada nested attribute
+    const isPlaying = latestTrack['@attr'] && latestTrack['@attr'].nowplaying === 'true';
+
+    // Normalisasi skema properti bersarang (#text)
+    const title = latestTrack.name || 'Unknown Track';
+    const artist = latestTrack.artist['#text'] || 'Unknown Artist';
+    const album = latestTrack.album['#text'] || '';
+    const songUrl = latestTrack.url;
+    
+    // Ekstraksi resolusi gambar tertinggi (indeks ke-3 untuk extralarge)
+    const albumImageUrl = latestTrack.image && latestTrack.image.length > 3 ? latestTrack.image[3]['#text'] : '';
+
+    if (isPlaying) {
+      return NextResponse.json({
+        isPlaying: true,
+        title,
+        artist,
+        album,
+        albumImageUrl,
+        songUrl,
+        lastPlayed: null 
+      });
+    } else {
+      // Kalkulasi waktu mundur untuk lagu historis
+      const playedAtUts = latestTrack.date?.uts;
+      let timeAgo = "A while ago";
+
+      if (playedAtUts) {
+        const nowInSeconds = Math.floor(Date.now() / 1000);
+        const diffInSeconds = nowInSeconds - parseInt(playedAtUts, 10);
+
+        if (diffInSeconds < 60) timeAgo = "Just now";
+        else if (diffInSeconds < 3600) timeAgo = `${Math.floor(diffInSeconds / 60)} mins ago`;
+        else if (diffInSeconds < 86400) timeAgo = `${Math.floor(diffInSeconds / 3600)} hours ago`;
+        else timeAgo = `${Math.floor(diffInSeconds / 86400)} days ago`;
+      }
 
       return NextResponse.json({
         isPlaying: false,
-        title: track.name,
-        artist: track.artists.map((_artist: any) => _artist.name).join(', '),
-        album: track.album.name,
-        albumImageUrl: track.album.images[0].url,
-        songUrl: track.external_urls.spotify,
-        lastPlayed: timeAgo // <-- Ini teks "3 hours ago" nya
+        title,
+        artist,
+        album,
+        albumImageUrl,
+        songUrl,
+        lastPlayed: timeAgo
       });
     }
 
-    // Kalau history kosong banget
-    return NextResponse.json({ isPlaying: false });
-
   } catch (error) {
-    console.error("Error at spotify route", error);
+    console.error("Error at Last.fm route:", error);
     return NextResponse.json({ isPlaying: false });
   }
 }

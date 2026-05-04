@@ -44,7 +44,7 @@ const fetcher = (url: string) => fetch(url).then((r) => r.json());
 
 export default function Portfolio() {
 
-  const { data } = useSWR('/api/spotify', fetcher, { refreshInterval: 5000 });
+  const { data } = useSWR('/api/spotify', fetcher, { refreshInterval: 15000 });
 
   // ==========================================
   // 1. CONFIG: SEPOTIFI CAROUSEL & MODAL
