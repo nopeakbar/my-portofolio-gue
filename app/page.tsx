@@ -941,7 +941,7 @@ const { data } = useSWR('/api/spotify', fetcher, {
                 Junior Mobile Programmer
               </h3>
               <p className="text-slate-400 text-sm mb-2">
-                Badan Nasional Sertifikasi Profesi (BNSP)
+                KOMDIGI
                 <br />
                 <span className="break-all font-mono text-xs text-slate-300">
                   Certificate Number: 193107451110-11/VSGA/BLSDM KOMDIGI/2025
