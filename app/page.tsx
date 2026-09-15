@@ -201,7 +201,7 @@ const { data } = useSWR('/api/spotify', fetcher, {
   // ==========================================
   const favoriteLyrics = [
     {
-      text: 'Jika dahulu ku tak cepat berubah, \nini maafku untukmu...',
+      text: 'Pindah berkala Rumah ke Rumah, \nmengambil pelajaran jika berpisah, jikalau suatu saat berujung indah, catat nama kita dalam sejarah...',
       song: "Rumah ke Rumah",
       artist: "Hindia",
       color: "#65503c",
@@ -213,6 +213,13 @@ const { data } = useSWR('/api/spotify', fetcher, {
       artist: "Perunggu",
       color: "#4a5466",
       image: "/album/dalam-dinamika-perunggu.png"
+    },
+    {
+      text: 'Rute pagi yang dahulu ceria, menu favorit kini hambar rasanya, foto yang tak berani dilirik mata, kontak sekarang jadi sebatas nama...',
+      song: "Untuk Apa / Untuk Apa?",
+      artist: "Hindia",
+      color: "#65503c",
+      image: "/album/menari-hindia.jpg"
     },
     {
       text: "Oh why am i not enough for you? \nIt breaks my heart in two",
