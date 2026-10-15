@@ -18,6 +18,7 @@ export async function GET() {
     // 2. Endpoint Top Tracks (1 month, limit 5)
     const topTracksEndpoint = `https://ws.audioscrobbler.com/2.0/?method=user.gettoptracks&user=${username}&api_key=${apiKey}&format=json&period=1month&limit=5`;
     // 3. Endpoint Top Artists (1 month, limit 5)
+    
     const topArtistsEndpoint = `https://ws.audioscrobbler.com/2.0/?method=user.gettopartists&user=${username}&api_key=${apiKey}&format=json&period=1month&limit=5`;
 
     // Fetch semua data secara paralel agar tetap ngebut
