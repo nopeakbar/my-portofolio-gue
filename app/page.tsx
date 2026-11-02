@@ -14,6 +14,8 @@ import {
   Music,
   ChevronLeft,
   ChevronRight,
+  ChevronDown,
+  ChevronUp,
   Binary,
   Instagram,
   Linkedin,
@@ -51,6 +53,7 @@ const { data } = useSWR('/api/spotify', fetcher, {
   const [isTopStatsModalOpen, setIsTopStatsModalOpen] = useState(false);
   const [currentDocIndex, setCurrentDocIndex] = useState(0);
   const [isModalOpen, setIsModalOpen] = useState(false); // State untuk Popup Mobile
+  const [showAllExperiences, setShowAllExperiences] = useState(false);
 
   const sepotifiDocs = [
     { title: "Landing Page", desc: "Halaman utama Sepotifi", src: "/thumbnail/slide-sepotifi/ss1.jpeg" },
@@ -245,15 +248,48 @@ const { data } = useSWR('/api/spotify', fetcher, {
   // ==========================================
   // 4. CONFIG: EXPERIENCE & CERT
   // ==========================================
-  const experiences = [
+  type ExperienceRole = {
+    role: string;
+    period: string;
+  };
+
+  type ExperienceItem = {
+    company: string;
+    companyUrl?: string;
+    logo?: string;
+    period?: string;
+    role?: string;
+    roles?: ExperienceRole[];
+  };
+
+  const experiences: ExperienceItem[] = [
+    {
+      company: "Berijalan (PT Berijalan Teknologi Indonesia / Astra Group)",
+      companyUrl: "https://berijalan.co.id/",
+      period: "Jul 2025 - Present",
+      roles: [
+        {
+          role: "Software Engineer (Freelance / Contractor)",
+          period: "Oct 2025 - Present",
+        },
+        {
+          role: "Software Engineer Intern (Bootcamp Trainee)",
+          period: "Jul 2025 - Oct 2025",
+        },
+      ],
+    },
+    {
+      role: "AI Trainer & Specialist (Contract)",
+      company: "Outlier.ai",
+      companyUrl: "https://outlier.ai/",
+      period: "Jul 2025 - Present",
+    },
     {
       role: "Frontend Developer Intern",
       company: 'LPPM UPN "Veteran" Yogyakarta',
       companyUrl: "https://lppm.upnyk.ac.id/",
       period: "Feb 2025 - April 2025",
-      description: "Designed and implemented dynamic user interfaces using PHP for the ISBN Management System at UPN 'Veteran' Yogyakarta.",
-      tech: ["PHP", "Figma", "MySQL"],
-      logo: "/logo/logo-upn.png"
+      logo: "/logo/logo-upn.png",
     },
   ];
 
@@ -342,62 +378,125 @@ const { data } = useSWR('/api/spotify', fetcher, {
           <h2 className="text-3xl font-bold text-white">Experience</h2>
         </div>
 
-        <div className="relative border-l border-slate-800 ml-3 md:ml-6 space-y-12">
-          {experiences.map((exp, index) => (
+        <div className="relative border-l border-slate-800 ml-3 md:ml-6 space-y-6 md:space-y-7">
+          {(showAllExperiences ? experiences : experiences.slice(0, 2)).map((exp, index) => (
             <div key={index} className="relative pl-8 md:pl-12 group">
               {/* Timeline Dot */}
-              <div className="absolute -left-[5px] md:-left-[9px] top-2 w-3 h-3 md:w-5 md:h-5 rounded-full border-4 border-slate-950 bg-slate-600 group-hover:bg-blue-500 transition-colors shadow-[0_0_10px_rgba(59,130,246,0.5)]"></div>
+              <div className="absolute -left-[5px] md:-left-[9px] top-1.5 w-3 h-3 md:w-5 md:h-5 rounded-full border-4 border-slate-950 bg-slate-600 group-hover:bg-blue-500 transition-colors shadow-[0_0_10px_rgba(59,130,246,0.5)]"></div>
 
-              {/* Content Card */}
-              <div className="flex flex-col sm:flex-row gap-4 sm:justify-between sm:items-baseline mb-2">
-                <h3 className="text-xl md:text-2xl font-bold text-slate-200 group-hover:text-blue-400 transition-colors">
-                  {exp.role}
-                </h3>
-                <span className="text-sm font-mono text-slate-500 bg-slate-900 px-3 py-1 rounded-full border border-slate-800">
-                  {exp.period}
-                </span>
-              </div>
+              {/* Grouped Roles under a Company */}
+              {exp.roles && exp.roles.length > 0 ? (
+                <div>
+                  {/* Company Header */}
+                  <div className="flex flex-col sm:flex-row gap-2 sm:justify-between sm:items-center mb-3">
+                    <div className="text-lg md:text-xl font-bold text-slate-200 group-hover:text-blue-400 transition-colors flex items-center gap-2.5">
+                      {exp.logo ? (
+                        <img
+                          src={exp.logo}
+                          alt={exp.company}
+                          className="w-6 h-6 object-contain bg-slate-800 rounded-full border border-slate-700 p-0.5"
+                        />
+                      ) : (
+                        <Briefcase size={18} className="text-blue-500/70" />
+                      )}
 
-              {/* Company Name & Logo */}
-              <div className="text-lg font-medium text-slate-400 mb-4 flex items-center gap-3">
-                {exp.logo ? (
-                  <img
-                    src={exp.logo}
-                    alt={exp.company}
-                    className="w-8 h-8 object-contain bg-slate-800 rounded-full border border-slate-700 p-1"
-                  />
-                ) : (
-                  <Briefcase size={18} className="text-blue-500/50" />
-                )}
+                      {exp.companyUrl ? (
+                        <a
+                          href={exp.companyUrl}
+                          target="_blank"
+                          rel="noopener noreferrer"
+                          className="hover:text-blue-400 transition-colors flex items-center gap-1.5 group/link"
+                        >
+                          {exp.company}
+                          <ExternalLink size={13} className="opacity-50 group-hover/link:opacity-100 transition-opacity" />
+                        </a>
+                      ) : (
+                        <span>{exp.company}</span>
+                      )}
+                    </div>
+                    {exp.period && (
+                      <span className="text-xs font-mono text-slate-400 bg-slate-900 px-2.5 py-0.5 rounded-full border border-slate-800 w-fit shrink-0">
+                        {exp.period}
+                      </span>
+                    )}
+                  </div>
 
-                {exp.companyUrl ? (
-                  <a
-                    href={exp.companyUrl}
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    className="hover:text-blue-400 transition-colors flex items-center gap-1 group/link"
-                  >
-                    {exp.company}
-                    <ExternalLink size={12} className="opacity-50 group-hover/link:opacity-100 transition-opacity" />
-                  </a>
-                ) : (
-                  <span>{exp.company}</span>
-                )}
-              </div>
+                  {/* Sub-timeline for nested roles */}
+                  <div className="relative border-l border-slate-800/80 ml-2 md:ml-3 pl-5 md:pl-6 space-y-2.5">
+                    {exp.roles.map((subRole, subIdx) => (
+                      <div key={subIdx} className="relative group/sub flex flex-col sm:flex-row gap-1.5 sm:justify-between sm:items-baseline">
+                        {/* Sub-timeline Dot */}
+                        <div className="absolute -left-[24px] md:-left-[28px] top-1.5 w-2 h-2 rounded-full border-2 border-slate-950 bg-slate-600 group-hover/sub:bg-cyan-400 transition-colors shadow-[0_0_8px_rgba(6,182,212,0.4)]"></div>
 
-              <p className="text-slate-400 leading-relaxed mb-4 max-w-3xl">
-                {exp.description}
-              </p>
+                        <h4 className="text-sm md:text-base font-semibold text-slate-300 group-hover/sub:text-cyan-400 transition-colors">
+                          {subRole.role}
+                        </h4>
+                        <span className="text-xs font-mono text-slate-500 bg-slate-900/80 px-2 py-0.5 rounded border border-slate-800/60 w-fit shrink-0">
+                          {subRole.period}
+                        </span>
+                      </div>
+                    ))}
+                  </div>
+                </div>
+              ) : (
+                /* Single Role Entry */
+                <div>
+                  <div className="flex flex-col sm:flex-row gap-2 sm:justify-between sm:items-baseline mb-1">
+                    <h3 className="text-lg md:text-xl font-bold text-slate-200 group-hover:text-blue-400 transition-colors">
+                      {exp.role}
+                    </h3>
+                    <span className="text-xs font-mono text-slate-400 bg-slate-900 px-2.5 py-0.5 rounded-full border border-slate-800 w-fit shrink-0">
+                      {exp.period}
+                    </span>
+                  </div>
 
-              <div className="flex flex-wrap gap-2">
-                {exp.tech.map((t, i) => (
-                  <span key={i} className="text-xs font-medium text-slate-300 bg-slate-800/50 px-3 py-1 rounded-full border border-slate-700 hover:border-blue-500/30 transition-colors">
-                    {t}
-                  </span>
-                ))}
-              </div>
+                  {/* Company Name & Logo */}
+                  <div className="text-sm font-medium text-slate-400 flex items-center gap-2">
+                    {exp.logo ? (
+                      <img
+                        src={exp.logo}
+                        alt={exp.company}
+                        className="w-5 h-5 object-contain bg-slate-800 rounded-full border border-slate-700 p-0.5"
+                      />
+                    ) : (
+                      <Briefcase size={15} className="text-blue-500/60" />
+                    )}
+
+                    {exp.companyUrl ? (
+                      <a
+                        href={exp.companyUrl}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        className="hover:text-blue-400 transition-colors flex items-center gap-1 group/link"
+                      >
+                        {exp.company}
+                        <ExternalLink size={11} className="opacity-50 group-hover/link:opacity-100 transition-opacity" />
+                      </a>
+                    ) : (
+                      <span>{exp.company}</span>
+                    )}
+                  </div>
+                </div>
+              )}
             </div>
           ))}
+
+          {/* Toggle Button to Show/Hide Earlier Experiences */}
+          {experiences.length > 2 && (
+            <div className="pt-1 pl-8 md:pl-12">
+              <button
+                onClick={() => setShowAllExperiences((prev) => !prev)}
+                className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full text-xs font-medium text-slate-400 bg-slate-900/90 border border-slate-800 hover:border-blue-500/40 hover:text-white transition-all group/btn shadow-sm"
+              >
+                <span>{showAllExperiences ? "Show Less" : "Show Earlier Experience (LPPM)"}</span>
+                {showAllExperiences ? (
+                  <ChevronUp size={13} className="text-slate-400 group-hover/btn:text-blue-400 transition-colors" />
+                ) : (
+                  <ChevronDown size={13} className="text-slate-400 group-hover/btn:text-blue-400 transition-colors" />
+                )}
+              </button>
+            </div>
+          )}
         </div>
       </section>
 
