@@ -1,6 +1,6 @@
 "use client";
 
-import React, { useState } from 'react';
+import React, { useState, useEffect, useRef } from 'react';
 import Link from 'next/link';
 import { Analytics } from '@vercel/analytics/next';
 import { SpeedInsights } from "@vercel/speed-insights/next";
@@ -20,6 +20,54 @@ import {
 
 export default function Portfolio() {
   const [showAllExperiences, setShowAllExperiences] = useState(false);
+  const sidebarRef = useRef<HTMLElement>(null);
+
+  // Synchronize desktop sidebar scroll speed with user scroll near the bottom
+  useEffect(() => {
+    let ticking = false;
+
+    const handleScroll = () => {
+      if (!ticking) {
+        window.requestAnimationFrame(() => {
+          if (sidebarRef.current && window.innerWidth >= 1024) {
+            const sidebar = sidebarRef.current;
+            const maxSidebarScroll = sidebar.scrollHeight - sidebar.clientHeight;
+
+            if (maxSidebarScroll > 0) {
+              const maxWindowScroll = document.documentElement.scrollHeight - window.innerHeight;
+              if (maxWindowScroll > 0) {
+                // Zone starts when nearing the bottom of the page (e.g. final 250px)
+                const zoneHeight = Math.min(Math.max(maxSidebarScroll * 2.5, 250), maxWindowScroll);
+                const zoneStart = maxWindowScroll - zoneHeight;
+
+                if (window.scrollY <= zoneStart) {
+                  sidebar.scrollTop = 0;
+                } else if (window.scrollY >= maxWindowScroll) {
+                  sidebar.scrollTop = maxSidebarScroll;
+                } else {
+                  const t = (window.scrollY - zoneStart) / zoneHeight;
+                  // Smoothstep easing so it transitions gently without sudden jolt
+                  const eased = t * t * (3 - 2 * t);
+                  sidebar.scrollTop = eased * maxSidebarScroll;
+                }
+              }
+            }
+          }
+          ticking = false;
+        });
+        ticking = true;
+      }
+    };
+
+    window.addEventListener('scroll', handleScroll, { passive: true });
+    window.addEventListener('resize', handleScroll, { passive: true });
+    handleScroll();
+
+    return () => {
+      window.removeEventListener('scroll', handleScroll);
+      window.removeEventListener('resize', handleScroll);
+    };
+  }, []);
 
   // ==========================================
   // 1. DATA SELECTED PROJECTS
@@ -257,7 +305,7 @@ export default function Portfolio() {
           {/* ======================================================== */}
           {/* STICKY SIDEBAR / PERSONAL HEADER (DESKTOP)               */}
           {/* ======================================================== */}
-          <header className="lg:sticky lg:top-0 lg:flex lg:h-screen lg:max-h-screen lg:w-5/12 lg:flex-col lg:justify-between lg:py-12 xl:py-16 py-12 lg:overflow-y-auto [scrollbar-width:none] [-ms-overflow-style:none] [&::-webkit-scrollbar]:hidden">
+          <header ref={sidebarRef} className="lg:sticky lg:top-0 lg:flex lg:h-screen lg:max-h-screen lg:w-5/12 lg:flex-col lg:justify-between lg:py-12 xl:py-16 py-12 lg:overflow-y-auto [scrollbar-width:none] [-ms-overflow-style:none] [&::-webkit-scrollbar]:hidden">
             <div>
               {/* Status Badge */}
               <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full text-xs font-medium bg-emerald-50 text-emerald-800 border border-emerald-200/80 mb-5 xl:mb-6">
@@ -337,7 +385,7 @@ export default function Portfolio() {
             </div>
 
             {/* Social Media Connect */}
-            <div className="mt-8 lg:mt-4 xl:mt-0 pt-4 lg:pt-2 flex items-center gap-5 text-zinc-400">
+            <div className="mt-8 lg:mt-6 xl:mt-10 flex items-center gap-5 text-zinc-400">
               <a
                 aria-label="GitHub Profile"
                 className="hover:text-zinc-900 transition-colors"
