@@ -1,11 +1,13 @@
 "use client";
 
 import React, { useState } from 'react';
+import Link from 'next/link';
 import { Analytics } from '@vercel/analytics/next';
 import { SpeedInsights } from "@vercel/speed-insights/next";
 import {
   Github,
   Linkedin,
+  Instagram,
   Mail,
   FileText,
   ExternalLink,
@@ -121,6 +123,7 @@ export default function Portfolio() {
   type ExperienceItem = {
     company: string;
     companySubtitle?: string;
+    companyUrl?: string;
     period: string;
     location: string;
     logo: string; // path ke public/logo/
@@ -134,6 +137,7 @@ export default function Portfolio() {
     {
       company: "berijalan",
       companySubtitle: "PT Cipta Sedaya Digital Indonesia (CSDI)",
+      companyUrl: "https://berijalan.co.id/",
       period: "Jul 2026 — Present",
       location: "Yogyakarta, Indonesia",
       logo: "/logo/berijalan.png",
@@ -177,18 +181,23 @@ export default function Portfolio() {
       role: "Co-Founder & Software Engineer",
       company: "KickOff Studio",
       companySubtitle: "KickOff Studio · Entrepreneurship",
+      companyUrl: "https://www.kickoffstudio.online/",
       period: "May 2026 — Present",
       location: "Yogyakarta, Indonesia",
       logo: "/logo/kickoffstudio.png",
-      scope: "Directing full-stack web architecture, transactional automation, and cloud edge routing for an on-demand merchandise e-commerce platform.",
+      scope: "Directing full-stack web architecture, administrative transaction automation, and domain communication infrastructure for an on-demand merchandise e-commerce venture.",
       bullets: [
         {
           title: "Full-Stack Web Architecture",
-          desc: "Engineered an end-to-end custom merchandise ordering platform with Next.js App Router and Tailwind CSS, featuring interactive design customizers."
+          desc: "Engineered an end-to-end custom merchandise ordering platform using Next.js App Router and Tailwind CSS, featuring interactive preview customizers."
         },
         {
-          title: "Operational Automation",
-          desc: "Automated customer invoice delivery pipelines and configured Cloudflare DNS edge routing to guarantee zero checkout downtime."
+          title: "Internal Admin & Billing Automation",
+          desc: "Built a dedicated administrative back-office portal integrated with Google Sheets API to automate customer invoice and receipt (nota) generation, eliminating manual billing friction."
+        },
+        {
+          title: "Domain Infrastructure & Email Routing",
+          desc: "Configured Cloudflare Email Routing for @kickoffstudio.online forwarding to central mailboxes, establishing a professional corporate communication channel with zero email hosting overhead."
         }
       ]
     },
@@ -196,6 +205,7 @@ export default function Portfolio() {
       role: "AI Trainer",
       company: "Outlier.ai",
       companySubtitle: "Outlier.ai · Freelance",
+      companyUrl: "https://outlier.ai/",
       period: "Jul 2026 — Present",
       location: "Remote, United States",
       logo: "/logo/outlierai.svg",
@@ -215,14 +225,19 @@ export default function Portfolio() {
       role: "Frontend Developer Intern",
       company: 'LPPM UPN "Veteran" Yogyakarta',
       companySubtitle: 'LPPM UPN "Veteran" Yogyakarta · Internship',
+      companyUrl: "https://lppm.upnyk.ac.id/id",
       period: "Feb 2025 — Apr 2025",
       location: "Yogyakarta, Indonesia",
       logo: "/logo/upn.png",
-      scope: "Digitized university publication management workflows, replacing legacy manual paperwork with a centralized administrative web platform.",
+      scope: "Digitized institutional publication workflows across UPN \"Veteran\" Yogyakarta, centralizing campus-wide ISBN submissions into a single integrated administrative web platform.",
       bullets: [
         {
-          title: "Workflow Digitization",
-          desc: "Transformed manual ISBN filing into a digitized submission portal using PHP and MySQL, streamlining validation checkpoints for university researchers."
+          title: "Campus-Wide Workflow Digitization",
+          desc: "Architected and deployed a centralized web-based ISBN registration portal using PHP, JavaScript, and MySQL, replacing fragmented manual paperwork with a unified validation system."
+        },
+        {
+          title: "Institutional-Scale Adoption",
+          desc: "Spearheaded the platform rollout adopted university-wide by faculty researchers (dosen), students, and administrative staff (tendik) across all faculties to streamline academic publishing validation."
         }
       ]
     }
@@ -339,6 +354,15 @@ export default function Portfolio() {
                 <Linkedin className="w-5 h-5" />
               </a>
               <a
+                aria-label="Instagram Profile"
+                className="hover:text-zinc-900 transition-colors"
+                href="https://www.instagram.com/nopeakbar/"
+                rel="noopener noreferrer"
+                target="_blank"
+              >
+                <Instagram className="w-5 h-5" />
+              </a>
+              <a
                 aria-label="Email Noveanto Nur Akbar"
                 className="hover:text-zinc-900 transition-colors"
                 href="mailto:nopeakbar@gmail.com"
@@ -375,7 +399,18 @@ export default function Portfolio() {
                           <>
                             <div className="flex flex-col sm:flex-row sm:items-baseline gap-1 sm:gap-2">
                               <h3 className="text-base sm:text-xl font-bold text-zinc-950 tracking-tight leading-snug">
-                                {exp.company}
+                                {exp.companyUrl ? (
+                                  <a
+                                    href={exp.companyUrl}
+                                    target="_blank"
+                                    rel="noopener noreferrer"
+                                    className="hover:underline focus:outline-none transition-all duration-150"
+                                  >
+                                    {exp.company}
+                                  </a>
+                                ) : (
+                                  exp.company
+                                )}
                               </h3>
                               {exp.companySubtitle && (
                                 <span className="text-xs text-zinc-400 font-mono">
@@ -424,9 +459,20 @@ export default function Portfolio() {
                             <div className="flex flex-wrap items-center gap-1.5 mt-1 text-xs text-zinc-500">
                               {exp.companySubtitle?.split("·").map((part, pIdx, arr) => (
                                 <React.Fragment key={pIdx}>
-                                  <span className={pIdx === 0 ? "font-semibold text-zinc-800" : "text-zinc-400"}>
-                                    {part.trim()}
-                                  </span>
+                                  {pIdx === 0 && exp.companyUrl ? (
+                                    <a
+                                      href={exp.companyUrl}
+                                      target="_blank"
+                                      rel="noopener noreferrer"
+                                      className="font-semibold text-zinc-800 hover:text-zinc-950 hover:underline transition-all duration-150"
+                                    >
+                                      {part.trim()}
+                                    </a>
+                                  ) : (
+                                    <span className={pIdx === 0 ? "font-semibold text-zinc-800" : "text-zinc-400"}>
+                                      {part.trim()}
+                                    </span>
+                                  )}
                                   {pIdx < arr.length - 1 && <span>·</span>}
                                 </React.Fragment>
                               ))}
@@ -445,14 +491,33 @@ export default function Portfolio() {
                       {/* Right: Logo (Pinned Top-Right di Mobile & Desktop) + Desktop Timeline */}
                       <div className="shrink-0 flex flex-col items-end gap-1 sm:gap-1.5 pt-0.5">
                         {exp.logo && (
-                          <img
-                            src={exp.logo}
-                            alt={exp.company}
-                            className="h-5 sm:h-6 max-h-6 w-auto max-w-[75px] sm:max-w-[120px] object-contain object-right rounded-sm"
-                            onError={(e) => {
-                              (e.target as HTMLElement).style.display = "none";
-                            }}
-                          />
+                          exp.companyUrl ? (
+                            <a
+                              href={exp.companyUrl}
+                              target="_blank"
+                              rel="noopener noreferrer"
+                              className="hover:opacity-80 transition-opacity"
+                              title={`Visit ${exp.company}`}
+                            >
+                              <img
+                                src={exp.logo}
+                                alt={exp.company}
+                                className="h-5 sm:h-6 max-h-6 w-auto max-w-[75px] sm:max-w-[120px] object-contain object-right rounded-sm"
+                                onError={(e) => {
+                                  (e.target as HTMLElement).style.display = "none";
+                                }}
+                              />
+                            </a>
+                          ) : (
+                            <img
+                              src={exp.logo}
+                              alt={exp.company}
+                              className="h-5 sm:h-6 max-h-6 w-auto max-w-[75px] sm:max-w-[120px] object-contain object-right rounded-sm"
+                              onError={(e) => {
+                                (e.target as HTMLElement).style.display = "none";
+                              }}
+                            />
+                          )
                         )}
                         <div className="hidden sm:block text-right">
                           <span className="text-xs font-mono font-medium text-zinc-700 block">
@@ -509,14 +574,12 @@ export default function Portfolio() {
                     {/* Top Header: Title & Company/Date */}
                     <div className="flex items-start justify-between gap-2 mb-1">
                       <h4 className="text-base sm:text-lg font-bold text-zinc-900 group-hover:text-zinc-950 transition-colors leading-snug">
-                        <a
-                          href="https://berijalan.co.id/"
-                          target="_blank"
-                          rel="noopener noreferrer"
-                          className="hover:underline focus:outline-none"
+                        <Link
+                          href="/projects/anythink"
+                          className="hover:underline focus:outline-none flex items-center gap-1.5"
                         >
                           Anythink Full-Stack Migration <span className="inline-block transition-transform group-hover:translate-x-0.5 group-hover:-translate-y-0.5">→</span>
-                        </a>
+                        </Link>
                       </h4>
                       <div className="text-right shrink-0">
                         <span className="text-[11px] font-medium text-zinc-500 block">berijalan</span>
@@ -524,7 +587,6 @@ export default function Portfolio() {
                       </div>
                     </div>
 
-                    {/* Category Label */}
                     <span className="block text-[10px] font-mono font-bold tracking-wider uppercase text-zinc-500 mb-3">
                       FULL-STACK & SYSTEM MIGRATION
                     </span>
@@ -541,8 +603,8 @@ export default function Portfolio() {
                   </div>
 
                   {/* Tech Stack Footer (Inline Dot Separator) */}
-                  <div className="pt-4 mt-4 border-t border-zinc-100 text-[11px] font-mono text-zinc-400 leading-relaxed">
-                    Next.js · Express.js · Multi-Tenant RAG · TypeScript · PostgreSQL
+                  <div className="pt-4 mt-4 border-t border-zinc-100 text-[11px] font-mono text-zinc-400 leading-relaxed flex items-center justify-between">
+                    <span>Next.js · Express.js · Multi-Tenant RAG · TypeScript · PostgreSQL</span>
                   </div>
                 </article>
 
@@ -551,14 +613,12 @@ export default function Portfolio() {
                   <div>
                     <div className="flex items-start justify-between gap-2 mb-1">
                       <h4 className="text-base sm:text-lg font-bold text-zinc-900 group-hover:text-zinc-950 transition-colors leading-snug">
-                        <a
-                          href="https://berijalan.co.id/"
-                          target="_blank"
-                          rel="noopener noreferrer"
-                          className="hover:underline focus:outline-none"
+                        <Link
+                          href="/projects/ai-finops"
+                          className="hover:underline focus:outline-none flex items-center gap-1.5"
                         >
                           AI FinOps Gateway <span className="inline-block transition-transform group-hover:translate-x-0.5 group-hover:-translate-y-0.5">→</span>
-                        </a>
+                        </Link>
                       </h4>
                       <div className="text-right shrink-0">
                         <span className="text-[11px] font-medium text-zinc-500 block">berijalan</span>
@@ -571,32 +631,66 @@ export default function Portfolio() {
                     </span>
 
                     <p className="text-xs sm:text-sm text-zinc-600 leading-relaxed mb-3">
-                      Two-tier caching middleware utilizing semantic search and Microsoft LLMLingua-2.
+                      In-path two-tier proxy utilizing local BGE-M3 semantic caching and Microsoft LLMLingua-2 context pruning.
                     </p>
 
                     <p className="text-xs sm:text-sm font-medium text-zinc-900 leading-relaxed">
-                      Eliminated 100% API cost on semantic hits, with 25% token reduction driving 30%+ inference cost savings.
+                      Eliminated 100% API cost on semantic hits, driving up to ~61% total monthly inference cost reduction.
                     </p>
                   </div>
 
                   <div className="pt-4 mt-4 border-t border-zinc-100 text-[11px] font-mono text-zinc-400 leading-relaxed">
-                    Semantic Caching · LLMLingua-2 · Redis · Vector DB · Node.js
+                    Local BGE-M3 · Redis HNSW · LLMLingua-2 · Express.js · FinOps
                   </div>
                 </article>
 
-                {/* CARD 3: BANDHA CLOUD ECOSYSTEM */}
+                {/* CARD 3: SENTRA-SAFEQUERY */}
                 <article className="group bg-white border border-zinc-200/90 rounded-xl p-5 sm:p-6 shadow-sm hover:border-zinc-300 transition-all flex flex-col justify-between">
                   <div>
                     <div className="flex items-start justify-between gap-2 mb-1">
                       <h4 className="text-base sm:text-lg font-bold text-zinc-900 group-hover:text-zinc-950 transition-colors leading-snug">
-                        <a
-                          href="https://nopeakbar-bandha-live-demo.vercel.app/"
-                          target="_blank"
-                          rel="noopener noreferrer"
-                          className="hover:underline focus:outline-none"
+                        <Link
+                          href="/projects/sentra-safequery"
+                          className="hover:underline focus:outline-none flex items-center gap-1.5"
                         >
-                          Bandha Cloud & Multi-LLM <span className="inline-block transition-transform group-hover:translate-x-0.5 group-hover:-translate-y-0.5">→</span>
-                        </a>
+                          Sentra-SafeQuery <span className="inline-block transition-transform group-hover:translate-x-0.5 group-hover:-translate-y-0.5">→</span>
+                        </Link>
+                      </h4>
+                      <div className="text-right shrink-0">
+                        <span className="text-[11px] font-medium text-zinc-500 block">Personal</span>
+                        <span className="text-[11px] font-mono text-zinc-400 block">Oct 2026</span>
+                      </div>
+                    </div>
+
+                    <span className="block text-[10px] font-mono font-bold tracking-wider uppercase text-zinc-500 mb-3">
+                      AI SECURITY & APPLIED COMPILERS
+                    </span>
+
+                    <p className="text-xs sm:text-sm text-zinc-600 leading-relaxed mb-3">
+                      Privacy-preserving Text-to-SQL copilot democratizing core banking data mart analysis for frontline officers.
+                    </p>
+
+                    <p className="text-xs sm:text-sm font-medium text-zinc-900 leading-relaxed">
+                      Zero PII leak via ephemeral SessionVault, 100% destructive query mitigation with sqlglot AST firewall.
+                    </p>
+                  </div>
+
+                  <div className="pt-4 mt-4 border-t border-zinc-100 text-[11px] font-mono text-zinc-400 leading-relaxed">
+                    sqlglot AST · Python · SessionVault · SQLAlchemy · UU PDP Compliance
+                  </div>
+                </article>
+
+                {/* CARD 4: BANDHA CLOUD ECOSYSTEM */}
+                <article className="group bg-white border border-zinc-200/90 rounded-xl p-5 sm:p-6 shadow-sm hover:border-zinc-300 transition-all flex flex-col justify-between">
+                  <div>
+                    <div className="flex items-start justify-between gap-2 mb-1">
+                      <h4 className="text-base sm:text-lg font-bold text-zinc-900 group-hover:text-zinc-950 transition-colors leading-snug">
+                        <Link
+                          href="/projects/bandha"
+                          className="hover:underline focus:outline-none flex items-center gap-1.5"
+                        >
+                          Bandha: Multi-Modal AI Finance <span className="inline-block transition-transform group-hover:translate-x-0.5 group-hover:-translate-y-0.5">→</span>
+                        </Link>
                       </h4>
                       <div className="text-right shrink-0">
                         <span className="text-[11px] font-medium text-zinc-500 block">Personal</span>
@@ -605,24 +699,24 @@ export default function Portfolio() {
                     </div>
 
                     <span className="block text-[10px] font-mono font-bold tracking-wider uppercase text-zinc-500 mb-3">
-                      FULL-STACK AI & CLOUD INFRA
+                      MOBILE AI & COMPOUND ENSEMBLE
                     </span>
 
                     <p className="text-xs sm:text-sm text-zinc-600 leading-relaxed mb-3">
-                      Financial intelligence backend orchestrating Quad-LLM routing with automated CI/CD.
+                      Multi-modal personal finance app & Telegram bot orchestrating a heterogeneous Quad-AI pipeline.
                     </p>
 
                     <p className="text-xs sm:text-sm font-medium text-zinc-900 leading-relaxed">
-                      Containerized on AWS EC2 t3.micro with zero-downtime GitHub Actions deployment.
+                      Reduced data entry friction by ~92% (&lt;3s) via Whisper STT, Gemini OCR, and Compound GPT-OSS 120B.
                     </p>
                   </div>
 
                   <div className="pt-4 mt-4 border-t border-zinc-100 text-[11px] font-mono text-zinc-400 leading-relaxed">
-                    AWS EC2 · Docker · Nginx · Flutter · Node.js · GitHub Actions
+                    Flutter · Express.js · Groq Whisper · Llama 3.3 · Gemini Flash · Google Sheets
                   </div>
                 </article>
 
-                {/* CARD 4: NVIDIA TIME-SERIES */}
+                {/* CARD 5: NVIDIA TIME-SERIES */}
                 <article className="group bg-white border border-zinc-200/90 rounded-xl p-5 sm:p-6 shadow-sm hover:border-zinc-300 transition-all flex flex-col justify-between">
                   <div>
                     <div className="flex items-start justify-between gap-2 mb-1">
