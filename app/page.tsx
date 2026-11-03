@@ -195,7 +195,7 @@ export default function Portfolio() {
     {
       role: "AI Trainer",
       company: "Outlier.ai",
-      companySubtitle: "Outlier.ai · Contract",
+      companySubtitle: "Outlier.ai · Freelance",
       period: "Jul 2026 — Present",
       location: "Remote, United States",
       logo: "/logo/outlierai.svg",
