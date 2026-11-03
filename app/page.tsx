@@ -85,6 +85,7 @@ export default function Portfolio() {
     tags: string[];
     link?: string;
     github?: string;
+    publicationUrl?: string;
   };
 
   const selectedProjects: ProjectItem[] = [
@@ -150,7 +151,8 @@ export default function Portfolio() {
       ],
       tags: ["Python", "Bi-LSTM", "TensorFlow", "Time-Series", "Next.js", "Financial ML"],
       github: "https://github.com/nopeakbar/stocks-prediction-thesis.git",
-      link: "https://stocks-prediction-thesis-nopeakbar.vercel.app/"
+      link: "https://stocks-prediction-thesis-nopeakbar.vercel.app/",
+      publicationUrl: "http://eprints.upnyk.ac.id/47375/"
     }
   ];
 
@@ -290,7 +292,7 @@ export default function Portfolio() {
       bullets: [
         {
           title: "Campus-Wide Workflow Digitization",
-          desc: "Digitized institutional publication workflows across UPN Veteran Yogyakarta, centralizing campus-wide ISBN submissions into a single integrated administrative web platform."
+          desc: "Engineered the administrative web interface and integrated relational database pipelines using PHP, JavaScript, and MySQL, replacing manual paper filing with a centralized validation system."
         },
         {
           title: "Institutional-Scale Adoption",
@@ -824,6 +826,20 @@ export default function Portfolio() {
                     <p className="text-xs sm:text-sm font-medium text-zinc-900 leading-relaxed">
                       Benchmarked 10 model variants, achieving 2.29% MAPE on test distributions.
                     </p>
+
+                    {/* Campus E-Prints Publication Button */}
+                    <div className="mt-3.5">
+                      <a
+                        href="http://eprints.upnyk.ac.id/47375/"
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        className="inline-flex items-center gap-1.5 px-2.5 py-1 rounded-md text-[11px] font-mono font-medium text-zinc-700 bg-zinc-100 hover:bg-zinc-200 hover:text-zinc-950 border border-zinc-200/80 transition-colors shadow-2xs group/btn"
+                      >
+                        <FileText className="w-3 h-3 text-zinc-500 group-hover/btn:text-zinc-700" />
+                        <span>E-Prints UPNYK</span>
+                        <ArrowUpRight className="w-3 h-3 text-zinc-400 group-hover/btn:text-zinc-700 transition-transform group-hover/btn:translate-x-0.5 group-hover/btn:-translate-y-0.5" />
+                      </a>
+                    </div>
                   </div>
 
                   <div className="pt-4 mt-4 border-t border-zinc-100 text-[11px] font-mono text-zinc-400 leading-relaxed">
@@ -888,7 +904,7 @@ export default function Portfolio() {
                     </span>
 
                     <p className="text-xs sm:text-sm text-zinc-600 leading-relaxed mb-3">
-                      Architected and deployed a centralized web-based ISBN registration portal at LPPM UPN &quot;Veteran&quot; Yogyakarta using the Rapid Application Development (RAD) method, replacing fragmented manual paperwork with unified digital validation.
+                      Architected and engineered the centralized web-based ISBN registration portal at LPPM UPN &quot;Veteran&quot; Yogyakarta using the Rapid Application Development (RAD) method, replacing fragmented manual paperwork with unified digital validation.
                     </p>
 
                     <p className="text-xs sm:text-sm font-medium text-zinc-900 leading-relaxed">
