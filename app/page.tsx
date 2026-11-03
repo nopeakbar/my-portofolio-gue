@@ -284,7 +284,7 @@ export default function Portfolio() {
       bullets: [
         {
           title: "Campus-Wide Workflow Digitization",
-          desc: "Architected and deployed a centralized web-based ISBN registration portal using PHP, JavaScript, and MySQL, replacing fragmented manual paperwork with a unified validation system."
+          desc: "Digitized institutional publication workflows across UPN Veteran Yogyakarta, centralizing campus-wide ISBN submissions into a single integrated administrative web platform.."
         },
         {
           title: "Institutional-Scale Adoption",
