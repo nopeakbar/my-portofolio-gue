@@ -177,6 +177,7 @@ export default function Portfolio() {
     period: string;
     location: string;
     logo: string; // path ke public/logo/
+    logoClassName?: string;
     scope: string;
     bullets: BulletPoint[];
     rolesTimeline?: RoleTimelineItem[];
@@ -280,6 +281,7 @@ export default function Portfolio() {
       period: "Feb 2025 — Apr 2025",
       location: "Yogyakarta, Indonesia",
       logo: "/logo/upn.png",
+      logoClassName: "h-[34px] sm:h-[41px] max-h-[41px] w-auto max-w-[75px] sm:max-w-[120px] object-contain object-right rounded-sm",
       scope: "Digitized institutional publication workflows across UPN \"Veteran\" Yogyakarta, centralizing campus-wide ISBN submissions into a single integrated administrative web platform.",
       bullets: [
         {
@@ -530,7 +532,7 @@ export default function Portfolio() {
                               <img
                                 src={exp.logo}
                                 alt={exp.company}
-                                className="h-5 sm:h-6 max-h-6 w-auto max-w-[75px] sm:max-w-[120px] object-contain object-right rounded-sm"
+                                className={exp.logoClassName || "h-5 sm:h-6 max-h-6 w-auto max-w-[75px] sm:max-w-[120px] object-contain object-right rounded-sm"}
                                 onError={(e) => {
                                   (e.target as HTMLElement).style.display = "none";
                                 }}
@@ -540,7 +542,7 @@ export default function Portfolio() {
                             <img
                               src={exp.logo}
                               alt={exp.company}
-                              className="h-5 sm:h-6 max-h-6 w-auto max-w-[75px] sm:max-w-[120px] object-contain object-right rounded-sm"
+                              className={exp.logoClassName || "h-5 sm:h-6 max-h-6 w-auto max-w-[75px] sm:max-w-[120px] object-contain object-right rounded-sm"}
                               onError={(e) => {
                                 (e.target as HTMLElement).style.display = "none";
                               }}
