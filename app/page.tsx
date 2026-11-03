@@ -116,11 +116,13 @@ export default function Portfolio() {
 
   type RoleTimelineItem = {
     role: string;
-    type: string;
+    type?: string;
     period: string;
+    active?: boolean;
   };
 
   type ExperienceItem = {
+    role: string;
     company: string;
     companySubtitle?: string;
     companyUrl?: string;
@@ -129,12 +131,12 @@ export default function Portfolio() {
     logo: string; // path ke public/logo/
     scope: string;
     bullets: BulletPoint[];
-    role?: string;
     rolesTimeline?: RoleTimelineItem[];
   };
 
   const experiences: ExperienceItem[] = [
     {
+      role: "Fullstack Developer",
       company: "berijalan",
       companySubtitle: "PT Cipta Sedaya Digital Indonesia (CSDI)",
       companyUrl: "https://berijalan.co.id/",
@@ -143,14 +145,15 @@ export default function Portfolio() {
       logo: "/logo/berijalan.png",
       rolesTimeline: [
         {
-          role: "Fullstack Developer",
-          type: "Freelance",
-          period: "Oct 2026 — Present"
+          role: "Freelance",
+          period: "Oct 2026 — Present",
+          active: true
         },
         {
-          role: "Fullstack Developer Intern",
-          type: "Bootcamp Batch 18 · Internship",
-          period: "Jul 2026 — Oct 2026"
+          role: "Internship",
+          type: "Bootcamp Batch 18",
+          period: "Jul 2026 — Oct 2026",
+          active: false
         }
       ],
       scope: "Contributing to the full-stack modernization and architectural security hardening of Anythink (Astra Credit Companies), while previously engineering cost-efficient generative AI middleware during the enterprise bootcamp track.",
@@ -180,7 +183,7 @@ export default function Portfolio() {
     {
       role: "Co-Founder & Software Engineer",
       company: "KickOff Studio",
-      companySubtitle: "KickOff Studio · Entrepreneurship",
+      companySubtitle: "Entrepreneurship",
       companyUrl: "https://www.kickoffstudio.online/",
       period: "May 2026 — Present",
       location: "Yogyakarta, Indonesia",
@@ -204,7 +207,7 @@ export default function Portfolio() {
     {
       role: "AI Trainer",
       company: "Outlier.ai",
-      companySubtitle: "Outlier.ai · Freelance",
+      companySubtitle: "Freelance",
       companyUrl: "https://outlier.ai/",
       period: "Jul 2026 — Present",
       location: "Remote, United States",
@@ -224,7 +227,7 @@ export default function Portfolio() {
     {
       role: "Frontend Developer Intern",
       company: 'LPPM UPN "Veteran" Yogyakarta',
-      companySubtitle: 'LPPM UPN "Veteran" Yogyakarta · Internship',
+      companySubtitle: "Internship",
       companyUrl: "https://lppm.upnyk.ac.id/id",
       period: "Feb 2025 — Apr 2025",
       location: "Yogyakarta, Indonesia",
@@ -395,96 +398,73 @@ export default function Portfolio() {
                     {/* Header Bersih & Responsif: Kiri Identitas Peran / Perusahaan, Kanan Logo (Selalu Top-Right) */}
                     <div className="flex items-start justify-between gap-3 sm:gap-4 pb-4 mb-4 border-b border-zinc-100">
                       <div className="flex-1 min-w-0 pr-1 sm:pr-0">
-                        {exp.rolesTimeline ? (
-                          <>
-                            <div className="flex flex-col sm:flex-row sm:items-baseline gap-1 sm:gap-2">
-                              <h3 className="text-base sm:text-xl font-bold text-zinc-950 tracking-tight leading-snug">
-                                {exp.companyUrl ? (
-                                  <a
-                                    href={exp.companyUrl}
-                                    target="_blank"
-                                    rel="noopener noreferrer"
-                                    className="hover:underline focus:outline-none transition-all duration-150"
-                                  >
-                                    {exp.company}
-                                  </a>
-                                ) : (
-                                  exp.company
-                                )}
-                              </h3>
-                              {exp.companySubtitle && (
-                                <span className="text-xs text-zinc-400 font-mono">
-                                  · {exp.companySubtitle}
-                                </span>
-                              )}
-                            </div>
+                        {/* 1. Main Role Title (Role-First di Atas untuk Semua Experience) */}
+                        <h3 className="text-base sm:text-xl font-bold text-zinc-950 tracking-tight leading-snug">
+                          {exp.role}
+                        </h3>
 
-                            {/* Mobile Total Timeline & Location */}
-                            <div className="sm:hidden mt-1 text-[11px] font-mono text-zinc-400 flex items-center gap-1.5 flex-wrap">
-                              <span>{exp.period}</span>
+                        {/* 2. Company & Subtitle Meta Row */}
+                        <div className="flex flex-wrap items-center gap-1.5 mt-1 text-xs text-zinc-500">
+                          {exp.companyUrl ? (
+                            <a
+                              href={exp.companyUrl}
+                              target="_blank"
+                              rel="noopener noreferrer"
+                              className="font-semibold text-zinc-800 hover:text-zinc-950 hover:underline transition-all duration-150"
+                            >
+                              {exp.company}
+                            </a>
+                          ) : (
+                            <span className="font-semibold text-zinc-800">
+                              {exp.company}
+                            </span>
+                          )}
+                          {exp.companySubtitle && (
+                            <>
                               <span>·</span>
-                              <span>{exp.location}</span>
-                            </div>
+                              <span className="text-zinc-400">
+                                {exp.companySubtitle}
+                              </span>
+                            </>
+                          )}
+                        </div>
 
-                            {/* Compact Roles Timeline */}
-                            <div className="space-y-2 mt-2.5">
-                              {exp.rolesTimeline.map((item, rIdx) => (
-                                <div key={rIdx} className="text-xs">
-                                  <div className="flex items-center gap-1.5">
-                                    <span
-                                      className={`w-1.5 h-1.5 rounded-full shrink-0 ${
-                                        rIdx === 0 ? "bg-zinc-900" : "bg-zinc-400"
-                                      }`}
-                                    />
-                                    <span className="font-semibold text-zinc-900 leading-tight">
-                                      {item.role}
-                                    </span>
-                                  </div>
-                                  <div className="pl-3 mt-0.5 flex flex-wrap items-center gap-1.5 text-[11px] font-mono text-zinc-500">
-                                    <span className="bg-zinc-100 text-zinc-600 px-1.5 py-0.5 rounded text-[10px]">
+                        {/* 3. Mobile Period & Location */}
+                        <div className="sm:hidden mt-1 text-[11px] font-mono text-zinc-400 flex items-center gap-1.5 flex-wrap">
+                          <span>{exp.period}</span>
+                          <span>·</span>
+                          <span>{exp.location}</span>
+                        </div>
+
+                        {/* 4. Compact Roles Timeline (Tanpa Kotak) */}
+                        {exp.rolesTimeline && (
+                          <div className="mt-2.5 space-y-1.5">
+                            {exp.rolesTimeline.map((item, rIdx) => (
+                              <div key={rIdx} className="flex flex-wrap items-center gap-2 text-xs">
+                                <span
+                                  className={`w-1.5 h-1.5 rounded-full shrink-0 ${
+                                    item.active
+                                      ? "bg-zinc-900"
+                                      : "bg-zinc-400"
+                                  }`}
+                                />
+                                <span className={`font-semibold ${item.active ? "text-zinc-900" : "text-zinc-700"}`}>
+                                  {item.role}
+                                </span>
+                                {item.type && (
+                                  <>
+                                    <span className="text-zinc-300 select-none">·</span>
+                                    <span className="text-zinc-600 font-normal">
                                       {item.type}
                                     </span>
-                                    <span>·</span>
-                                    <span className="text-zinc-400">{item.period}</span>
-                                  </div>
-                                </div>
-                              ))}
-                            </div>
-                          </>
-                        ) : (
-                          <>
-                            <h3 className="text-base sm:text-xl font-bold text-zinc-950 tracking-tight leading-snug">
-                              {exp.role}
-                            </h3>
-                            <div className="flex flex-wrap items-center gap-1.5 mt-1 text-xs text-zinc-500">
-                              {exp.companySubtitle?.split("·").map((part, pIdx, arr) => (
-                                <React.Fragment key={pIdx}>
-                                  {pIdx === 0 && exp.companyUrl ? (
-                                    <a
-                                      href={exp.companyUrl}
-                                      target="_blank"
-                                      rel="noopener noreferrer"
-                                      className="font-semibold text-zinc-800 hover:text-zinc-950 hover:underline transition-all duration-150"
-                                    >
-                                      {part.trim()}
-                                    </a>
-                                  ) : (
-                                    <span className={pIdx === 0 ? "font-semibold text-zinc-800" : "text-zinc-400"}>
-                                      {part.trim()}
-                                    </span>
-                                  )}
-                                  {pIdx < arr.length - 1 && <span>·</span>}
-                                </React.Fragment>
-                              ))}
-                            </div>
-
-                            {/* Mobile Period & Location */}
-                            <div className="sm:hidden mt-1 text-[11px] font-mono text-zinc-400 flex items-center gap-1.5 flex-wrap">
-                              <span>{exp.period}</span>
-                              <span>·</span>
-                              <span>{exp.location}</span>
-                            </div>
-                          </>
+                                  </>
+                                )}
+                                <span className="font-mono text-zinc-400 text-[11px]">
+                                  ({item.period})
+                                </span>
+                              </div>
+                            ))}
+                          </div>
                         )}
                       </div>
 
