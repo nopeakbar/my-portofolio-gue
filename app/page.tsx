@@ -181,6 +181,10 @@ export default function Portfolio() {
     scope: string;
     bullets: BulletPoint[];
     rolesTimeline?: RoleTimelineItem[];
+    actionLink?: {
+      label: string;
+      href: string;
+    };
   };
 
   const experiences: ExperienceItem[] = [
@@ -286,13 +290,17 @@ export default function Portfolio() {
       bullets: [
         {
           title: "Campus-Wide Workflow Digitization",
-          desc: "Digitized institutional publication workflows across UPN Veteran Yogyakarta, centralizing campus-wide ISBN submissions into a single integrated administrative web platform.."
+          desc: "Digitized institutional publication workflows across UPN Veteran Yogyakarta, centralizing campus-wide ISBN submissions into a single integrated administrative web platform."
         },
         {
           title: "Institutional-Scale Adoption",
           desc: "Spearheaded the platform rollout adopted university-wide by faculty researchers (dosen), students, and administrative staff (tendik) across all faculties to streamline academic publishing validation."
         }
-      ]
+      ],
+      actionLink: {
+        label: "Published Paper (RSF ICSRD-2025)",
+        href: "https://proceeding.researchsynergypress.com/index.php/cset/article/view/1007"
+      }
     }
   ];
 
@@ -599,6 +607,22 @@ export default function Portfolio() {
                         </div>
                       ))}
                     </div>
+
+                    {/* Optional Action / Paper Link */}
+                    {exp.actionLink && (
+                      <div className="mt-4 pt-1">
+                        <a
+                          href={exp.actionLink.href}
+                          target="_blank"
+                          rel="noopener noreferrer"
+                          className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-lg text-xs font-mono font-medium text-zinc-700 bg-white hover:bg-zinc-50 border border-zinc-200 hover:border-zinc-300 transition-colors shadow-2xs group/link"
+                        >
+                          <FileText className="w-3.5 h-3.5 text-zinc-400 group-hover/link:text-zinc-700" />
+                          <span>{exp.actionLink.label}</span>
+                          <ArrowUpRight className="w-3.5 h-3.5 text-zinc-400 group-hover/link:text-zinc-700 transition-transform group-hover/link:translate-x-0.5 group-hover/link:-translate-y-0.5" />
+                        </a>
+                      </div>
+                    )}
                   </article>
                 ))}
               </div>
@@ -810,22 +834,22 @@ export default function Portfolio() {
               </div>
             </section>
 
-            {/* SECTION 3: WRITING (MEDIUM ARTICLES & DATA STORIES) */}
+            {/* SECTION 3: WRITING & PUBLICATIONS */}
             <section className="scroll-mt-24" id="writing">
               <div className="flex items-center gap-3 mb-4">
                 <span className="h-4 w-1 bg-zinc-900 rounded-full"></span>
                 <h2 className="text-xs font-mono font-semibold uppercase tracking-widest text-zinc-500">
-                  Writing
+                  Writing &amp; Publications
                 </h2>
               </div>
 
               <div className="mb-6 flex flex-col sm:flex-row sm:items-end justify-between gap-2">
                 <div>
                   <h3 className="text-xl sm:text-2xl font-bold tracking-tight text-zinc-900">
-                    Technical Writing & Data Stories
+                    Publications &amp; Technical Writing
                   </h3>
                   <p className="mt-1 text-xs text-zinc-500 font-mono">
-                    Empirical data exploration, sports analytics, and engineering narratives on Medium.
+                    Peer-reviewed conference proceedings, sports analytics, and empirical data stories.
                   </p>
                 </div>
                 <a
@@ -839,7 +863,53 @@ export default function Portfolio() {
               </div>
 
               <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
-                {/* CARD 1: INDONESIA VS BAHRAIN & CHINA H2H */}
+                {/* CARD 1: PUBLISHED PAPER - ISBN REGISTRATION SYSTEM (FEATURED FULL-WIDTH) */}
+                <article className="sm:col-span-2 group bg-white border border-zinc-200/90 rounded-xl p-5 sm:p-6 shadow-sm hover:border-zinc-300 transition-all flex flex-col justify-between">
+                  <div>
+                    <div className="flex items-start justify-between gap-2 mb-1">
+                      <h4 className="text-base sm:text-lg font-bold text-zinc-900 group-hover:text-zinc-950 transition-colors leading-snug">
+                        <a
+                          href="https://proceeding.researchsynergypress.com/index.php/cset/article/view/1007"
+                          target="_blank"
+                          rel="noopener noreferrer"
+                          className="hover:underline focus:outline-none flex items-center gap-1.5"
+                        >
+                          Published Paper: Web-Based ISBN Registration System (RSF ICSRD-2025) <span className="inline-block transition-transform group-hover:translate-x-0.5 group-hover:-translate-y-0.5">→</span>
+                        </a>
+                      </h4>
+                      <div className="text-right shrink-0">
+                        <span className="text-[11px] font-medium text-zinc-500 block">RSF Press</span>
+                        <span className="text-[11px] font-mono text-zinc-400 block">2025</span>
+                      </div>
+                    </div>
+
+                    <span className="block text-[10px] font-mono font-bold tracking-wider uppercase text-zinc-500 mb-3">
+                      SYSTEM ARCHITECTURE &amp; ACADEMIC PUBLICATION
+                    </span>
+
+                    <p className="text-xs sm:text-sm text-zinc-600 leading-relaxed mb-3">
+                      Architected and deployed a centralized web-based ISBN registration portal at LPPM UPN &quot;Veteran&quot; Yogyakarta using the Rapid Application Development (RAD) method, replacing fragmented manual paperwork with unified digital validation.
+                    </p>
+
+                    <p className="text-xs sm:text-sm font-medium text-zinc-900 leading-relaxed">
+                      Peer-reviewed and published in RSF Conference Series: Engineering and Technology (ICSRD-2025).
+                    </p>
+                  </div>
+
+                  <div className="pt-4 mt-4 border-t border-zinc-100 text-[11px] font-mono text-zinc-400 leading-relaxed flex flex-wrap items-center justify-between gap-2">
+                    <span>RAD Method · PHP · MySQL · Web Systems · ICSRD-2025 · Peer-Reviewed</span>
+                    <a
+                      href="https://proceeding.researchsynergypress.com/index.php/cset/article/view/1007"
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="text-xs font-semibold text-zinc-900 hover:underline inline-flex items-center gap-1 group-hover:text-zinc-950"
+                    >
+                      Read Paper <ArrowUpRight className="w-3.5 h-3.5" />
+                    </a>
+                  </div>
+                </article>
+
+                {/* CARD 2: INDONESIA VS BAHRAIN & CHINA H2H */}
                 <article className="group bg-white border border-zinc-200/90 rounded-xl p-5 sm:p-6 shadow-sm hover:border-zinc-300 transition-all flex flex-col justify-between">
                   <div>
                     <div className="flex items-start justify-between gap-2 mb-1">
