@@ -375,10 +375,18 @@ export default function Portfolio() {
                     </a>
                   </li>
                   <li>
+                    <a className="group flex items-center py-1" href="#writing">
+                      <span className="mr-3 h-[1px] w-6 bg-zinc-300 transition-all duration-300 group-hover:w-9 group-hover:bg-zinc-950"></span>
+                      <span className="text-xs font-mono tracking-widest uppercase text-zinc-500 group-hover:text-zinc-950 font-medium">
+                        03 // Writing
+                      </span>
+                    </a>
+                  </li>
+                  <li>
                     <a className="group flex items-center py-1" href="#contact">
                       <span className="mr-3 h-[1px] w-6 bg-zinc-300 transition-all duration-300 group-hover:w-9 group-hover:bg-zinc-950"></span>
                       <span className="text-xs font-mono tracking-widest uppercase text-zinc-500 group-hover:text-zinc-950 font-medium">
-                        03 // Get In Touch
+                        04 // Get In Touch
                       </span>
                     </a>
                   </li>
@@ -405,6 +413,21 @@ export default function Portfolio() {
                 target="_blank"
               >
                 <Linkedin className="w-5 h-5" />
+              </a>
+              <a
+                aria-label="Medium Profile"
+                className="hover:text-zinc-900 transition-colors"
+                href="https://medium.com/@nopeakbar"
+                rel="noopener noreferrer"
+                target="_blank"
+              >
+                <svg
+                  className="w-5 h-5 fill-current"
+                  viewBox="0 0 24 24"
+                  aria-hidden="true"
+                >
+                  <path d="M13.54 12a6.8 6.8 0 01-6.77 6.82A6.8 6.8 0 010 12a6.8 6.8 0 016.77-6.82A6.8 6.8 0 0113.54 12zM20.96 12c0 3.54-1.51 6.42-3.38 6.42-1.87 0-3.39-2.88-3.39-6.42s1.52-6.42 3.39-6.42 3.38 2.88 3.38 6.42M24 12c0 3.17-.53 5.75-1.19 5.75-.66 0-1.19-2.58-1.19-5.75s.53-5.75 1.19-5.75C23.47 6.25 24 8.83 24 12z" />
+                </svg>
               </a>
               <a
                 aria-label="Instagram Profile"
@@ -787,7 +810,122 @@ export default function Portfolio() {
               </div>
             </section>
 
-            {/* SECTION 3: CONTACT */}
+            {/* SECTION 3: WRITING (MEDIUM ARTICLES & DATA STORIES) */}
+            <section className="scroll-mt-24" id="writing">
+              <div className="flex items-center gap-3 mb-4">
+                <span className="h-4 w-1 bg-zinc-900 rounded-full"></span>
+                <h2 className="text-xs font-mono font-semibold uppercase tracking-widest text-zinc-500">
+                  Writing
+                </h2>
+              </div>
+
+              <div className="mb-6 flex flex-col sm:flex-row sm:items-end justify-between gap-2">
+                <div>
+                  <h3 className="text-xl sm:text-2xl font-bold tracking-tight text-zinc-900">
+                    Technical Writing & Data Stories
+                  </h3>
+                  <p className="mt-1 text-xs text-zinc-500 font-mono">
+                    Empirical data exploration, sports analytics, and engineering narratives on Medium.
+                  </p>
+                </div>
+                <a
+                  href="https://medium.com/@nopeakbar"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="inline-flex items-center text-xs font-mono text-zinc-500 hover:text-zinc-900 transition-colors group shrink-0"
+                >
+                  Visit Medium <span className="inline-block transition-transform group-hover:translate-x-0.5 ml-1">→</span>
+                </a>
+              </div>
+
+              <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                {/* CARD 1: INDONESIA VS BAHRAIN & CHINA H2H */}
+                <article className="group bg-white border border-zinc-200/90 rounded-xl p-5 sm:p-6 shadow-sm hover:border-zinc-300 transition-all flex flex-col justify-between">
+                  <div>
+                    <div className="flex items-start justify-between gap-2 mb-1">
+                      <h4 className="text-base sm:text-lg font-bold text-zinc-900 group-hover:text-zinc-950 transition-colors leading-snug">
+                        <a
+                          href="https://medium.com/@nopeakbar/analisis-head-to-head-timnas-indonesia-vs-bahrain-dan-china-sejak-tahun-1934-a9f92edb1646"
+                          target="_blank"
+                          rel="noopener noreferrer"
+                          className="hover:underline focus:outline-none flex items-center gap-1.5"
+                        >
+                          Indonesia vs Bahrain & China: 90-Year H2H Analysis <span className="inline-block transition-transform group-hover:translate-x-0.5 group-hover:-translate-y-0.5">→</span>
+                        </a>
+                      </h4>
+                      <div className="text-right shrink-0">
+                        <span className="text-[11px] font-medium text-zinc-500 block">Medium</span>
+                        <span className="text-[11px] font-mono text-zinc-400 block">Oct 2024</span>
+                      </div>
+                    </div>
+
+                    <span className="block text-[10px] font-mono font-bold tracking-wider uppercase text-zinc-500 mb-3">
+                      HISTORICAL SPORTS ANALYTICS & EDA
+                    </span>
+
+                    <p className="text-xs sm:text-sm text-zinc-600 leading-relaxed">
+                      A statistical head-to-head investigation published on Medium exploring 90 years of international football match data (1934–2024). Leveraging Python and Pandas over Kaggle's comprehensive historical records to evaluate win-loss-draw distributions and tactical historical context ahead of the 2026 FIFA World Cup Qualifiers.
+                    </p>
+                  </div>
+
+                  <div className="pt-4 mt-4 border-t border-zinc-100 text-[11px] font-mono text-zinc-400 leading-relaxed flex flex-wrap items-center justify-between gap-2">
+                    <span>Python · Pandas · Historical Data · Sports Analytics</span>
+                    <a
+                      href="https://medium.com/@nopeakbar/analisis-head-to-head-timnas-indonesia-vs-bahrain-dan-china-sejak-tahun-1934-a9f92edb1646"
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="text-xs font-semibold text-zinc-900 hover:underline inline-flex items-center gap-1 group-hover:text-zinc-950"
+                    >
+                      Read on Medium <ArrowUpRight className="w-3.5 h-3.5" />
+                    </a>
+                  </div>
+                </article>
+
+                {/* CARD 2: EA FC 25 SOUTHEAST ASIAN PLAYER RATINGS */}
+                <article className="group bg-white border border-zinc-200/90 rounded-xl p-5 sm:p-6 shadow-sm hover:border-zinc-300 transition-all flex flex-col justify-between">
+                  <div>
+                    <div className="flex items-start justify-between gap-2 mb-1">
+                      <h4 className="text-base sm:text-lg font-bold text-zinc-900 group-hover:text-zinc-950 transition-colors leading-snug">
+                        <a
+                          href="https://nopeakbar.medium.com/analisis-rating-pemain-asia-tenggara-di-permainan-konsol-ea-fc-25-menggunakan-python-eb700f83bf75"
+                          target="_blank"
+                          rel="noopener noreferrer"
+                          className="hover:underline focus:outline-none flex items-center gap-1.5"
+                        >
+                          EA FC 25: Southeast Asian Player Ratings Analysis <span className="inline-block transition-transform group-hover:translate-x-0.5 group-hover:-translate-y-0.5">→</span>
+                        </a>
+                      </h4>
+                      <div className="text-right shrink-0">
+                        <span className="text-[11px] font-medium text-zinc-500 block">Medium</span>
+                        <span className="text-[11px] font-mono text-zinc-400 block">Sep 2024</span>
+                      </div>
+                    </div>
+
+                    <span className="block text-[10px] font-mono font-bold tracking-wider uppercase text-zinc-500 mb-3">
+                      EXPLORATORY DATA ANALYSIS & SPORTS DATA
+                    </span>
+
+                    <p className="text-xs sm:text-sm text-zinc-600 leading-relaxed">
+                      An exploratory data analysis published on Medium examining Southeast Asian footballers featured in EA Sports FC 25. Utilizing Python, Pandas, Seaborn, and Matplotlib, this study filtered and benchmarked 13 ASEAN players (across Indonesia, the Philippines, and Thailand) to evaluate Overall Rating (OVR) hierarchies, sprint speeds, and dribbling performance.
+                    </p>
+                  </div>
+
+                  <div className="pt-4 mt-4 border-t border-zinc-100 text-[11px] font-mono text-zinc-400 leading-relaxed flex flex-wrap items-center justify-between gap-2">
+                    <span>Python · Pandas · Seaborn · Matplotlib · Sports Analytics</span>
+                    <a
+                      href="https://nopeakbar.medium.com/analisis-rating-pemain-asia-tenggara-di-permainan-konsol-ea-fc-25-menggunakan-python-eb700f83bf75"
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="text-xs font-semibold text-zinc-900 hover:underline inline-flex items-center gap-1 group-hover:text-zinc-950"
+                    >
+                      Read on Medium <ArrowUpRight className="w-3.5 h-3.5" />
+                    </a>
+                  </div>
+                </article>
+              </div>
+            </section>
+
+            {/* SECTION 4: CONTACT */}
             <section className="scroll-mt-24 pt-8 border-t border-zinc-200" id="contact">
               <div className="flex items-center gap-3 mb-6">
                 <span className="h-4 w-1 bg-zinc-900 rounded-full"></span>
