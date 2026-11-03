@@ -239,10 +239,10 @@ export default function Portfolio() {
           {/* ======================================================== */}
           {/* STICKY SIDEBAR / PERSONAL HEADER (DESKTOP)               */}
           {/* ======================================================== */}
-          <header className="lg:sticky lg:top-0 lg:flex lg:max-h-screen lg:w-5/12 lg:flex-col lg:justify-between lg:py-24 py-16">
+          <header className="lg:sticky lg:top-0 lg:flex lg:h-screen lg:max-h-screen lg:w-5/12 lg:flex-col lg:justify-between lg:py-12 xl:py-16 py-12 lg:overflow-y-auto [scrollbar-width:none] [-ms-overflow-style:none] [&::-webkit-scrollbar]:hidden">
             <div>
               {/* Status Badge */}
-              <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full text-xs font-medium bg-emerald-50 text-emerald-800 border border-emerald-200/80 mb-8">
+              <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full text-xs font-medium bg-emerald-50 text-emerald-800 border border-emerald-200/80 mb-5 xl:mb-6">
                 <span className="relative flex h-2 w-2">
                   <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-emerald-400 opacity-75"></span>
                   <span className="relative inline-flex rounded-full h-2 w-2 bg-emerald-500"></span>
@@ -254,12 +254,12 @@ export default function Portfolio() {
               <h1 className="text-4xl sm:text-5xl font-bold tracking-tight text-zinc-950 font-sans">
                 Noveanto Nur Akbar
               </h1>
-              <h2 className="mt-3 text-lg sm:text-xl font-medium text-zinc-600 tracking-tight">
+              <h2 className="mt-2.5 sm:mt-3 text-lg sm:text-xl font-medium text-zinc-600 tracking-tight">
                 AI & Software Engineer
               </h2>
 
               {/* Bio */}
-              <div className="mt-6 space-y-3 text-sm leading-relaxed text-zinc-600 max-w-sm">
+              <div className="mt-4 xl:mt-6 space-y-2.5 xl:space-y-3 text-sm leading-relaxed text-zinc-600 max-w-sm">
                 <p>
                   I am an <span className="text-zinc-900 font-medium">AI & Software Engineer</span> bridging intelligent models with production-grade web applications, with a strong focus on enterprise RAG systems, inference cost optimization, and secure data infrastructure.
                 </p>
@@ -269,7 +269,7 @@ export default function Portfolio() {
               </div>
 
               {/* Quick Action Buttons */}
-              <div className="mt-8 flex items-center gap-3">
+              <div className="mt-5 xl:mt-6 flex items-center gap-3">
                 <a
                   href="/CV_Noveanto-Nur-Akbar.pdf"
                   target="_blank"
@@ -288,8 +288,8 @@ export default function Portfolio() {
               </div>
 
               {/* Quick Navigation Links */}
-              <nav aria-label="In-page jump links" className="hidden lg:block mt-16">
-                <ul className="space-y-4">
+              <nav aria-label="In-page jump links" className="hidden lg:block mt-6 xl:mt-10">
+                <ul className="space-y-2.5 xl:space-y-3.5">
                   <li>
                     <a className="group flex items-center py-1" href="#experience">
                       <span className="mr-3 h-[1px] w-6 bg-zinc-300 transition-all duration-300 group-hover:w-9 group-hover:bg-zinc-950"></span>
@@ -319,7 +319,7 @@ export default function Portfolio() {
             </div>
 
             {/* Social Media Connect */}
-            <div className="mt-12 lg:mt-0 flex items-center gap-5 text-zinc-400">
+            <div className="mt-8 lg:mt-4 xl:mt-0 pt-4 lg:pt-2 flex items-center gap-5 text-zinc-400">
               <a
                 aria-label="GitHub Profile"
                 className="hover:text-zinc-900 transition-colors"
