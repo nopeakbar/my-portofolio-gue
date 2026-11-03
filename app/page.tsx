@@ -339,7 +339,7 @@ export default function Portfolio() {
               {/* Quick Action Buttons */}
               <div className="mt-5 xl:mt-6 flex items-center gap-3">
                 <a
-                  href="/CV_Noveanto-Nur-Akbar.pdf"
+                  href="/Noveanto_Nur_Akbar_CV_Public.pdf"
                   target="_blank"
                   className="inline-flex items-center justify-center px-4 py-2 text-xs font-semibold uppercase tracking-wider text-white bg-zinc-900 hover:bg-zinc-800 rounded-lg shadow-sm transition duration-150"
                 >
