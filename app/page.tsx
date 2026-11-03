@@ -1,1650 +1,715 @@
 "use client";
 
 import React, { useState } from 'react';
-import useSWR from 'swr';
 import { Analytics } from '@vercel/analytics/next';
+import { SpeedInsights } from "@vercel/speed-insights/next";
 import {
   Github,
-  ExternalLink,
-  Smartphone,
-  Book,
-  FileText,
+  Linkedin,
   Mail,
-  ArrowRight,
-  Music,
-  ChevronLeft,
-  ChevronRight,
+  FileText,
+  ExternalLink,
+  Briefcase,
   ChevronDown,
   ChevronUp,
-  Binary,
-  Instagram,
-  Linkedin,
-  Coffee,
-  Mic,
-  MousePointerClick,
-  Quote,
-  Shuffle,
-  Briefcase,
-  ShieldCheck,
-  Copy,
-  Check,
-  AlertTriangle,
-  X,
-  Eye,
-  Bot,       
-  Database,
-  Activity,
-  TrendingUp,
-  MapPin,
-  LineChart,
-  Server,
-  Cloud   
+  FolderGit2,
+  ArrowUpRight
 } from 'lucide-react';
-import { SpeedInsights } from "@vercel/speed-insights/next";
-
-const fetcher = (url: string) => fetch(url).then((r) => r.json());
 
 export default function Portfolio() {
-const { data } = useSWR('/api/spotify', fetcher, { 
-    refreshInterval: 15000,
-    refreshWhenHidden: true 
-  });
-
-  const [isTopStatsModalOpen, setIsTopStatsModalOpen] = useState(false);
-  const [currentDocIndex, setCurrentDocIndex] = useState(0);
-  const [isModalOpen, setIsModalOpen] = useState(false); // State untuk Popup Mobile
   const [showAllExperiences, setShowAllExperiences] = useState(false);
 
-  const sepotifiDocs = [
-    { title: "Landing Page", desc: "Halaman utama Sepotifi", src: "/thumbnail/slide-sepotifi/ss1.jpeg" },
-    { title: "Main Menu", desc: "Pilih analsis yang kamu mau! Asek!", src: "/thumbnail/slide-sepotifi/ss2.jpeg" },
-    { title: "Your Wrapped", desc: "Halaman 1 dari Story Sepotifi", src: "/thumbnail/slide-sepotifi/ss3.jpeg" },
-    { title: "Vibe Elo!", desc: "Halaman 2 dari Story Sepotifi", src: "/thumbnail/slide-sepotifi/ss4.jpeg" },
-    { title: "Top 3 Lagu Asek!", desc: "Halaman 3 dari Story Sepotifi", src: "/thumbnail/slide-sepotifi/ss5.jpeg" },
-    { title: "On Repeat!", desc: "Halaman 4 dari Story Sepotifi", src: "/thumbnail/slide-sepotifi/ss6.jpeg" },
-    { title: "Ga Terkenal, tapi lo suka", desc: "Halaman 5 dari Story Sepotifi", src: "/thumbnail/slide-sepotifi/ss7.jpeg" },
-    { title: "Tembok Kebanggaan", desc: "Halaman 6 dari Story Sepotifi", src: "/thumbnail/slide-sepotifi/ss8.jpeg" },
-    { title: "Top 10 Lagu Lo!", desc: "Halaman 7 dari Story Sepotifi", src: "/thumbnail/slide-sepotifi/ss9.jpeg" },
-  ];
-
-  const [currentMalioboroIndex, setCurrentMalioboroIndex] = useState(0);
-  const [isMalioboroModalOpen, setIsMalioboroModalOpen] = useState(false);
-  const malioboroDocs = [
-    { title: "Landing Page", desc: "Visualisasi utama dan judul proyek", src: "/thumbnail/malioboro/hero.jpeg" },
-    { title: "Latar Belakang", desc: "UI Section penjelasan urgensi digitalisasi", src: "/thumbnail/malioboro/about.jpeg" },
-    { title: "Hasil Model 3D", desc: "Detail fasad bangunan hasil LiDAR SLAM", src: "/thumbnail/malioboro/result.jpeg" },
-  ];
-  const nextMalioboro = () => setCurrentMalioboroIndex((prev) => (prev === malioboroDocs.length - 1 ? 0 : prev + 1));
-  const prevMalioboro = () => setCurrentMalioboroIndex((prev) => (prev === 0 ? malioboroDocs.length - 1 : prev - 1));
-
-  const nextDoc = () => {
-    setCurrentDocIndex((prev) => (prev === sepotifiDocs.length - 1 ? 0 : prev + 1));
-  };
-
-  const prevDoc = () => {
-    setCurrentDocIndex((prev) => (prev === 0 ? sepotifiDocs.length - 1 : prev - 1));
-  };
-
   // ==========================================
-  // 1.5. CONFIG: BOT TELEGRAM CAROUSEL & MODAL
+  // 1. DATA SELECTED PROJECTS
   // ==========================================
-  const [currentBotDocIndex, setCurrentBotDocIndex] = useState(0);
-  const [isBotModalOpen, setIsBotModalOpen] = useState(false);
-
-  const botDocs = [
-    { title: "Bandha Mobile App", desc: "UI interaktif berbasis Flutter untuk mencatat pengeluaran.", src: "/bot/bandha.mp4" },
-    { title: "Voice-to-Transaction", desc: "Rekam suara instan yang otomatis mencatat pengeluaran ke Spreadsheet via API.", src: "/bot/voice-to-transaction.mp4" },
-    { title: "AI Assistant Chat", desc: "Diskusi keuangan dan catat pengeluaran langsung via Chatbot pintar.", src: "/bot/bandha-chat.mp4" }, 
-    { title: "In-App Receipt Scanner", desc: "Foto struk langsung dari aplikasi, otomatis diekstrak oleh Gemini.", src: "/bot/bandha-camera.mp4" },
-    { title: "Deep Financial Analysis", desc: "Dashboard analisis dan insight yang digenerate oleh GPT OSS 120b.", src: "/bot/bandha-analysis.mp4" },
-    { title: "Natural Language Input", desc: "Ketik pengeluaran santai, Llama otomatis ekstrak datanya.", src: "/bot/bot1.png" },
-    { title: "Telegram Smart OCR", desc: "Kirim foto struk via Telegram bot saat sedang terburu-buru.", src: "/bot/bot2.jpeg" },
-    { title: "Google Sheets Sync", desc: "Data terstruktur langsung masuk ke spreadsheet secara realtime.", src: "/bot/bot3.mp4" },
-  ];
-
-  const nextBotDoc = () => setCurrentBotDocIndex((prev) => (prev === botDocs.length - 1 ? 0 : prev + 1));
-  const prevBotDoc = () => setCurrentBotDocIndex((prev) => (prev === 0 ? botDocs.length - 1 : prev - 1));
-
-  const [currentCloudIndex, setCurrentCloudIndex] = useState(0);
-  const [isCloudModalOpen, setIsCloudModalOpen] = useState(false);
-
-  const cloudDocs = [
-    { 
-      title: "Cloud Architecture Diagram", 
-      desc: "End-to-end infrastructure deployed on AWS EC2 (provisioned via Terraform), utilizing Docker, Nginx, and automated via GitHub Actions.", 
-      src: "/bot/aws-architecture.png" 
-    },
-    { 
-      title: "Production Server Live Status", 
-      desc: "Terminal monitoring showing active Nginx proxy, stable Docker container, and heavily optimized RAM footprint on t3.micro.", 
-      src: "/bot/aws-terminal.png" 
-    },
-    { 
-      title: "CI/CD Automated Pipeline", 
-      desc: "Zero-downtime deployment pipeline triggered on branch merge, successfully built and pushed via GitHub Actions.", 
-      src: "/bot/aws-actions.png" 
-    },
-    { 
-      title: "CloudWatch Observability", 
-      desc: "Live instance monitoring via AWS CloudWatch, ensuring optimal CPU utilization and network health for the Quad-LLM engine.", 
-      src: "/bot/aws-cloudwatch.png" 
-    }
-  ];
-  const nextCloudDoc = () => setCurrentCloudIndex((prev) => (prev === cloudDocs.length - 1 ? 0 : prev + 1));
-  const prevCloudDoc = () => setCurrentCloudIndex((prev) => (prev === 0 ? cloudDocs.length - 1 : prev - 1));
-  
-  const [currentCoffeecomIndex, setCurrentCoffeecomIndex] = useState(0);
-  const [isCoffeecomModalOpen, setIsCoffeecomModalOpen] = useState(false);
-  const coffeecomDocs = [
-    { 
-      title: "Step-by-Step Review", 
-      desc: "Proses input review yang dioptimasi dengan AI Llama 3.3.", 
-      src: "/thumbnail/coffeecom/review-coffeecom.mp4" 
-    },
-    { 
-      title: "Main Explorer", 
-      desc: "Halaman utama dengan Mapbox 3D dan custom markers.", 
-      src: "/thumbnail/coffeecom/main.jpeg" 
-    },
-  ];
-
-  const nextCoffeecom = () => setCurrentCoffeecomIndex((prev) => (prev === coffeecomDocs.length - 1 ? 0 : prev + 1));
-  const prevCoffeecom = () => setCurrentCoffeecomIndex((prev) => (prev === 0 ? coffeecomDocs.length - 1 : prev - 1));
-
-  // ==========================================
-  // 2. CONFIG: SLIDER ON REPEAT
-  // ==========================================
-  const spotifyEmbeds = [
-    // 1. 2112 asekkk
-    "https://open.spotify.com/embed/track/5Gxwk3TSekI4GVMpFvPBEc?utm_source=generator",
-    // 2. Ini Abadi
-    "https://open.spotify.com/embed/track/6cgBRhTzwk0OBhRX2E5F3V?utm_source=generator",
-    // 2. Semua orangpernha sakit hati
-    "https://open.spotify.com/embed/track/0lAwrV80YlQCGeqPtMIQjB?utm_source=generator",
-    // 3. Evaluasi
-    "https://open.spotify.com/embed/track/2dIBMHByUGcNPzmYBJ6OAj?utm_source=generator&theme=0",
-    // 4. Tarots
-    "https://open.spotify.com/embed/track/4XHijJfABTtUCW3Bp6KFvr?utm_source=generator&theme=0",
-  ];
-
-  const [currentSong, setCurrentSong] = useState(0);
-  const [touchStart, setTouchStart] = useState<number | null>(null);
-  const [touchEnd, setTouchEnd] = useState<number | null>(null);
-
-  // Fungsi Ganti Lagu
-  const nextSong = () => {
-    setCurrentSong((prev) => (prev === spotifyEmbeds.length - 1 ? 0 : prev + 1));
+  type ProjectItem = {
+    title: string;
+    category: string;
+    company: string;
+    companyAbbr: string;
+    logo?: string;
+    period: string;
+    description: string;
+    outcome: string;
+    bullets: string[];
+    tags: string[];
+    link?: string;
+    github?: string;
   };
 
-  const prevSong = () => {
-    setCurrentSong((prev) => (prev === 0 ? spotifyEmbeds.length - 1 : prev - 1));
-  };
-
-  // Logic Swipe Mobile
-  const minSwipeDistance = 50;
-  const onTouchStart = (e: React.TouchEvent) => {
-    setTouchEnd(null);
-    setTouchStart(e.targetTouches[0].clientX);
-  };
-  const onTouchMove = (e: React.TouchEvent) => {
-    setTouchEnd(e.targetTouches[0].clientX);
-  };
-  const onTouchEnd = () => {
-    if (!touchStart || !touchEnd) return;
-    const distance = touchStart - touchEnd;
-    const isLeftSwipe = distance > minSwipeDistance;
-    const isRightSwipe = distance < -minSwipeDistance;
-
-    if (isLeftSwipe) nextSong();
-    if (isRightSwipe) prevSong();
-  };
-
-  // ==========================================
-  // 3. CONFIG: LYRICS
-  // ==========================================
-  const favoriteLyrics = [
+  const selectedProjects: ProjectItem[] = [
     {
-      text: 'Pindah berkala Rumah ke Rumah, \nmengambil pelajaran jika berpisah, jikalau suatu saat berujung indah, catat nama kita dalam sejarah...',
-      song: "Rumah ke Rumah",
-      artist: "Hindia",
-      color: "#65503c",
-      image: "/album/menari-hindia.jpg"
+      title: "Anythink: Full-Stack Platform Migration",
+      category: "System Modernization",
+      company: "berijalan",
+      companyAbbr: "BJ",
+      logo: "/logo/berijalan.png",
+      period: "Oct 2026 — Present",
+      description: "Migrated Anythink, an established multi-tenant AI Workplace platform, from a legacy Laravel monolith into a decoupled Next.js and Express.js architecture.",
+      outcome: "Modernized backend services to support low-latency token streaming while hardening zero-trust security boundaries to prevent cross-tenant data leakage.",
+      bullets: [
+        "Migrated monolithic PHP/Laravel backend services to a decoupled Express.js runtime, enabling high-throughput async processing and Server-Sent Events (SSE) token streaming.",
+        "Rebuilt the frontend using Next.js App Router, introducing strict schema validation and isolated tenant contexts to safeguard enterprise knowledge assets.",
+      ],
+      tags: ["Next.js", "Express.js", "TypeScript", "Multi-Tenant RAG", "Enterprise Security", "PostgreSQL"],
+      link: "https://berijalan.co.id/"
     },
     {
-      text: 'Bersama nyanyikan, Lagu-lagu The Adams, "Jangan Konservatif" ujarmu padaku keras',
-      song: "Aku Ada Untukmu",
-      artist: "Perunggu",
-      color: "#4a5466",
-      image: "/album/dalam-dinamika-perunggu.png"
+      title: "AI FinOps Gateway: Two-Tier Cost Optimizer",
+      category: "AI Infrastructure & Inference Optimization",
+      company: "berijalan Techno Center",
+      companyAbbr: "BTC",
+      logo: "/logo/berijalan.png",
+      period: "Sep 2026 – Oct 2026",
+      description: "Architected a dual-stage middleware gateway to aggressively minimize corporate LLM API operating expenditures across enterprise RAG knowledge bases.",
+      outcome: "Eliminated 100% API cost on semantic hits, with 25% token reduction driving 30%+ inference cost savings.",
+      bullets: [
+        "Engineered Layer-1 Semantic Caching to intercept semantically identical user queries using cosine similarity matching, returning cached outputs in under 50ms.",
+        "Integrated Layer-2 Microsoft LLMLingua-2 prompt compression to prune syntactic noise and redundant context tokens before dispatching calls to the LLM."
+      ],
+      tags: ["Microsoft LLMLingua-2", "Semantic Caching", "Vector Similarity", "Redis", "FinOps", "Node.js"]
     },
     {
-      text: 'Rute pagi yang dahulu ceria, menu favorit kini hambar rasanya, foto yang tak berani dilirik mata, kontak sekarang jadi sebatas nama...',
-      song: "Untuk Apa / Untuk Apa?",
-      artist: "Hindia",
-      color: "#65503c",
-      image: "/album/menari-hindia.jpg"
+      title: "Bandha: AI Financial & Cloud Ecosystem",
+      category: "Full-Stack AI & Cloud Infrastructure",
+      company: "Personal Project",
+      companyAbbr: "BND",
+      period: "Feb 2026 – Present",
+      description: "Architected an end-to-end financial intelligence ecosystem powered by a Quad-LLM engine and deployed on containerized production cloud infrastructure.",
+      outcome: "Containerized and automated zero-downtime CI/CD deployment on AWS EC2 t3.micro with heavily optimized memory footprint.",
+      bullets: [
+        "Constructed a multi-model backend orchestrating Gemini 2.5 Flash, Whisper v3, Llama 3.3, and GPT OSS 120b for automated receipt OCR and conversational analysis.",
+        "Engineered automated infrastructure using Docker, Nginx reverse proxy, and GitHub Actions CI/CD pipeline on AWS EC2."
+      ],
+      tags: ["AWS EC2", "Docker", "Flutter", "Node.js", "CI/CD", "Nginx"],
+      github: "https://github.com/nopeakbar/aws-personal-expese.git",
+      link: "https://nopeakbar-bandha-live-demo.vercel.app/"
     },
     {
-      text: "Oh why am i not enough for you? \nIt breaks my heart in two",
-      song: "Enough for You",
-      artist: "Reality Club",
-      color: "#535358",
-      image: "/album/who-knows-realityclub.jpg",
-      position: "center 35%",
-      scale: "50"
+      title: "NVIDIA Stock Price Prediction (Bi-LSTM)",
+      category: "Deep Learning & Time-Series Research",
+      company: "Bachelor's Thesis (UPNYK)",
+      companyAbbr: "UPN",
+      logo: "/logo/logo-upn.png",
+      period: "Feb 2026",
+      description: "Investigated the quantitative impact of technical indicator features on stock market price prediction accuracy using recurrent deep learning algorithms.",
+      outcome: "Evaluated 10 model variants to identify optimal window configurations, achieving 2.29% MAPE and 3.13 RMSE on test distributions.",
+      bullets: [
+        "Designed and trained Bidirectional Long Short-Term Memory (Bi-LSTM) networks over multi-year high-frequency financial datasets.",
+        "Engineered an interactive validation dashboard in Next.js to benchmark baseline configurations against optimized multi-feature configurations."
+      ],
+      tags: ["Python", "Bi-LSTM", "TensorFlow", "Time-Series", "Next.js", "Financial ML"],
+      github: "https://github.com/nopeakbar/stocks-prediction-thesis.git",
+      link: "https://stocks-prediction-thesis-nopeakbar.vercel.app/"
     }
   ];
 
-  const [lyricIndex, setLyricIndex] = useState(0);
-  const randomizeLyric = () => {
-    let newIndex;
-    do {
-      newIndex = Math.floor(Math.random() * favoriteLyrics.length);
-    } while (newIndex === lyricIndex && favoriteLyrics.length > 1);
-    setLyricIndex(newIndex);
+  // ==========================================
+  // 2. DATA EXPERIENCE
+  // ==========================================
+  type BulletPoint = {
+    title: string;
+    desc: string;
   };
-  const currentLyric = favoriteLyrics[lyricIndex];
 
-  // ==========================================
-  // 4. CONFIG: EXPERIENCE & CERT
-  // ==========================================
-  type ExperienceRole = {
+  type RoleTimelineItem = {
     role: string;
+    type: string;
     period: string;
   };
 
   type ExperienceItem = {
     company: string;
-    companyUrl?: string;
-    logo?: string;
-    period?: string;
+    companySubtitle?: string;
+    period: string;
+    location: string;
+    logo: string; // path ke public/logo/
+    scope: string;
+    bullets: BulletPoint[];
     role?: string;
-    roles?: ExperienceRole[];
+    rolesTimeline?: RoleTimelineItem[];
   };
 
   const experiences: ExperienceItem[] = [
     {
-      company: "Berijalan (PT Berijalan Teknologi Indonesia / Astra Group)",
-      companyUrl: "https://berijalan.co.id/",
-      period: "Jul 2025 - Present",
-      roles: [
+      company: "berijalan",
+      companySubtitle: "PT Cipta Sedaya Digital Indonesia (CSDI)",
+      period: "Jul 2026 — Present",
+      location: "Yogyakarta, Indonesia",
+      logo: "/logo/berijalan.png",
+      rolesTimeline: [
         {
-          role: "Software Engineer (Freelance / Contractor)",
-          period: "Oct 2025 - Present",
+          role: "Fullstack Developer",
+          type: "Freelance",
+          period: "Oct 2026 — Present"
         },
         {
-          role: "Software Engineer Intern (Bootcamp Trainee)",
-          period: "Jul 2025 - Oct 2025",
-        },
+          role: "Fullstack Developer Intern",
+          type: "Bootcamp Batch 18 · Internship",
+          period: "Jul 2026 — Oct 2026"
+        }
       ],
+      scope: "Contributing to the full-stack modernization and architectural security hardening of Anythink (Astra Credit Companies), while previously engineering cost-efficient generative AI middleware during the enterprise bootcamp track.",
+      bullets: [
+        {
+          title: "Full-Stack Modernization",
+          desc: "Migrated legacy monolithic Laravel services into an Express.js backend and Next.js client, enabling high-throughput async processing and Server-Sent Events (SSE) token streaming."
+        },
+        {
+          title: "Inference Cost Optimizer",
+          desc: "Architected a Two-Tier Optimization Engine for corporate RAG, combining Layer-1 Semantic Caching (saving 100% API cost on hits) with Layer-2 Microsoft LLMLingua-2 prompt compression (25% token reduction, driving 30%+ inference cost savings)."
+        },
+        {
+          title: "Tenant Data Boundary",
+          desc: "Enforced strict schema validation and multi-tenant isolation contexts in the application layer to completely eliminate cross-tenant document and vector data leakage."
+        },
+        {
+          title: "Security Hardening",
+          desc: "Re-architected authentication using zero-trust stateless tokens, strict CORS policies, and role-based access control (RBAC) to meet enterprise compliance."
+        },
+        {
+          title: "Progressive Excellence",
+          desc: "Received the Best Progressive Developer award among Bootcamp Batch 18 cohort participants for shipping viable, production-focused engineering improvements."
+        }
+      ]
     },
     {
-      role: "AI Trainer & Specialist (Contract)",
+      role: "Co-Founder & Software Engineer",
+      company: "KickOff Studio",
+      companySubtitle: "KickOff Studio · Entrepreneurship",
+      period: "May 2026 — Present",
+      location: "Yogyakarta, Indonesia",
+      logo: "/logo/kickoffstudio.png",
+      scope: "Directing full-stack web architecture, transactional automation, and cloud edge routing for an on-demand merchandise e-commerce platform.",
+      bullets: [
+        {
+          title: "Full-Stack Web Architecture",
+          desc: "Engineered an end-to-end custom merchandise ordering platform with Next.js App Router and Tailwind CSS, featuring interactive design customizers."
+        },
+        {
+          title: "Operational Automation",
+          desc: "Automated customer invoice delivery pipelines and configured Cloudflare DNS edge routing to guarantee zero checkout downtime."
+        }
+      ]
+    },
+    {
+      role: "AI Trainer & Evaluation Specialist",
       company: "Outlier.ai",
-      companyUrl: "https://outlier.ai/",
-      period: "Jul 2025 - Present",
+      companySubtitle: "Outlier.ai · Contract",
+      period: "Jul 2026 — Present",
+      location: "Remote, United States",
+      logo: "/logo/outlierai.svg",
+      scope: "Conducting systematic evaluation and calibration on frontier generative multimodal and voice AI models for safety and logical reasoning.",
+      bullets: [
+        {
+          title: "Model Alignment & RLHF",
+          desc: "Performed rigorous pairwise quality evaluations and adversarial stress tests to optimize RLHF datasets for next-gen conversational models."
+        },
+        {
+          title: "Instruction & Logic Verification",
+          desc: "Audited complex instruction adherence, step-by-step reasoning veracity, and hallucination containment across technical domains."
+        }
+      ]
     },
     {
       role: "Frontend Developer Intern",
       company: 'LPPM UPN "Veteran" Yogyakarta',
-      companyUrl: "https://lppm.upnyk.ac.id/",
-      period: "Feb 2025 - April 2025",
-      logo: "/logo/logo-upn.png",
-    },
+      companySubtitle: 'LPPM UPN "Veteran" Yogyakarta · Internship',
+      period: "Feb 2025 — Apr 2025",
+      location: "Yogyakarta, Indonesia",
+      logo: "/logo/upn.png",
+      scope: "Digitized university publication management workflows, replacing legacy manual paperwork with a centralized administrative web platform.",
+      bullets: [
+        {
+          title: "Workflow Digitization",
+          desc: "Transformed manual ISBN filing into a digitized submission portal using PHP and MySQL, streamlining validation checkpoints for university researchers."
+        }
+      ]
+    }
   ];
 
-  const [isCopied, setIsCopied] = useState(false);
-  const credentialId = "193107451110-11";
-
-  const handleCopy = (e: React.MouseEvent) => {
-    e.preventDefault();
-    navigator.clipboard.writeText(credentialId);
-    setIsCopied(true);
-    setTimeout(() => setIsCopied(false), 2000);
-  };
-
   return (
-    <main className="min-h-screen bg-slate-950 text-slate-200 selection:bg-cyan-500 selection:text-white pb-20 overflow-x-hidden">
+    <div className="bg-[#FAFAFA] text-[#18181B] selection:bg-zinc-200 selection:text-zinc-900 font-sans antialiased min-h-screen">
       <Analytics />
       <SpeedInsights />
 
-      {/* --- NAVBAR FLOATING --- */}
-      <nav className="fixed top-6 left-1/2 -translate-x-1/2 z-50 bg-slate-900/80 backdrop-blur-md border border-slate-700 rounded-full px-6 py-3 flex gap-6 shadow-2xl">
-        <a href="#home" className="hover:text-cyan-400 transition-colors text-sm font-medium">Home</a>
-        <a href="#projects" className="hover:text-cyan-400 transition-colors text-sm font-medium">Projects</a>
-        <a href="#writing" className="hover:text-cyan-400 transition-colors text-sm font-medium">Writing</a>
-        <a href="#contact" className="hover:text-cyan-400 transition-colors text-sm font-medium">Contact</a>
-      </nav>
+      <div className="max-w-6xl mx-auto px-6 sm:px-10 lg:px-16">
+        <div className="lg:flex lg:justify-between lg:gap-16">
 
-      {/* --- HERO SECTION --- */}
-      <section id="home" className="max-w-5xl mx-auto px-6 pt-40 pb-20 flex flex-col justify-center min-h-[80vh]">
+          {/* ======================================================== */}
+          {/* STICKY SIDEBAR / PERSONAL HEADER (DESKTOP)               */}
+          {/* ======================================================== */}
+          <header className="lg:sticky lg:top-0 lg:flex lg:max-h-screen lg:w-5/12 lg:flex-col lg:justify-between lg:py-24 py-16">
+            <div>
+              {/* Status Badge */}
+              <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full text-xs font-medium bg-emerald-50 text-emerald-800 border border-emerald-200/80 mb-8">
+                <span className="relative flex h-2 w-2">
+                  <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-emerald-400 opacity-75"></span>
+                  <span className="relative inline-flex rounded-full h-2 w-2 bg-emerald-500"></span>
+                </span>
+                <span>Open to Opportunities</span>
+              </div>
 
-        <div className="inline-flex items-center gap-2 px-3 py-1 mb-6 text-xs font-bold tracking-wider text-cyan-400 uppercase bg-cyan-900/20 rounded-full w-fit border border-cyan-800/50">
-          <span className="w-2 h-2 rounded-full bg-cyan-400 animate-pulse"></span>
-          Open to Work
-        </div>
+              {/* Identity & Core Role */}
+              <h1 className="text-4xl sm:text-5xl font-bold tracking-tight text-zinc-950 font-sans">
+                Noveanto Nur Akbar
+              </h1>
+              <h2 className="mt-3 text-lg sm:text-xl font-medium text-zinc-600 tracking-tight">
+                AI & Software Engineer
+              </h2>
 
-        <h1 className="text-5xl md:text-7xl font-black mb-6 leading-tight tracking-tight">
-          BUILDING. <br />
-          <span className="bg-gradient-to-r from-cyan-400 via-blue-500 to-purple-600 bg-clip-text text-transparent">
-            THE. FUTURE.
-          </span>
-        </h1>
+              {/* Bio */}
+              <div className="mt-6 space-y-3 text-sm leading-relaxed text-zinc-600 max-w-sm">
+                <p>
+                  I am an <span className="text-zinc-900 font-medium">AI & Software Engineer</span> bridging intelligent models with production-grade web applications, with a strong focus on enterprise RAG systems, inference cost optimization, and secure data infrastructure.
+                </p>
+                <p>
+                  Most recently at <span className="text-zinc-900 font-medium">berijalan</span>, I&apos;ve been contributing to Anythink, an enterprise AI workplace built for <span className="text-zinc-900 font-medium">Astra Credit Companies (ACC)</span>. My focus centers on full-stack migration using Next.js and Express.js, alongside engineering <span className="text-zinc-900 font-medium">two-tier caching pipelines</span> to eliminate redundant LLM token expenses. Beyond retrieval engines, I actively explore defensive data architectures (including <span className="text-zinc-900 font-medium">PII masking, Text-to-SQL, and AST firewalls</span>) and containerized cloud backends.
+                </p>
+              </div>
 
-        <p className="text-lg md:text-xl text-slate-400 max-w-2xl leading-relaxed mb-8">
-          Hi, I'm <span className="text-white font-semibold">AKBAR</span>, an <span className="text-white font-semibold">AI & Software Engineer</span> focused on <span className="text-purple-400">AI Integration</span> and <span className="text-amber-400">Cloud Infrastructure</span>. 
-          I build complete digital ecosystems from the ground up and take them all the way to production. 
-          Whether it is <span className="text-indigo-400">training predictive models</span>, designing intelligent <span className="text-blue-400">Multi-LLM backends</span>, automating CI/CD pipelines, or containerizing services on <span className="text-orange-400">AWS EC2</span>, I bridge the gap between solid code and reliable infrastructure to deliver scalable, real-world solutions.
-        </p>
+              {/* Quick Action Buttons */}
+              <div className="mt-8 flex items-center gap-3">
+                <a
+                  href="/CV_Noveanto-Nur-Akbar.pdf"
+                  target="_blank"
+                  className="inline-flex items-center justify-center px-4 py-2 text-xs font-semibold uppercase tracking-wider text-white bg-zinc-900 hover:bg-zinc-800 rounded-lg shadow-sm transition duration-150"
+                >
+                  <FileText className="w-4 h-4 mr-2" />
+                  Download CV
+                </a>
+                <a
+                  href="#contact"
+                  className="inline-flex items-center justify-center px-4 py-2 text-xs font-semibold uppercase tracking-wider text-zinc-700 bg-white hover:bg-zinc-50 border border-zinc-300 rounded-lg transition duration-150"
+                >
+                  <Mail className="w-4 h-4 mr-2" />
+                  Contact Me
+                </a>
+              </div>
 
-        <div className="grid grid-cols-2 md:flex md:flex-row gap-3 md:gap-4 w-full md:w-fit">
-          <a 
-            href="#projects" 
-            className="col-span-2 md:col-span-1 flex items-center justify-center gap-2 px-7 py-3 bg-cyan-600 hover:bg-cyan-500 text-white font-semibold rounded-full transition-all shadow-[0_0_20px_rgba(8,145,178,0.4)] group"
-          >
-            View Projects 
-            <ArrowRight size={18} className="rotate-90 md:rotate-0 transition-transform duration-300 group-hover:translate-y-1 md:group-hover:translate-y-0 md:group-hover:translate-x-1" />
-          </a>
-          <a
-            href="/CV_Noveanto-Nur-Akbar.pdf" 
-            target="_blank" 
-            className="col-span-2 md:col-span-1 flex items-center justify-center gap-2 px-7 py-3 bg-slate-800 hover:bg-slate-700 text-white font-semibold rounded-full border border-slate-700 transition-all"
-          >
-            <FileText size={20} /> Download CV
-          </a>
-          <a 
-            href="https://github.com/nopeakbar" 
-            target="_blank" 
-            className="flex items-center justify-center gap-2 px-4 py-3 border border-slate-700 hover:border-slate-500 hover:bg-slate-900 rounded-full transition-all"
-          >
-            <Github size={20} /> GitHub
-          </a>
-          <a 
-            href="https://www.linkedin.com/in/noveanto-nur-akbar/" 
-            target="_blank" 
-            className="flex items-center justify-center gap-2 px-4 py-3 border border-slate-700 hover:border-slate-500 hover:bg-slate-900 rounded-full transition-all"
-          >
-            <Linkedin size={20} /> LinkedIn
-          </a>
-        </div>
-      </section>
+              {/* Quick Navigation Links */}
+              <nav aria-label="In-page jump links" className="hidden lg:block mt-16">
+                <ul className="space-y-4">
+                  <li>
+                    <a className="group flex items-center py-1" href="#experience">
+                      <span className="mr-3 h-[1px] w-6 bg-zinc-300 transition-all duration-300 group-hover:w-9 group-hover:bg-zinc-950"></span>
+                      <span className="text-xs font-mono tracking-widest uppercase text-zinc-500 group-hover:text-zinc-950 font-medium">
+                        01 // Experience
+                      </span>
+                    </a>
+                  </li>
+                  <li>
+                    <a className="group flex items-center py-1" href="#selected-work">
+                      <span className="mr-3 h-[1px] w-6 bg-zinc-300 transition-all duration-300 group-hover:w-9 group-hover:bg-zinc-950"></span>
+                      <span className="text-xs font-mono tracking-widest uppercase text-zinc-500 group-hover:text-zinc-950 font-medium">
+                        02 // Selected Work
+                      </span>
+                    </a>
+                  </li>
+                  <li>
+                    <a className="group flex items-center py-1" href="#contact">
+                      <span className="mr-3 h-[1px] w-6 bg-zinc-300 transition-all duration-300 group-hover:w-9 group-hover:bg-zinc-950"></span>
+                      <span className="text-xs font-mono tracking-widest uppercase text-zinc-500 group-hover:text-zinc-950 font-medium">
+                        03 // Get In Touch
+                      </span>
+                    </a>
+                  </li>
+                </ul>
+              </nav>
+            </div>
 
-      {/* ========================================= */}
-      {/* SEGMENT: EXPERIENCE (TIMELINE STYLE)    */}
-      {/* ========================================= */}
-      <section id="experience" className="max-w-5xl mx-auto px-6 py-10">
-        <div className="flex items-center gap-4 mb-12">
-          <div className="h-10 w-1 bg-blue-500 rounded-full"></div>
-          <h2 className="text-3xl font-bold text-white">Experience</h2>
-        </div>
+            {/* Social Media Connect */}
+            <div className="mt-12 lg:mt-0 flex items-center gap-5 text-zinc-400">
+              <a
+                aria-label="GitHub Profile"
+                className="hover:text-zinc-900 transition-colors"
+                href="https://github.com/nopeakbar"
+                rel="noopener noreferrer"
+                target="_blank"
+              >
+                <Github className="w-5 h-5" />
+              </a>
+              <a
+                aria-label="LinkedIn Profile"
+                className="hover:text-zinc-900 transition-colors"
+                href="https://www.linkedin.com/in/noveanto-nur-akbar/"
+                rel="noopener noreferrer"
+                target="_blank"
+              >
+                <Linkedin className="w-5 h-5" />
+              </a>
+              <a
+                aria-label="Email Noveanto Nur Akbar"
+                className="hover:text-zinc-900 transition-colors"
+                href="mailto:nopeakbar@gmail.com"
+              >
+                <Mail className="w-5 h-5" />
+              </a>
+            </div>
+          </header>
 
-        <div className="relative border-l border-slate-800 ml-3 md:ml-6 space-y-6 md:space-y-7">
-          {(showAllExperiences ? experiences : experiences.slice(0, 2)).map((exp, index) => (
-            <div key={index} className="relative pl-8 md:pl-12 group">
-              {/* Timeline Dot */}
-              <div className="absolute -left-[5px] md:-left-[9px] top-1.5 w-3 h-3 md:w-5 md:h-5 rounded-full border-4 border-slate-950 bg-slate-600 group-hover:bg-blue-500 transition-colors shadow-[0_0_10px_rgba(59,130,246,0.5)]"></div>
+          {/* ======================================================== */}
+          {/* MAIN STREAM CONTENT AREA (RIGHT SIDE)                    */}
+          {/* ======================================================== */}
+          <main className="lg:w-7/12 lg:py-24 pb-24 space-y-24">
 
-              {/* Grouped Roles under a Company */}
-              {exp.roles && exp.roles.length > 0 ? (
-                <div>
-                  {/* Company Header */}
-                  <div className="flex flex-col sm:flex-row gap-2 sm:justify-between sm:items-center mb-3">
-                    <div className="text-lg md:text-xl font-bold text-slate-200 group-hover:text-blue-400 transition-colors flex items-center gap-2.5">
-                      {exp.logo ? (
-                        <img
-                          src={exp.logo}
-                          alt={exp.company}
-                          className="w-6 h-6 object-contain bg-slate-800 rounded-full border border-slate-700 p-0.5"
-                        />
-                      ) : (
-                        <Briefcase size={18} className="text-blue-500/70" />
-                      )}
+            {/* SECTION: EXPERIENCE (AUTHENTIC ENGINEERING LOG STYLE) */}
+            <section className="scroll-mt-24" id="experience">
+              <div className="flex items-center gap-3 mb-8">
+                <span className="h-4 w-1 bg-zinc-900 rounded-full"></span>
+                <h2 className="text-xs font-mono font-semibold uppercase tracking-widest text-zinc-500">
+                  Experience
+                </h2>
+              </div>
 
-                      {exp.companyUrl ? (
+              <div className="space-y-6">
+                {experiences.map((exp, index) => (
+                  <article
+                    key={index}
+                    className="bg-white border border-zinc-200/90 rounded-xl p-6 sm:p-7 shadow-sm hover:border-zinc-300 transition-all duration-200"
+                  >
+                    {/* Header Bersih & Responsif: Kiri Identitas Peran / Perusahaan, Kanan Logo (Selalu Top-Right) */}
+                    <div className="flex items-start justify-between gap-3 sm:gap-4 pb-4 mb-4 border-b border-zinc-100">
+                      <div className="flex-1 min-w-0 pr-1 sm:pr-0">
+                        {exp.rolesTimeline ? (
+                          <>
+                            <div className="flex flex-col sm:flex-row sm:items-baseline gap-1 sm:gap-2">
+                              <h3 className="text-base sm:text-xl font-bold text-zinc-950 tracking-tight leading-snug">
+                                {exp.company}
+                              </h3>
+                              {exp.companySubtitle && (
+                                <span className="text-xs text-zinc-400 font-mono">
+                                  · {exp.companySubtitle}
+                                </span>
+                              )}
+                            </div>
+
+                            {/* Mobile Total Timeline & Location */}
+                            <div className="sm:hidden mt-1 text-[11px] font-mono text-zinc-400 flex items-center gap-1.5 flex-wrap">
+                              <span>{exp.period}</span>
+                              <span>·</span>
+                              <span>{exp.location}</span>
+                            </div>
+
+                            {/* Compact Roles Timeline */}
+                            <div className="space-y-2 mt-2.5">
+                              {exp.rolesTimeline.map((item, rIdx) => (
+                                <div key={rIdx} className="text-xs">
+                                  <div className="flex items-center gap-1.5">
+                                    <span
+                                      className={`w-1.5 h-1.5 rounded-full shrink-0 ${
+                                        rIdx === 0 ? "bg-zinc-900" : "bg-zinc-400"
+                                      }`}
+                                    />
+                                    <span className="font-semibold text-zinc-900 leading-tight">
+                                      {item.role}
+                                    </span>
+                                  </div>
+                                  <div className="pl-3 mt-0.5 flex flex-wrap items-center gap-1.5 text-[11px] font-mono text-zinc-500">
+                                    <span className="bg-zinc-100 text-zinc-600 px-1.5 py-0.5 rounded text-[10px]">
+                                      {item.type}
+                                    </span>
+                                    <span>·</span>
+                                    <span className="text-zinc-400">{item.period}</span>
+                                  </div>
+                                </div>
+                              ))}
+                            </div>
+                          </>
+                        ) : (
+                          <>
+                            <h3 className="text-base sm:text-xl font-bold text-zinc-950 tracking-tight leading-snug">
+                              {exp.role}
+                            </h3>
+                            <div className="flex flex-wrap items-center gap-1.5 mt-1 text-xs text-zinc-500">
+                              {exp.companySubtitle?.split("·").map((part, pIdx, arr) => (
+                                <React.Fragment key={pIdx}>
+                                  <span className={pIdx === 0 ? "font-semibold text-zinc-800" : "text-zinc-400"}>
+                                    {part.trim()}
+                                  </span>
+                                  {pIdx < arr.length - 1 && <span>·</span>}
+                                </React.Fragment>
+                              ))}
+                            </div>
+
+                            {/* Mobile Period & Location */}
+                            <div className="sm:hidden mt-1 text-[11px] font-mono text-zinc-400 flex items-center gap-1.5 flex-wrap">
+                              <span>{exp.period}</span>
+                              <span>·</span>
+                              <span>{exp.location}</span>
+                            </div>
+                          </>
+                        )}
+                      </div>
+
+                      {/* Right: Logo (Pinned Top-Right di Mobile & Desktop) + Desktop Timeline */}
+                      <div className="shrink-0 flex flex-col items-end gap-1 sm:gap-1.5 pt-0.5">
+                        {exp.logo && (
+                          <img
+                            src={exp.logo}
+                            alt={exp.company}
+                            className="h-5 sm:h-6 max-h-6 w-auto max-w-[75px] sm:max-w-[120px] object-contain object-right rounded-sm"
+                            onError={(e) => {
+                              (e.target as HTMLElement).style.display = "none";
+                            }}
+                          />
+                        )}
+                        <div className="hidden sm:block text-right">
+                          <span className="text-xs font-mono font-medium text-zinc-700 block">
+                            {exp.period}
+                          </span>
+                          <span className="text-[11px] text-zinc-400 block">
+                            {exp.location}
+                          </span>
+                        </div>
+                      </div>
+                    </div>
+
+                    {/* Scope / Context (Unified Single Description) */}
+                    <p className="text-sm leading-relaxed text-zinc-600 mb-4">
+                      {exp.scope}
+                    </p>
+
+                    {/* Key Deliverables with Lead-ins (Standar Senior Tech) */}
+                    <div className="space-y-3 text-xs sm:text-sm text-zinc-600">
+                      {exp.bullets.map((bullet, bIdx) => (
+                        <div key={bIdx} className="flex items-start gap-2.5">
+                          <span className="text-zinc-400 font-mono text-sm leading-none mt-0.5 select-none">•</span>
+                          <p className="leading-relaxed">
+                            <strong className="text-zinc-900 font-medium">{bullet.title}:</strong> {bullet.desc}
+                          </p>
+                        </div>
+                      ))}
+                    </div>
+                  </article>
+                ))}
+              </div>
+            </section>
+
+            {/* SECTION 2: SELECTED WORK (GRID 2 KOLOM IDENTIK DENGAN GHOZY) */}
+            <section className="scroll-mt-24" id="selected-work">
+              <div className="flex items-center gap-3 mb-4">
+                <span className="h-4 w-1 bg-zinc-900 rounded-full"></span>
+                <h2 className="text-xs font-mono font-semibold uppercase tracking-widest text-zinc-500">
+                  Selected Work
+                </h2>
+              </div>
+              
+              <div className="mb-6">
+                <h3 className="text-xl sm:text-2xl font-bold tracking-tight text-zinc-900">
+                  Products and Systems With Measurable Outcomes
+                </h3>
+              </div>
+
+              <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                
+                {/* CARD 1: ANYTHINK MIGRATION */}
+                <article className="group bg-white border border-zinc-200/90 rounded-xl p-5 sm:p-6 shadow-sm hover:border-zinc-300 transition-all flex flex-col justify-between">
+                  <div>
+                    {/* Top Header: Title & Company/Date */}
+                    <div className="flex items-start justify-between gap-2 mb-1">
+                      <h4 className="text-base sm:text-lg font-bold text-zinc-900 group-hover:text-zinc-950 transition-colors leading-snug">
                         <a
-                          href={exp.companyUrl}
+                          href="https://berijalan.co.id/"
                           target="_blank"
                           rel="noopener noreferrer"
-                          className="hover:text-blue-400 transition-colors flex items-center gap-1.5 group/link"
+                          className="hover:underline focus:outline-none"
                         >
-                          {exp.company}
-                          <ExternalLink size={13} className="opacity-50 group-hover/link:opacity-100 transition-opacity" />
+                          Anythink Full-Stack Migration <span className="inline-block transition-transform group-hover:translate-x-0.5 group-hover:-translate-y-0.5">→</span>
                         </a>
-                      ) : (
-                        <span>{exp.company}</span>
-                      )}
-                    </div>
-                    {exp.period && (
-                      <span className="text-xs font-mono text-slate-400 bg-slate-900 px-2.5 py-0.5 rounded-full border border-slate-800 w-fit shrink-0">
-                        {exp.period}
-                      </span>
-                    )}
-                  </div>
-
-                  {/* Sub-timeline for nested roles */}
-                  <div className="relative border-l border-slate-800/80 ml-2 md:ml-3 pl-5 md:pl-6 space-y-2.5">
-                    {exp.roles.map((subRole, subIdx) => (
-                      <div key={subIdx} className="relative group/sub flex flex-col sm:flex-row gap-1.5 sm:justify-between sm:items-baseline">
-                        {/* Sub-timeline Dot */}
-                        <div className="absolute -left-[24px] md:-left-[28px] top-1.5 w-2 h-2 rounded-full border-2 border-slate-950 bg-slate-600 group-hover/sub:bg-cyan-400 transition-colors shadow-[0_0_8px_rgba(6,182,212,0.4)]"></div>
-
-                        <h4 className="text-sm md:text-base font-semibold text-slate-300 group-hover/sub:text-cyan-400 transition-colors">
-                          {subRole.role}
-                        </h4>
-                        <span className="text-xs font-mono text-slate-500 bg-slate-900/80 px-2 py-0.5 rounded border border-slate-800/60 w-fit shrink-0">
-                          {subRole.period}
-                        </span>
+                      </h4>
+                      <div className="text-right shrink-0">
+                        <span className="text-[11px] font-medium text-zinc-500 block">berijalan</span>
+                        <span className="text-[11px] font-mono text-zinc-400 block">Oct 2026</span>
                       </div>
-                    ))}
-                  </div>
-                </div>
-              ) : (
-                /* Single Role Entry */
-                <div>
-                  <div className="flex flex-col sm:flex-row gap-2 sm:justify-between sm:items-baseline mb-1">
-                    <h3 className="text-lg md:text-xl font-bold text-slate-200 group-hover:text-blue-400 transition-colors">
-                      {exp.role}
-                    </h3>
-                    <span className="text-xs font-mono text-slate-400 bg-slate-900 px-2.5 py-0.5 rounded-full border border-slate-800 w-fit shrink-0">
-                      {exp.period}
+                    </div>
+
+                    {/* Category Label */}
+                    <span className="block text-[10px] font-mono font-bold tracking-wider uppercase text-zinc-500 mb-3">
+                      FULL-STACK & SYSTEM MIGRATION
                     </span>
+
+                    {/* 1 Sentence Description */}
+                    <p className="text-xs sm:text-sm text-zinc-600 leading-relaxed mb-3">
+                      Decoupled monolithic Laravel services into an Express.js runtime and Next.js interface.
+                    </p>
+
+                    {/* Measurable Outcome */}
+                    <p className="text-xs sm:text-sm font-medium text-zinc-900 leading-relaxed">
+                      Hardened zero-trust tenant boundaries and enabled low-latency SSE streaming.
+                    </p>
                   </div>
 
-                  {/* Company Name & Logo */}
-                  <div className="text-sm font-medium text-slate-400 flex items-center gap-2">
-                    {exp.logo ? (
-                      <img
-                        src={exp.logo}
-                        alt={exp.company}
-                        className="w-5 h-5 object-contain bg-slate-800 rounded-full border border-slate-700 p-0.5"
-                      />
-                    ) : (
-                      <Briefcase size={15} className="text-blue-500/60" />
-                    )}
-
-                    {exp.companyUrl ? (
-                      <a
-                        href={exp.companyUrl}
-                        target="_blank"
-                        rel="noopener noreferrer"
-                        className="hover:text-blue-400 transition-colors flex items-center gap-1 group/link"
-                      >
-                        {exp.company}
-                        <ExternalLink size={11} className="opacity-50 group-hover/link:opacity-100 transition-opacity" />
-                      </a>
-                    ) : (
-                      <span>{exp.company}</span>
-                    )}
+                  {/* Tech Stack Footer (Inline Dot Separator) */}
+                  <div className="pt-4 mt-4 border-t border-zinc-100 text-[11px] font-mono text-zinc-400 leading-relaxed">
+                    Next.js · Express.js · Multi-Tenant RAG · TypeScript · PostgreSQL
                   </div>
-                </div>
-              )}
-            </div>
-          ))}
+                </article>
 
-          {/* Toggle Button to Show/Hide Earlier Experiences */}
-          {experiences.length > 2 && (
-            <div className="pt-1 pl-8 md:pl-12">
-              <button
-                onClick={() => setShowAllExperiences((prev) => !prev)}
-                className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full text-xs font-medium text-slate-400 bg-slate-900/90 border border-slate-800 hover:border-blue-500/40 hover:text-white transition-all group/btn shadow-sm"
-              >
-                <span>{showAllExperiences ? "Show Less" : "Show Earlier Experience (LPPM)"}</span>
-                {showAllExperiences ? (
-                  <ChevronUp size={13} className="text-slate-400 group-hover/btn:text-blue-400 transition-colors" />
-                ) : (
-                  <ChevronDown size={13} className="text-slate-400 group-hover/btn:text-blue-400 transition-colors" />
-                )}
-              </button>
-            </div>
-          )}
-        </div>
-      </section>
+                {/* CARD 2: AI FINOPS GATEWAY */}
+                <article className="group bg-white border border-zinc-200/90 rounded-xl p-5 sm:p-6 shadow-sm hover:border-zinc-300 transition-all flex flex-col justify-between">
+                  <div>
+                    <div className="flex items-start justify-between gap-2 mb-1">
+                      <h4 className="text-base sm:text-lg font-bold text-zinc-900 group-hover:text-zinc-950 transition-colors leading-snug">
+                        <a
+                          href="https://berijalan.co.id/"
+                          target="_blank"
+                          rel="noopener noreferrer"
+                          className="hover:underline focus:outline-none"
+                        >
+                          AI FinOps Gateway <span className="inline-block transition-transform group-hover:translate-x-0.5 group-hover:-translate-y-0.5">→</span>
+                        </a>
+                      </h4>
+                      <div className="text-right shrink-0">
+                        <span className="text-[11px] font-medium text-zinc-500 block">berijalan</span>
+                        <span className="text-[11px] font-mono text-zinc-400 block">Oct 2026</span>
+                      </div>
+                    </div>
 
-      {/* ========================================= */}
-      {/* SEGMENT 1: FEATURED PROJECTS (CODING)   */}
-      {/* ========================================= */}
-      <section id="projects" className="max-w-5xl mx-auto px-6 py-10">
-        <div className="flex items-center gap-4 mb-8">
-          <div className="h-10 w-1 bg-cyan-500 rounded-full"></div>
-          <h2 className="text-3xl font-bold text-white">Featured Projects</h2>
-        </div>
+                    <span className="block text-[10px] font-mono font-bold tracking-wider uppercase text-zinc-500 mb-3">
+                      AI INFRASTRUCTURE & INFERENCE
+                    </span>
 
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-6 auto-rows-[minmax(350px,auto)] md:auto-rows-[minmax(400px,auto)]">
+                    <p className="text-xs sm:text-sm text-zinc-600 leading-relaxed mb-3">
+                      Two-tier caching middleware utilizing semantic search and Microsoft LLMLingua-2.
+                    </p>
 
-          {/* 1.5. BANDHA: QUAD-LLM EXPENSE TRACKER */}
-          <div className="md:col-span-2 relative group overflow-hidden rounded-3xl bg-slate-900 border border-slate-800 hover:border-blue-500/50 transition-all duration-300 flex flex-col md:flex-row">
-            <div className="absolute inset-0 group-hover:scale-105 transition-transform duration-700 overflow-hidden opacity-60">
-              <video 
-                autoPlay 
-                loop 
-                muted 
-                playsInline 
-                className="w-full h-full object-cover"
-                src="/thumbnail/thumb-bot-aws.mp4" 
-              />
-            </div>
-            <div className="absolute inset-0 bg-gradient-to-r from-slate-950 via-slate-950/80 to-blue-900/30 z-10" />
-
-            <div className="relative z-20 p-6 md:p-8 flex flex-col justify-center w-full md:w-1/2">
-              <div className="mb-4 flex flex-wrap gap-2">
-                <div className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-blue-500/10 border border-blue-500/20 backdrop-blur-md">
-                  <Bot size={12} className="text-blue-400" />
-                  <span className="text-[10px] font-bold text-blue-400 uppercase tracking-wider">Quad-LLM AI</span>
-                </div>
-                <div className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-teal-500/10 border border-teal-500/20 backdrop-blur-md">
-                  <Smartphone size={12} className="text-teal-400" />
-                  <span className="text-[10px] font-bold text-teal-400 uppercase tracking-wider">Flutter</span>
-                </div>
-                <div className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-orange-500/10 border border-orange-500/20 backdrop-blur-md">
-                  <Cloud size={12} className="text-orange-400" />
-                  <span className="text-[10px] font-bold text-orange-400 uppercase tracking-wider">AWS EC2 & Docker</span>
-                </div>
-              </div>
-
-              <h3 className="text-2xl md:text-3xl font-bold text-white mb-3">Bandha: AI Tracker & Cloud Ecosystem (AWS EC2)</h3>
-
-              <p className="text-slate-300 text-sm leading-relaxed mb-6">
-                A unified financial tracking ecosystem powered by a <span className="font-bold text-blue-400">Quad-LLM Architecture</span>. 
-                Recently migrated to a <strong>production-grade infrastructure on AWS EC2</strong>, utilizing <strong>Docker</strong> containerization, Nginx reverse proxy, and fully automated CI/CD pipelines via GitHub Actions. 
-                Engineered for extreme cost-efficiency, the AI engine seamlessly integrates Gemini 2.5 Flash, GPT Whisper v3, Llama 3.3, and GPT OSS 120b while running smoothly on a t3.micro instance with a minimal memory footprint.
-              </p>
-
-              {/* --- ACTION BUTTONS (FLEX & GRID HYBRID) --- */}
-              <div className="flex flex-col gap-3 md:gap-4 w-full mt-2">
-                <button 
-                  onClick={() => setIsCloudModalOpen(true)}
-                  className="w-full flex items-center justify-center gap-2 text-[11px] md:text-xs text-orange-400 font-bold hover:text-orange-300 transition-all bg-orange-900/20 px-3 py-2.5 md:py-3 rounded-full border border-orange-500/40 hover:bg-orange-900/40 shadow-[0_0_15px_rgba(249,115,22,0.15)] group"
-                >
-                  <Server size={14} className="group-hover:animate-pulse" /> View Cloud Architecture & CI/CD
-                </button>
-
-                <a 
-                  href="https://gist.github.com/nopeakbar/21f581ce84af2fa1d7fd0c1c67a73a15" 
-                  target="_blank" 
-                  rel="noopener noreferrer" 
-                  className="w-full flex items-center justify-center gap-2 text-[11px] md:text-xs text-slate-300 font-bold hover:text-white transition-all bg-slate-800 px-3 py-2.5 md:py-3 rounded-full border border-slate-700 hover:bg-slate-700 group"
-                >
-                  <FileText size={14} /> Read Deployment Playbook <ExternalLink size={12} />
-                </a>
-
-                <div className="grid grid-cols-2 gap-3 w-full">
-                  <a 
-                    href="https://nopeakbar-bandha-live-demo.vercel.app/" 
-                    target="_blank" 
-                    rel="noopener noreferrer" 
-                    className="flex items-center justify-center gap-2 text-[11px] md:text-xs text-green-400 font-bold hover:text-green-300 transition-all bg-green-900/20 px-3 py-2.5 md:py-3 rounded-full border border-green-500/40 hover:bg-green-900/40 shadow-[0_0_15px_rgba(74,222,128,0.1)]"
-                  >
-                    <Activity size={14} className="animate-pulse" /> Live Demo <ExternalLink size={12} />
-                  </a>
-
-                  <a 
-                    href="https://docs.google.com/spreadsheets/d/18Pr2GU7l6girMxnfKjiAvepZDK4yez-gb89RokttERs/edit?usp=sharing" 
-                    target="_blank" 
-                    rel="noopener noreferrer" 
-                    className="flex items-center justify-center gap-2 text-[11px] md:text-xs text-amber-400 font-bold hover:text-amber-300 transition-all bg-amber-900/20 px-3 py-2.5 md:py-3 rounded-full border border-amber-500/40 hover:bg-amber-900/40 shadow-[0_0_15px_rgba(245,158,11,0.1)]"
-                  >
-                    <Database size={14} /> Live Sheets <ExternalLink size={12} />
-                  </a>
-
-                  <a 
-                    href="https://github.com/nopeakbar/aws-personal-expese.git" 
-                    target="_blank" 
-                    className="flex items-center justify-center gap-2 text-[11px] md:text-xs text-blue-400 font-bold hover:text-blue-300 transition-all bg-blue-900/20 px-3 py-2.5 md:py-3 rounded-full border border-blue-500/30 hover:bg-blue-900/40"
-                  >
-                    <Github size={14} /> Backend & Bot
-                  </a>
-                  
-                  <a 
-                    href="https://github.com/nopeakbar/aplikasi-integrasi-expense-tracker.git" 
-                    target="_blank" 
-                    className="flex items-center justify-center gap-2 text-[11px] md:text-xs text-teal-400 font-bold hover:text-teal-300 transition-all bg-teal-900/20 px-3 py-2.5 md:py-3 rounded-full border border-teal-500/30 hover:bg-teal-900/40"
-                  >
-                    <Github size={14} /> Flutter App
-                  </a>
-                </div>
-
-                <button
-                  onClick={() => setIsBotModalOpen(true)}
-                  className="md:hidden w-full mt-1 flex items-center justify-center gap-2 text-[11px] text-slate-200 font-bold bg-slate-800 px-4 py-3 rounded-full border border-slate-700"
-                >
-                  <Eye size={14} /> View Features Gallery
-                </button>
-              </div>
-            </div>
-
-            <div className="hidden md:flex relative z-20 w-full md:w-1/2 p-6 flex-col items-center justify-center bg-black/20 border-l border-white/5">
-              <div className="relative w-[180px] md:w-[200px] aspect-[9/16] bg-slate-950 rounded-2xl border-4 border-slate-800 shadow-2xl overflow-hidden group/slider">
-                <div key={currentBotDocIndex} className="w-full h-full relative animate-in fade-in duration-500">
-                  {botDocs[currentBotDocIndex].src.endsWith('.mp4') ? (
-                    <video
-                      src={botDocs[currentBotDocIndex].src}
-                      className="w-full h-full object-cover"
-                      autoPlay
-                      loop
-                      muted
-                      playsInline
-                    />
-                  ) : (
-                    <img src={botDocs[currentBotDocIndex].src} alt={botDocs[currentBotDocIndex].title} className="w-full h-full object-cover" />
-                  )}
-
-                  <div className="absolute inset-0 bg-gradient-to-t from-black/90 via-black/20 to-transparent"></div>
-                  <div className="absolute bottom-4 left-0 w-full text-center px-2">
-                    <p className="text-white font-bold text-sm leading-tight mb-1">{botDocs[currentBotDocIndex].title}</p>
-                    <p className="text-slate-400 text-[10px] leading-tight">{botDocs[currentBotDocIndex].desc}</p>
+                    <p className="text-xs sm:text-sm font-medium text-zinc-900 leading-relaxed">
+                      Eliminated 100% API cost on semantic hits, with 25% token reduction driving 30%+ inference cost savings.
+                    </p>
                   </div>
-                </div>
 
-                <button onClick={prevBotDoc} className="absolute left-2 top-1/2 -translate-y-1/2 bg-black/50 hover:bg-blue-500 text-white p-1.5 rounded-full backdrop-blur-sm transition-all opacity-0 group-hover/slider:opacity-100"><ChevronLeft size={16} /></button>
-                <button onClick={nextBotDoc} className="absolute right-2 top-1/2 -translate-y-1/2 bg-black/50 hover:bg-blue-500 text-white p-1.5 rounded-full backdrop-blur-sm transition-all opacity-0 group-hover/slider:opacity-100"><ChevronRight size={16} /></button>
-              </div>
-
-              <div className="flex gap-2 mt-4">
-                {botDocs.map((_, idx) => (
-                  <div key={idx} className={`h-1.5 rounded-full transition-all duration-300 ${idx === currentBotDocIndex ? "w-6 bg-blue-500" : "w-1.5 bg-slate-700"}`} />
-                ))}
-              </div>
-            </div>
-          </div>
-
-          {/* 0. THESIS: NVIDIA STOCK PREDICTION */}
-          <div className="md:col-span-2 relative group overflow-hidden rounded-3xl bg-slate-950 border border-slate-800 hover:border-indigo-500/50 transition-all duration-300 flex flex-col md:flex-row">
-            
-            <div className="absolute inset-0 bg-gradient-to-r from-slate-950 via-slate-950/90 to-indigo-950/30 z-0" />
-
-            <div className="relative z-20 p-6 md:p-8 flex flex-col justify-center w-full md:w-3/5">
-              <div className="mb-4 flex flex-wrap gap-2">
-                <div className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-indigo-500/10 border border-indigo-500/20 backdrop-blur-md">
-                  <Activity size={12} className="text-indigo-400" />
-                  <span className="text-[10px] font-bold text-indigo-400 uppercase tracking-wider">Bachelor's Thesis</span>
-                </div>
-                <div className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-blue-500/10 border border-blue-500/20 backdrop-blur-md">
-                  <TrendingUp size={12} className="text-blue-400" />
-                  <span className="text-[10px] font-bold text-blue-400 uppercase tracking-wider">Bi-LSTM Algorithm</span>
-                </div>
-              </div>
-
-              <h3 className="text-2xl md:text-3xl font-bold text-white mb-3">NVIDIA Stock Price Prediction</h3>
-
-              <p className="text-slate-300 text-sm leading-relaxed mb-6">
-                My final year thesis research focusing on the impact of technical features on NVIDIA stock price prediction accuracy. Powered by the <strong>Bidirectional LSTM (Bi-LSTM)</strong> algorithm, this project features an interactive dashboard to analyze model configurations, window sizes, and baseline vs. optimized comparisons.
-              </p>
-
-              <div className="flex flex-wrap items-center gap-2 md:gap-3">
-                <a href="https://stocks-prediction-thesis-nopeakbar.vercel.app/" target="_blank" rel="noopener noreferrer" className="flex items-center gap-1.5 md:gap-2 text-sm text-indigo-400 font-bold hover:text-indigo-300 transition-colors bg-indigo-900/20 px-4 py-2.5 rounded-full border border-indigo-500/30 hover:bg-indigo-900/40 whitespace-nowrap">
-                  View Dashboard <ExternalLink size={16} />
-                </a>
-                
-                <a href="https://github.com/nopeakbar/stocks-prediction-thesis.git" target="_blank" rel="noopener noreferrer" className="flex items-center gap-1.5 md:gap-2 text-sm text-slate-300 font-bold hover:text-white transition-colors bg-slate-800 px-4 py-2.5 rounded-full border border-slate-700 hover:bg-slate-700 whitespace-nowrap">
-                  <Github size={16} /> Source Code
-                </a>
-              </div>
-            </div>
-
-            <div 
-              className="hidden md:block absolute top-0 right-0 w-[55%] h-full z-10 pointer-events-none translate-x-[45px]"
-              style={{
-                WebkitMaskImage: 'linear-gradient(to right, transparent 0%, black 40%)',
-                maskImage: 'linear-gradient(to right, transparent 0%, black 40%)'
-              }}
-            >
-              <img 
-                src="/thumbnail/thesis-stocks/logo-nvidia.jpg" 
-                alt="NVIDIA Thesis Chart" 
-                className="absolute inset-0 w-full h-full object-cover object-right opacity-30 group-hover:opacity-70 group-hover:scale-105 transition-all duration-700 mix-blend-screen mix-blend-lighten" 
-              />
-            </div>
-            
-          </div>
-
-          {/* 1. ISBN */}
-          <div className="md:col-span-2 relative group overflow-hidden rounded-3xl bg-slate-900 border border-slate-800 hover:border-cyan-500/50 transition-all duration-300">
-            <div className="absolute inset-0 bg-slate-800 group-hover:scale-105 transition-transform duration-700 bg-[url('/thumbnail/thumb-isbn.png')] bg-cover bg-center opacity-50" />
-            <div className="absolute inset-0 bg-gradient-to-t from-slate-950 via-slate-950/20 to-transparent" />
-            <div className="absolute bottom-0 left-0 p-6 md:p-8 w-full">
-              <div className="flex justify-between items-end">
-                <div>
-                  <span className="bg-green-500/20 text-green-400 text-[10px] md:text-xs font-bold px-2 py-1 rounded mb-3 inline-block border border-green-500/30 backdrop-blur-sm">
-                    DEPLOYED AT UPN "VETERAN" YOGYAKARTA
-                  </span>
-                  <h3 className="text-2xl md:text-3xl font-bold text-white mb-2">ISBN Data Management System</h3>
-                  <p className="text-slate-300 text-sm md:text-base mb-4 line-clamp-2 md:line-clamp-none">
-                    Digitized the ISBN submission workflow for the university. Transformed a previously manual application process into a fully integrated web system.
-                  </p>
-                  <div className="flex gap-2">
-                    <span className="text-xs bg-slate-950/80 border border-slate-700 px-2 py-1 rounded text-slate-300">PHP</span>
+                  <div className="pt-4 mt-4 border-t border-zinc-100 text-[11px] font-mono text-zinc-400 leading-relaxed">
+                    Semantic Caching · LLMLingua-2 · Redis · Vector DB · Node.js
                   </div>
-                </div>
-                <a href="https://penerbitlppm.site/v2" target="_blank" className="p-3 bg-white text-slate-950 rounded-full hover:bg-cyan-400 hover:scale-110 transition-all shadow-lg">
-                  <ExternalLink size={24} />
-                </a>
-              </div>
-            </div>
-          </div>
+                </article>
 
-          {/* 2.5. 3D WEB GIS MALIOBORO */}
-          <div className="md:col-span-2 relative group overflow-hidden rounded-3xl bg-slate-900 border border-slate-800 hover:border-orange-500/50 transition-all duration-300 flex flex-col md:flex-row">
-            
-            <div className="relative z-20 p-6 md:p-8 flex flex-col justify-center w-full md:w-1/2">
-              <div className="mb-4 flex flex-wrap gap-2">
-                <div className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-orange-500/10 border border-orange-500/20 backdrop-blur-md">
-                  <span className="text-[10px] font-bold text-orange-400 uppercase tracking-wider">Next.js Web Showcase</span>
-                </div>
-              </div>
+                {/* CARD 3: BANDHA CLOUD ECOSYSTEM */}
+                <article className="group bg-white border border-zinc-200/90 rounded-xl p-5 sm:p-6 shadow-sm hover:border-zinc-300 transition-all flex flex-col justify-between">
+                  <div>
+                    <div className="flex items-start justify-between gap-2 mb-1">
+                      <h4 className="text-base sm:text-lg font-bold text-zinc-900 group-hover:text-zinc-950 transition-colors leading-snug">
+                        <a
+                          href="https://nopeakbar-bandha-live-demo.vercel.app/"
+                          target="_blank"
+                          rel="noopener noreferrer"
+                          className="hover:underline focus:outline-none"
+                        >
+                          Bandha Cloud & Multi-LLM <span className="inline-block transition-transform group-hover:translate-x-0.5 group-hover:-translate-y-0.5">→</span>
+                        </a>
+                      </h4>
+                      <div className="text-right shrink-0">
+                        <span className="text-[11px] font-medium text-zinc-500 block">Personal</span>
+                        <span className="text-[11px] font-mono text-zinc-400 block">Sep 2026</span>
+                      </div>
+                    </div>
 
-              <h3 className="text-2xl md:text-3xl font-bold text-white mb-3">3D Digital Twin: Malioboro</h3>
+                    <span className="block text-[10px] font-mono font-bold tracking-wider uppercase text-zinc-500 mb-3">
+                      FULL-STACK AI & CLOUD INFRA
+                    </span>
 
-              <p className="text-slate-300 text-sm leading-relaxed mb-6">
-                Developed an interactive Web GIS platform to showcase the 3D Digital Twin of Malioboro Street. This website serves as a digital exhibition to visualize <strong>detailed Mobile LiDAR SLAM data</strong> and 3D architectural models generated by the Geodetic Engineering students at Universitas Gadjah Mada.
-              </p>
+                    <p className="text-xs sm:text-sm text-zinc-600 leading-relaxed mb-3">
+                      Financial intelligence backend orchestrating Quad-LLM routing with automated CI/CD.
+                    </p>
 
-              <div className="flex flex-wrap items-center gap-3">
-                <a href="https://malioboro-3d.vercel.app/" target="_blank" rel="noopener noreferrer" className="flex items-center gap-2 text-sm text-orange-400 font-bold hover:text-orange-300 transition-colors bg-orange-900/20 px-5 py-2.5 rounded-full border border-orange-500/30">
-                  View Web GIS <ExternalLink size={14} />
-                </a>
-                <a href="https://github.com/nopeakbar/fatma-malioboro.git" target="_blank" rel="noopener noreferrer" className="p-2.5 bg-slate-800 text-slate-300 rounded-full hover:bg-slate-700 transition-all border border-slate-700">
-                  <Github size={20} />
-                </a>
-                <button
-                  onClick={() => setIsMalioboroModalOpen(true)}
-                  className="md:hidden flex items-center gap-2 text-sm text-slate-200 font-bold bg-slate-800 px-5 py-2.5 rounded-full border border-slate-700 hover:bg-slate-700 transition-colors"
-                >
-                  <Eye size={14} /> View Gallery
-                </button>
-              </div>
-            </div>
-
-            <div className="hidden md:flex relative z-20 w-full md:w-1/2 p-6 flex-col items-center justify-center bg-black/20 border-l border-white/5">
-              <div className="relative w-full aspect-video bg-slate-950 rounded-xl border-4 border-slate-800 shadow-2xl overflow-hidden group/slider">
-                <div key={currentMalioboroIndex} className="w-full h-full relative animate-in fade-in duration-500">
-                  <img 
-                    src={malioboroDocs[currentMalioboroIndex].src} 
-                    alt={malioboroDocs[currentMalioboroIndex].title} 
-                    className="w-full h-full object-cover" 
-                  />
-                  <div className="absolute inset-0 bg-gradient-to-t from-black/90 via-transparent to-transparent"></div>
-                  <div className="absolute bottom-4 left-0 w-full text-center px-4">
-                    <p className="text-white font-bold text-sm mb-1">{malioboroDocs[currentMalioboroIndex].title}</p>
-                    <p className="text-slate-400 text-[10px]">{malioboroDocs[currentMalioboroIndex].desc}</p>
+                    <p className="text-xs sm:text-sm font-medium text-zinc-900 leading-relaxed">
+                      Containerized on AWS EC2 t3.micro with zero-downtime GitHub Actions deployment.
+                    </p>
                   </div>
-                </div>
 
-                <button onClick={prevMalioboro} className="absolute left-2 top-1/2 -translate-y-1/2 bg-black/50 hover:bg-orange-500 text-white p-1.5 rounded-full backdrop-blur-sm transition-all opacity-0 group-hover/slider:opacity-100"><ChevronLeft size={16} /></button>
-                <button onClick={nextMalioboro} className="absolute right-2 top-1/2 -translate-y-1/2 bg-black/50 hover:bg-orange-500 text-white p-1.5 rounded-full backdrop-blur-sm transition-all opacity-0 group-hover/slider:opacity-100"><ChevronRight size={16} /></button>
-              </div>
-
-              <div className="flex gap-2 mt-4">
-                {malioboroDocs.map((_, idx) => (
-                  <div key={idx} className={`h-1.5 rounded-full transition-all duration-300 ${idx === currentMalioboroIndex ? "w-6 bg-orange-500" : "w-1.5 bg-slate-700"}`} />
-                ))}
-              </div>
-            </div>
-          </div>
-
-          {/* 2.7. COFFEECOM */}
-          <div className="md:col-span-2 relative group overflow-hidden rounded-3xl bg-slate-900 border border-slate-800 hover:border-orange-500/50 transition-all duration-300 flex flex-col md:flex-row">
-            
-            <div className="absolute inset-0 bg-slate-900 group-hover:scale-105 transition-transform duration-700 bg-[url('/thumbnail/thumb-coffee-bg.jpg')] bg-cover bg-center opacity-20" />
-            <div className="absolute inset-0 bg-gradient-to-r from-slate-950 via-slate-950/90 to-orange-900/10 z-10" />
-
-            <div className="relative z-20 p-6 md:p-8 flex flex-col justify-center w-full md:w-1/2">
-              <div className="mb-4 flex flex-wrap gap-2">
-                <div className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-orange-500/10 border border-orange-500/20 backdrop-blur-md">
-                  <MapPin size={12} className="text-orange-400" />
-                  <span className="text-[10px] font-bold text-orange-400 uppercase tracking-wider">Mapbox Integration</span>
-                </div>
-                <div className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-blue-500/10 border border-blue-500/20 backdrop-blur-md">
-                  <Bot size={12} className="text-blue-400" />
-                  <span className="text-[10px] font-bold text-blue-400 uppercase tracking-wider">Llama 3.3 AI</span>
-                </div>
-              </div>
-
-              <h3 className="text-3xl font-bold text-white mb-3">Coffeecom</h3>
-
-              <p className="text-slate-300 text-sm leading-relaxed mb-6">
-                A community-driven platform for coffee enthusiasts in Yogyakarta. 
-                Built with <strong>Flutter</strong> and <strong>Supabase</strong>, featuring real-time map exploration via Mapbox. 
-                The app integrates <strong>Llama 3.3</strong> to intelligently refine user reviews and normalize cafe data while keeping the authentic "nongkrong" vibe.
-              </p>
-
-              <div className="flex flex-wrap gap-3">
-                <a href="https://github.com/nopeakbar/coffeecom" target="_blank" className="flex items-center gap-2 text-sm text-orange-400 font-bold hover:text-orange-300 transition-colors bg-orange-900/20 px-5 py-2.5 rounded-full border border-orange-500/30">
-                  <Github size={14} /> Source Code
-                </a>
-                <button
-                  onClick={() => setIsCoffeecomModalOpen(true)}
-                  className="md:hidden flex items-center gap-2 text-sm text-slate-200 font-bold bg-slate-800 px-5 py-2.5 rounded-full border border-slate-700 hover:bg-slate-700 transition-colors"
-                >
-                  <Eye size={14} /> View Gallery
-                </button>
-              </div>
-            </div>
-
-            <div className="hidden md:flex relative z-20 w-full md:w-1/2 p-6 flex-col items-center justify-center bg-black/20 border-l border-white/5">
-              
-              <div className="relative w-[180px] md:w-[200px] aspect-[9/16] bg-slate-950 rounded-2xl border-4 border-slate-800 shadow-2xl overflow-hidden group/slider">
-                
-                <div key={currentCoffeecomIndex} className="w-full h-full relative animate-in fade-in duration-500">
-                  {coffeecomDocs[currentCoffeecomIndex].src.endsWith('.mp4') ? (
-                    <video
-                      src={coffeecomDocs[currentCoffeecomIndex].src}
-                      className="w-full h-full object-cover"
-                      autoPlay loop muted playsInline
-                    />
-                  ) : (
-                    <img
-                      src={coffeecomDocs[currentCoffeecomIndex].src}
-                      alt={coffeecomDocs[currentCoffeecomIndex].title}
-                      className="w-full h-full object-cover"
-                    />
-                  )}
-
-                  <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-transparent to-transparent"></div>
-
-                  <div className="absolute bottom-4 left-0 w-full text-center px-2">
-                    <p className="text-white font-bold text-sm">{coffeecomDocs[currentCoffeecomIndex].title}</p>
-                    <p className="text-slate-400 text-[10px]">{coffeecomDocs[currentCoffeecomIndex].desc}</p>
+                  <div className="pt-4 mt-4 border-t border-zinc-100 text-[11px] font-mono text-zinc-400 leading-relaxed">
+                    AWS EC2 · Docker · Nginx · Flutter · Node.js · GitHub Actions
                   </div>
-                </div>
+                </article>
 
-                <button onClick={prevCoffeecom} className="absolute left-2 top-1/2 -translate-y-1/2 bg-black/50 hover:bg-orange-500 text-white p-1.5 rounded-full backdrop-blur-sm opacity-0 group-hover/slider:opacity-100 transition-all">
-                  <ChevronLeft size={16} />
-                </button>
+                {/* CARD 4: NVIDIA TIME-SERIES */}
+                <article className="group bg-white border border-zinc-200/90 rounded-xl p-5 sm:p-6 shadow-sm hover:border-zinc-300 transition-all flex flex-col justify-between">
+                  <div>
+                    <div className="flex items-start justify-between gap-2 mb-1">
+                      <h4 className="text-base sm:text-lg font-bold text-zinc-900 group-hover:text-zinc-950 transition-colors leading-snug">
+                        <a
+                          href="https://stocks-prediction-thesis-nopeakbar.vercel.app/"
+                          target="_blank"
+                          rel="noopener noreferrer"
+                          className="hover:underline focus:outline-none"
+                        >
+                          NVIDIA Stock Bi-LSTM <span className="inline-block transition-transform group-hover:translate-x-0.5 group-hover:-translate-y-0.5">→</span>
+                        </a>
+                      </h4>
+                      <div className="text-right shrink-0">
+                        <span className="text-[11px] font-medium text-zinc-500 block">UPNYK</span>
+                        <span className="text-[11px] font-mono text-zinc-400 block">Feb 2026</span>
+                      </div>
+                    </div>
 
-                <button onClick={nextCoffeecom} className="absolute right-2 top-1/2 -translate-y-1/2 bg-black/50 hover:bg-orange-500 text-white p-1.5 rounded-full backdrop-blur-sm opacity-0 group-hover/slider:opacity-100 transition-all">
-                  <ChevronRight size={16} />
-                </button>
-              </div>
+                    <span className="block text-[10px] font-mono font-bold tracking-wider uppercase text-zinc-500 mb-3">
+                      DEEP LEARNING & TIME-SERIES
+                    </span>
 
-              <div className="flex gap-2 mt-4">
-                {coffeecomDocs.map((_, idx) => (
-                  <div key={idx} className={`h-1.5 rounded-full transition-all duration-300 ${idx === currentCoffeecomIndex ? "w-6 bg-orange-500" : "w-1.5 bg-slate-700"}`} />
-                ))}
-              </div>
-            </div>
-          </div>
+                    <p className="text-xs sm:text-sm text-zinc-600 leading-relaxed mb-3">
+                      Recurrent neural network evaluating the predictive impact of technical indicators.
+                    </p>
 
-          {/* 2. SEPOTIFI */}
-          <div className="md:col-span-2 relative group overflow-hidden rounded-3xl bg-slate-900 border border-slate-800 hover:border-green-500/50 transition-all duration-300 flex flex-col md:flex-row">
-
-            <div className="absolute inset-0 bg-slate-900 group-hover:scale-105 transition-transform duration-700 bg-[url('/thumbnail/thumb-spotify.jpg')] bg-cover bg-center opacity-80" />
-            <div className="absolute inset-0 bg-gradient-to-r from-slate-950 via-slate-950/90 to-green-900/10 z-10" />
-
-            <div className="relative z-20 p-6 md:p-8 flex flex-col justify-center w-full md:w-1/2">
-
-              <div className="mb-4">
-                <div className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-yellow-500/10 border border-yellow-500/20 backdrop-blur-md">
-                  <AlertTriangle size={12} className="text-yellow-400" />
-                  <span className="text-[10px] font-bold text-yellow-400 uppercase tracking-wider">
-                    Dev Mode
-                  </span>
-                </div>
-              </div>
-
-              <h3 className="text-3xl font-bold text-white mb-3">Sepotifi Wrapped</h3>
-
-              <p className="text-slate-300 text-sm leading-relaxed mb-6">
-                A personalized clone of Spotify Wrapped. It analyzes your listening history to generate "Story-style" insights using Spotify Web API.
-                <br /><br />
-                <span className="text-slate-500 text-xs italic">
-                  *Limited access (Invite Only) due to API quotas. View the gallery to see how it works.
-                </span>
-              </p>
-
-              <div className="flex flex-wrap gap-3">
-                <a href="https://nopeakbar-sepotifi.vercel.app/" target="_blank" className="flex items-center gap-2 text-sm text-green-400 font-bold hover:text-green-300 transition-colors bg-green-900/20 px-5 py-2.5 rounded-full border border-green-500/30 hover:bg-green-900/40">
-                  Try Demo <ExternalLink size={14} />
-                </a>
-
-                <button
-                  onClick={() => setIsModalOpen(true)}
-                  className="md:hidden flex items-center gap-2 text-sm text-slate-200 font-bold bg-slate-800 px-5 py-2.5 rounded-full border border-slate-700 hover:bg-slate-700 transition-colors"
-                >
-                  <Eye size={14} /> View Gallery
-                </button>
-              </div>
-            </div>
-
-            <div className="hidden md:flex relative z-20 w-full md:w-1/2 p-6 flex-col items-center justify-center bg-black/20 border-l border-white/5">
-
-              <div className="relative w-[180px] md:w-[200px] aspect-[9/16] bg-slate-950 rounded-2xl border-4 border-slate-800 shadow-2xl overflow-hidden group/slider">
-
-                <div key={currentDocIndex} className="w-full h-full relative animate-in fade-in duration-500">
-                  <img
-                    src={sepotifiDocs[currentDocIndex].src}
-                    alt={sepotifiDocs[currentDocIndex].title}
-                    className="w-full h-full object-cover"
-                  />
-                  <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-transparent to-transparent"></div>
-
-                  <div className="absolute bottom-4 left-0 w-full text-center px-2">
-                    <p className="text-white font-bold text-sm">{sepotifiDocs[currentDocIndex].title}</p>
-                    <p className="text-slate-400 text-[10px]">{sepotifiDocs[currentDocIndex].desc}</p>
+                    <p className="text-xs sm:text-sm font-medium text-zinc-900 leading-relaxed">
+                      Benchmarked 10 model variants, achieving 2.29% MAPE on test distributions.
+                    </p>
                   </div>
-                </div>
 
-                <button
-                  onClick={prevDoc}
-                  className="absolute left-2 top-1/2 -translate-y-1/2 bg-black/50 hover:bg-green-500 text-white p-1.5 rounded-full backdrop-blur-sm transition-all opacity-0 group-hover/slider:opacity-100 translate-x-2 group-hover/slider:translate-x-0"
-                >
-                  <ChevronLeft size={16} />
-                </button>
+                  <div className="pt-4 mt-4 border-t border-zinc-100 text-[11px] font-mono text-zinc-400 leading-relaxed">
+                    Python · Bi-LSTM · TensorFlow · Time-Series · Next.js
+                  </div>
+                </article>
 
-                <button
-                  onClick={nextDoc}
-                  className="absolute right-2 top-1/2 -translate-y-1/2 bg-black/50 hover:bg-green-500 text-white p-1.5 rounded-full backdrop-blur-sm transition-all opacity-0 group-hover/slider:opacity-100 -translate-x-2 group-hover/slider:translate-x-0"
-                >
-                  <ChevronRight size={16} />
-                </button>
               </div>
+            </section>
 
-              <div className="flex gap-2 mt-4">
-                {sepotifiDocs.map((_, idx) => (
-                  <div
-                    key={idx}
-                    className={`h-1.5 rounded-full transition-all duration-300 ${idx === currentDocIndex ? "w-6 bg-green-500" : "w-1.5 bg-slate-700"}`}
-                  />
-                ))}
-              </div>
-            </div>
-          </div>
-
-          {/* 3. NONTON NYANTAI */}
-          <div className="md:col-span-1 relative group overflow-hidden rounded-3xl bg-slate-900 border border-slate-800 hover:border-purple-500/50 transition-all duration-300">
-            <div className="absolute inset-0 bg-slate-900 group-hover:scale-105 transition-transform duration-700 bg-[url('/thumbnail/thumb-nonton-nyantai.png')] bg-cover bg-center opacity-40" />
-            <div className="absolute inset-0 bg-gradient-to-t from-slate-950 via-purple-900/40 to-transparent z-10" />
-            <Smartphone className="absolute -top-6 -right-6 text-purple-900/20 w-40 h-40 rotate-12 z-10" />
-            <div className="absolute bottom-0 left-0 p-8 z-20 h-full flex flex-col justify-end">
-              <div className="mb-auto mt-4">
-                <div className="w-12 h-12 bg-purple-900/50 backdrop-blur-md rounded-xl flex items-center justify-center border border-purple-500/30 mb-4 text-purple-300 shadow-lg">
-                  <Smartphone size={24} />
-                </div>
-              </div>
-              <h3 className="text-xl font-bold text-white mb-2 text-shadow-sm">Nonton Nyantai App</h3>
-              <p className="text-slate-300 text-sm mb-4 font-medium leading-relaxed">
-                A movie discovery app powered by OMDB API. Features real-time movie data.
-              </p>
-              <a href="https://nonton-nyantai-nopeakbar-porto.web.app/" target="_blank" className="flex items-center gap-2 text-sm text-purple-300 font-bold cursor-pointer hover:text-purple-100 transition-colors w-fit">
-                View Demo <ArrowRight size={16} />
-              </a>
-            </div>
-          </div>
-
-          {/* 4. BOOK EXCHANGE */}
-          <div className="md:col-span-1 relative group overflow-hidden rounded-3xl bg-slate-900 border border-slate-800 hover:border-orange-500/50 transition-all duration-300">
-            <div className="absolute inset-0 bg-slate-900 group-hover:scale-105 transition-transform duration-700 bg-[url('/thumbnail/thumb-book-exchange.png')] bg-cover bg-center opacity-40" />
-            <div className="absolute inset-0 bg-gradient-to-tr from-orange-900/30 to-slate-950 z-10" />
-            <Book className="absolute top-4 right-4 text-slate-800 w-24 h-24 group-hover:text-orange-500/10 transition-colors" />
-            <div className="absolute bottom-0 left-0 p-8 z-20">
-              <h3 className="text-xl font-bold text-white mb-2">Book Exchange</h3>
-              <p className="text-slate-400 text-sm mb-4">
-                A peer-to-peer platform for book lovers. Connects readers to swap titles.
-              </p>
-              <a href="https://bukutukar-nopeakbar.vercel.app/" target="_blank" className="flex items-center gap-2 text-sm text-orange-400 font-medium hover:text-orange-300">
-                Visit Platform <ExternalLink size={14} />
-              </a>
-            </div>
-          </div>
-
-          {/* 5. AUDIO TRANSCRIBE */}
-          <div className="md:col-span-1 relative group overflow-hidden rounded-3xl bg-slate-900 border border-slate-800 hover:border-pink-500/50 transition-all duration-300">
-            <div className="absolute inset-0 bg-slate-900 group-hover:scale-105 transition-transform duration-700 bg-[url('/thumbnail/thumb-audio.gif')] bg-cover bg-center opacity-40" />
-            <div className="absolute inset-0 bg-gradient-to-r from-pink-900/30 to-slate-950 z-10" />
-            <Mic className="absolute top-4 right-4 text-pink-500/20 w-24 h-24 group-hover:text-pink-500/40 transition-colors" />
-
-            <div className="absolute bottom-0 left-0 p-8 z-20">
-              <h3 className="text-xl font-bold text-white mb-2">Audio Transcribe</h3>
-              <p className="text-slate-400 text-sm mb-4">
-                Automated speech-to-text conversion tool built with Python. Efficient and accurate.
-              </p>
-              <a href="https://github.com/nopeakbar/audio-transcribe-nopeakbar.git" target="_blank" className="flex items-center gap-2 text-sm text-pink-400 font-medium hover:text-pink-300">
-                <Github size={14} /> View Repo
-              </a>
-            </div>
-          </div>
-
-          {/* 6. AUTO CLICKER */}
-          <div className="md:col-span-1 relative group overflow-hidden rounded-3xl bg-slate-900 border border-slate-800 hover:border-teal-500/50 transition-all duration-300">
-            <div className="absolute inset-0 bg-slate-900 group-hover:scale-105 transition-transform duration-700 bg-[url('/thumbnail/thumb-colorbox.jpg')] bg-cover bg-center opacity-40" />
-            <div className="absolute inset-0 bg-gradient-to-tr from-teal-900/30 to-slate-950 z-10" />
-            <MousePointerClick className="absolute top-4 right-4 text-teal-500/20 w-24 h-24 group-hover:text-teal-500/40 transition-colors" />
-
-            <div className="absolute bottom-0 left-0 p-8 z-20">
-              <h3 className="text-xl font-bold text-white mb-2">Auto Clicker</h3>
-              <p className="text-slate-400 text-sm mb-4">
-                Automation tool to mass download images from Colorbox and Uniqlo websites.
-              </p>
-              <a href="https://github.com/nopeakbar/web-auto-clicker-nopeakbar.git" target="_blank" className="flex items-center gap-2 text-teal-400 font-medium hover:text-teal-300 text-sm">
-                <Github size={14} /> View Repo
-              </a>
-            </div>
-          </div>
-        </div>
-      </section>
-
-      {/* ========================================= */}
-      {/* SEGMENT: CERTIFICATIONS (MANUAL + COPY) */}
-      {/* ========================================= */}
-      <section id="certifications" className="max-w-5xl mx-auto px-6 py-10">
-        <div className="flex items-center gap-4 mb-8">
-          <div className="h-10 w-1 bg-yellow-500 rounded-full"></div>
-          <h2 className="text-3xl font-bold text-white">Licenses & Certifications</h2>
-        </div>
-
-        <div className="grid grid-cols-1 gap-4">
-
-          {/* CARD MANUAL 1: KOMDIGI */}
-          <div className="relative p-6 rounded-2xl bg-slate-900 border border-slate-800 flex flex-col md:flex-row items-start md:items-center gap-6 hover:border-yellow-500/50 transition-colors group w-full">
-
-            {/* Icon Garuda/Shield */}
-            <div className="w-14 h-14 rounded-full bg-slate-800 flex items-center justify-center border border-slate-700 group-hover:bg-yellow-500/10 group-hover:border-yellow-500/50 transition-all flex-shrink-0">
-              <ShieldCheck size={28} className="text-yellow-500" />
-            </div>
-
-            {/* Content Tengah */}
-            <div className="flex-1">
-              <h3 className="text-lg font-bold text-white group-hover:text-yellow-400 transition-colors">
-                Junior Mobile Programmer
-              </h3>
-              <p className="text-slate-400 text-sm mb-2">
-                KOMDIGI
-                <br />
-                <span className="break-all font-mono text-xs text-slate-300">
-                  Certificate Number: 193107451110-11/VSGA/BLSDM KOMDIGI/2025
-                </span>
-              </p>
-
-              {/* TOMBOL COPY ID (MANUAL) */}
-              <div className="flex items-center gap-3 mb-3">
-                <span className="text-xs text-slate-500 font-mono bg-slate-950 px-2 py-1 rounded border border-slate-800">
-                  ID: {credentialId}
-                </span>
-                <button
-                  onClick={handleCopy}
-                  className="flex items-center gap-1.5 text-xs font-bold text-slate-400 hover:text-white transition-colors bg-slate-800 hover:bg-slate-700 px-3 py-1 rounded-full active:scale-95 border border-slate-700"
-                >
-                  {isCopied ? (
-                    <> <Check size={12} className="text-green-400" /> Copied! </>
-                  ) : (
-                    <> <Copy size={12} /> Copy ID </>
-                  )}
-                </button>
-              </div>
-
-              <div className="flex flex-wrap gap-2">
-                <span className="text-[10px] font-bold bg-yellow-500/20 text-yellow-400 px-2 py-0.5 rounded border border-yellow-500/30">
-                  KOMPETEN
-                </span>
-                <span className="text-[10px] font-mono text-slate-500 border border-slate-700 px-2 py-0.5 rounded">
-                  Komdigi Digital Talent
-                </span>
-              </div>
-            </div>
-
-            {/* Tombol Link ke Website */}
-            <a
-              href="https://digitalent.komdigi.go.id/cek-sertifikat"
-              target="_blank"
-              rel="noopener noreferrer"
-              className="mt-4 md:mt-0 px-5 py-2.5 rounded-full border border-slate-700 bg-slate-800/50 hover:bg-yellow-500 hover:text-slate-900 hover:border-yellow-500 text-slate-300 text-sm font-semibold transition-all flex items-center gap-2 group/btn"
-            >
-              Verify Status <ExternalLink size={16} className="group-hover/btn:translate-x-1 transition-transform" />
-            </a>
-
-          </div>
-        </div>
-      </section>
-
-      {/* ========================================= */}
-      {/* SEGMENT 2: WRITING & THOUGHTS (MEDIUM)  */}
-      {/* ========================================= */}
-      <section id="writing" className="max-w-5xl mx-auto px-6 py-10">
-        <div className="flex items-center gap-4 mb-8">
-          <div className="h-10 w-1 bg-white rounded-full"></div>
-          <h2 className="text-3xl font-bold text-white">Writing & Thoughts</h2>
-        </div>
-
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-6 auto-rows-[minmax(350px,auto)]">
-          {/* CARD 6: MEDIUM (FULL WIDTH 3 COLS biar standout) */}
-          <div className="md:col-span-3 relative group overflow-hidden rounded-3xl bg-slate-900 border border-slate-800 hover:border-white/50 transition-all duration-300">
-            <div className="absolute inset-0 bg-slate-900 group-hover:scale-105 transition-transform duration-700 bg-[url('/thumbnail/thumb-medium.gif')] bg-cover bg-center opacity-40" />
-            <div className="absolute inset-0 bg-gradient-to-tr from-slate-950 via-slate-950/40 to-transparent z-10" />
-            <FileText className="absolute top-8 right-8 text-white/10 w-32 h-32 rotate-[-15deg] group-hover:rotate-0 transition-transform duration-500" />
-
-            <div className="absolute bottom-0 left-0 p-8 md:p-12 z-20 w-full flex flex-col justify-end h-full">
-              <div className="mt-auto">
-                <div className="flex items-center gap-2 text-white/70 mb-2">
-                  <Binary size={18} />
-                  <span className="text-xs font-bold tracking-widest uppercase">Data Science</span>
-                </div>
-                <h3 className="text-3xl md:text-4xl font-bold text-white mb-4">Writing on Medium</h3>
-                <p className="text-slate-300 text-base md:text-lg mb-8 max-w-2xl leading-relaxed">
-                  Documenting my experiments in Data Science and breaking down complex concepts into actionable insights for everyone.
-                </p>
-                <a href="https://medium.com/@nopeakbar" target="_blank" className="inline-flex items-center gap-2 px-6 py-3 bg-white text-black rounded-full text-sm font-bold hover:bg-slate-200 transition-colors">
-                  Read Articles <ExternalLink size={16} />
-                </a>
-              </div>
-            </div>
-          </div>
-        </div>
-      </section>
-
-      {/* ========================================= */}
-      {/* SEGMENT 3: CURATED COLLECTIONS (NOTION) */}
-      {/* ========================================= */}
-      <section id="collections" className="max-w-5xl mx-auto px-6 py-10">
-        <div className="flex items-center gap-4 mb-8">
-          <div className="h-10 w-1 bg-amber-500 rounded-full"></div>
-          <h2 className="text-3xl font-bold text-white">Curated Collections</h2>
-        </div>
-
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-6 auto-rows-[minmax(350px,auto)]">
-          {/* CARD 7: NOTION (FULL WIDTH 3 COLS) */}
-          <div className="md:col-span-3 relative group overflow-hidden rounded-3xl bg-slate-900 border border-slate-800 hover:border-amber-500/50 transition-all duration-300">
-            <div className="absolute inset-0 bg-slate-900 group-hover:scale-105 transition-transform duration-700 bg-[url('/thumbnail/thumb-notion.png')] bg-cover bg-center opacity-40" />
-            <div className="absolute inset-0 bg-gradient-to-tr from-amber-900/30 to-slate-950 z-10" />
-            <Coffee className="absolute top-8 right-8 text-amber-500/20 w-32 h-32 group-hover:text-amber-500/40 transition-colors" />
-
-            <div className="absolute bottom-0 left-0 p-8 md:p-12 z-20">
-              <h3 className="text-3xl md:text-4xl font-bold text-white mb-4">Coffee Shop Hunter for Skripsi</h3>
-              <p className="text-slate-300 text-base md:text-lg mb-8 max-w-2xl">
-                A personal curation of the best coffee spots in Yogyakarta. Reviewed based on ambiance, coffee quality, and skripsi-friendliness.
-              </p>
-              <a href="https://treasure-clef-482.notion.site/d73789d729ac46da85500df19a83e3a4?v=a8f299db8e804d88ba26ba13e88a06e7&source=copy_link" target="_blank" className="flex items-center gap-2 text-amber-400 font-bold hover:text-amber-300 text-lg">
-                Visit Notion Page <ExternalLink size={18} />
-              </a>
-            </div>
-          </div>
-        </div>
-      </section>
-
-      {/* ========================================= */}
-      {/* SEGMENT 3.5: NOW PLAYING (SPOTIFY API)  */}
-      {/* ========================================= */}
-      <section id="nowplaying" className="max-w-5xl mx-auto px-6 py-10">
-        <div className="flex items-center gap-4 mb-8">
-          <div className="h-10 w-1 bg-green-400 rounded-full"></div>
-          <h2 className="text-3xl font-bold text-white">Currently Listening To</h2>
-        </div>
-
-        <div className="grid grid-cols-1 gap-6">
-          <div className="relative group overflow-hidden rounded-3xl bg-gradient-to-br from-green-900/40 via-slate-900 to-slate-900 border border-green-500/30 hover:border-green-400/50 transition-all duration-300 p-8">
-
-            {/* Background Decoration */}
-            <div className="absolute top-0 right-0 w-64 h-64 bg-green-500/10 rounded-full blur-3xl"></div>
-
-            <div className="relative z-10">
+            {/* SECTION 3: CONTACT */}
+            <section className="scroll-mt-24 pt-8 border-t border-zinc-200" id="contact">
               <div className="flex items-center gap-3 mb-6">
-                <div className={`w-3 h-3 rounded-full ${data?.isPlaying ? "bg-green-400 animate-pulse" : "bg-slate-500"}`}></div>
-
-                <span className={`font-bold text-sm tracking-wider uppercase ${data?.isPlaying ? "text-green-400" : "text-slate-400"}`}>
-                  {data?.isPlaying ? "Live from Spotify" : data?.lastPlayed ? `Last Played ${data.lastPlayed}` : "Offline"}
-                </span>
+                <span className="h-4 w-1 bg-zinc-900 rounded-full"></span>
+                <h2 className="text-xs font-mono font-semibold uppercase tracking-widest text-zinc-500">
+                  Contact
+                </h2>
               </div>
-
-              <div className="flex flex-col md:flex-row gap-6 items-start md:items-center">
-                <div className="w-32 h-32 bg-slate-800 rounded-2xl flex items-center justify-center border-2 border-slate-700 group-hover:border-green-500/50 transition-all duration-300 flex-shrink-0 overflow-hidden relative">
-                  {data?.albumImageUrl ? (
-                    <img src={data.albumImageUrl} alt={data.album} className={`w-full h-full object-cover animate-in fade-in duration-700 ${!data.isPlaying && "grayscale opacity-70"}`} />
-                  ) : (
-                    <Music size={48} className="text-slate-600" />
-                  )}
-                </div>
-
-                {/* Track Info */}
-                <div className="flex-1">
-                  <h3 className="text-2xl md:text-3xl font-bold text-white mb-2 line-clamp-1">
-                    {data?.title || "Not playing right now"}
-                  </h3>
-                  <p className="text-slate-400 text-lg mb-4 line-clamp-1">
-                    {data?.artist || "Spotify is currently offline"}
-                  </p>
-                  <div className="flex flex-wrap items-center gap-3 md:gap-4">
-                    <a
-                      href={data?.songUrl || "https://open.spotify.com"}
-                      target="_blank"
-                      className={`inline-flex items-center gap-2 px-5 py-2.5 font-semibold rounded-full transition-all text-sm ${data?.isPlaying ? "bg-green-600 hover:bg-green-500 text-white" : "bg-slate-800 hover:bg-slate-700 text-slate-300 border border-slate-700"}`}
-                    >
-                      <Music size={16} /> {data?.isPlaying ? "Listen on Spotify" : "Open Spotify"}
-                    </a>
-                    <button 
-                      onClick={() => setIsTopStatsModalOpen(true)}
-                      className="inline-flex items-center gap-2 px-5 py-2.5 font-semibold rounded-full transition-all text-sm bg-slate-800/80 hover:bg-slate-700 text-slate-300 border border-slate-700 hover:border-green-500/50 hover:text-green-400"
-                    >
-                      <Activity size={16} /> View Top Stats
-                    </button>
-                  </div>
+              <div className="bg-white border border-zinc-200 rounded-xl p-8 shadow-sm">
+                <h3 className="text-2xl font-bold tracking-tight text-zinc-900">
+                  Let's build something exceptional.
+                </h3>
+                <p className="mt-3 text-sm text-zinc-600 max-w-lg leading-relaxed">
+                  Whether you need to scale enterprise generative AI, audit vector retrieval efficiency, or build resilient cloud backend architectures, my inbox is open.
+                </p>
+                <div className="mt-8 flex flex-wrap gap-4">
+                  <a
+                    className="inline-flex items-center px-5 py-2.5 rounded-lg text-xs font-semibold uppercase tracking-wider text-white bg-zinc-900 hover:bg-zinc-800 transition shadow-sm"
+                    href="mailto:nopeakbar@gmail.com"
+                  >
+                    nopeakbar@gmail.com
+                  </a>
+                  <a
+                    className="inline-flex items-center px-5 py-2.5 rounded-lg text-xs font-semibold uppercase tracking-wider text-zinc-700 bg-white border border-zinc-300 hover:bg-zinc-50 transition"
+                    href="https://www.linkedin.com/in/noveanto-nur-akbar/"
+                    rel="noopener noreferrer"
+                    target="_blank"
+                  >
+                    Connect on LinkedIn
+                  </a>
                 </div>
               </div>
+            </section>
 
-            </div>
-          </div>
-        </div>
-      </section>
-
-      {/* ========================================= */}
-      {/* SEGMENT 4: ON REPEAT (SPOTIFY)          */}
-      {/* ========================================= */}
-      <section id="playlist" className="max-w-5xl mx-auto px-6 py-10">
-        <div className="flex items-center gap-4 mb-8">
-          <div className="h-10 w-1 bg-green-500 rounded-full"></div>
-          <h2 className="text-3xl font-bold text-white">On Repeat</h2>
-        </div>
-
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
-          {/* CARD 8: SPOTIFY SLIDER (Full Width) */}
-          <div
-            className="md:col-span-3 rounded-3xl bg-black border border-slate-800 overflow-hidden relative group h-[360px]"
-            onTouchStart={onTouchStart}
-            onTouchMove={onTouchMove}
-            onTouchEnd={onTouchEnd}
-          >
-            <button
-              onClick={prevSong}
-              className="absolute left-4 top-1/2 -translate-y-1/2 z-20 bg-black/50 hover:bg-green-500/80 p-2 rounded-full backdrop-blur-md transition-all text-white border border-slate-700 hover:border-green-400 hover:scale-110"
-            >
-              <ChevronLeft size={24} />
-            </button>
-
-            <button
-              onClick={nextSong}
-              className="absolute right-4 top-1/2 -translate-y-1/2 z-20 bg-black/50 hover:bg-green-500/80 p-2 rounded-full backdrop-blur-md transition-all text-white border border-slate-700 hover:border-green-400 hover:scale-110"
-            >
-              <ChevronRight size={24} />
-            </button>
-
-            <div className="absolute bottom-4 left-1/2 -translate-x-1/2 z-20 flex gap-2">
-              {spotifyEmbeds.map((_, index) => (
-                <div
-                  key={index}
-                  className={`h-2 rounded-full transition-all duration-300 ${index === currentSong ? "w-6 bg-green-500" : "w-2 bg-slate-600"}`}
-                />
-              ))}
-            </div>
-
-            <div className="absolute top-4 left-1/2 -translate-x-1/2 z-10 flex items-center gap-2 text-green-500 text-xs font-bold bg-black/80 px-4 py-1.5 rounded-full backdrop-blur-md border border-green-900 shadow-xl">
-              <Music size={12} className="animate-pulse" /> MY LAGU GUE ({currentSong + 1}/{spotifyEmbeds.length})
-            </div>
-
-            <div className="w-full h-full relative">
-              {spotifyEmbeds.map((link, index) => (
-                <iframe
-                  key={index}
-                  style={{ borderRadius: "12px", display: index === currentSong ? 'block' : 'none' }}
-                  src={link}
-                  width="100%"
-                  height="100%"
-                  frameBorder="0"
-                  allowFullScreen={true}
-                  allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture"
-                  loading="lazy"
-                  className="opacity-90 transition-opacity animate-in fade-in duration-500"
-                ></iframe>
-              ))}
-            </div>
-          </div>
-        </div>
-      </section>
-
-      {/* ========================================= */}
-      {/* SEGMENT 5: LYRIC QUOTE (MANUAL)         */}
-      {/* ========================================= */}
-      <section id="lyrics" className="max-w-5xl mx-auto px-6 py-10 pb-20">
-        <div className="flex items-center gap-4 mb-8">
-          <div className="h-10 w-1 bg-pink-500 rounded-full"></div>
-          <h2 className="text-3xl font-bold text-white">Penggalan</h2>
-        </div>
-
-        <div
-          className="relative group overflow-hidden rounded-3xl border border-slate-800 hover:border-pink-500/50 transition-all duration-700 p-8 md:p-12 text-center"
-          style={{ backgroundColor: currentLyric.color }}
-        >
-          {/* BACKGROUND IMAGE DARI ALBUM (DENGAN OPACITY) */}
-          <div
-            className="absolute inset-0 bg-no-repeat transition-all duration-700 opacity-40 mix-blend-overlay"
-            style={{
-              backgroundImage: `url('${currentLyric.image}')`,
-              backgroundPosition: currentLyric.position || 'center',
-              backgroundSize: currentLyric.scale || 'cover'
-            }}
-          />
-
-          <div className="2 inset-0 bg-gradient-to-b from-transparent to-black/60 z-0"></div>
-          <div className="absolute top-0 right-0 w-64 h-64 bg-pink-500/10 rounded-full blur-3xl opacity-50 pointer-events-none z-0"></div>
-          <Quote className="absolute top-6 left-6 text-slate-800 w-16 h-16 md:w-24 md:h-24 opacity-50 z-0" />
-
-          <div className="relative z-10 flex flex-col items-center justify-center min-h-[200px]">
-            <blockquote
-              className="text-2xl md:text-3xl font-serif italic text-slate-200 mb-8 leading-relaxed max-w-3xl animate-in fade-in slide-in-from-bottom-4 duration-700 whitespace-pre-line"
-              key={lyricIndex}
-            >
-              "{currentLyric.text}"
-            </blockquote>
-
-            <div className="flex flex-col items-center gap-1 mb-8">
-              <p className="text-lg font-bold text-white tracking-wide shadow-black drop-shadow-md">{currentLyric.song}</p>
-              <p className="text-pink-400 text-sm font-medium tracking-widest uppercase shadow-black drop-shadow-sm">{currentLyric.artist}</p>
-            </div>
-
-            <button
-              onClick={randomizeLyric}
-              className="group/btn flex items-center gap-2 px-6 py-2 rounded-full bg-slate-800/80 backdrop-blur-sm hover:bg-pink-600 text-slate-400 hover:text-white transition-all border border-slate-700 hover:border-pink-500 shadow-lg"
-            >
-              <Shuffle size={16} className="group-hover/btn:rotate-180 transition-transform duration-500" />
-              <span className="text-sm font-semibold">Shuffle Lyric</span>
-            </button>
-          </div>
-        </div>
-      </section>
-
-      {/* --- FOOTER (CONTACT) --- */}
-      <footer id="contact" className="max-w-5xl mx-auto px-6 pt-10 text-center">
-        <h2 className="text-2xl font-bold mb-6">Let's Connect</h2>
-
-        <a href="mailto:nopeakbar@gmail.com" className="flex justify-center items-center gap-2 text-slate-400 hover:text-cyan-400 transition-colors mb-8 text-lg">
-          <Mail size={24} /> nopeakbar@gmail.com
-        </a>
-
-        <div className="flex justify-center gap-8 mb-12 items-center">
-          <a href="https://www.linkedin.com/in/noveanto-nur-akbar/" target="_blank" className="text-slate-400 hover:text-blue-500 transition-colors transform hover:scale-110">
-            <Linkedin size={32} />
-          </a>
-          <a href="https://instagram.com/nopeakbar" target="_blank" className="text-slate-400 hover:text-pink-500 transition-colors transform hover:scale-110">
-            <Instagram size={32} />
-          </a>
-          <a href="https://medium.com/@nopeakbar" target="_blank" className="text-slate-400 hover:text-white transition-colors transform hover:scale-110">
-            <FileText size={32} />
-          </a>
-          <a href="https://open.spotify.com/user/67tbuc3v934pih7w5u2nefkt1?si=07fcb99ad27e46e5" target="_blank" className="relative w-8 h-8 transform hover:scale-110 transition-transform group">
-            <img
-              src="/thumbnail/spotify.png"
-              alt="Spotify"
-              className="absolute inset-0 w-full h-full object-contain transition-opacity duration-300 group-hover:opacity-0"
-            />
-            <img
-              src="/thumbnail/spotify-hover.png"
-              alt="Spotify Hover"
-              className="absolute inset-0 w-full h-full object-contain transition-opacity duration-300 opacity-0 group-hover:opacity-100"
-            />
-          </a>
-        </div>
-
-        <div className="border-t border-slate-900 pt-8 pb-8 text-slate-600 text-sm">
-          <p>© {new Date().getFullYear()} Nov Akbar's Portfolio. Built with Next.js.</p>
-        </div>
-      </footer>
-
-      {/* --- POPUP MODAL (KHUSUS MOBILE) --- */}
-      {isModalOpen && (
-        <div className="fixed inset-0 z-[100] bg-slate-950/90 backdrop-blur-md flex flex-col items-center justify-center p-4 animate-in fade-in duration-300">
-          {/* Tombol Close */}
-          <button
-            onClick={() => setIsModalOpen(false)}
-            className="absolute top-6 right-6 p-2 bg-slate-800 rounded-full text-slate-400 hover:text-white hover:bg-red-500/20 transition-all"
-          >
-            <X size={24} />
-          </button>
-
-          <h3 className="text-white font-bold text-xl mb-6">Gallery Preview</h3>
-
-          {/* LOGIC SLIDER YANG SAMA (Reused) */}
-          <div className="relative w-[260px] aspect-[9/16] bg-slate-950 rounded-[2rem] border-8 border-slate-800 shadow-2xl overflow-hidden">
-            <div key={currentDocIndex} className="w-full h-full relative animate-in fade-in zoom-in duration-300">
-              <img
-                src={sepotifiDocs[currentDocIndex].src}
-                alt={sepotifiDocs[currentDocIndex].title}
-                className="w-full h-full object-cover"
-              />
-              <div className="absolute inset-0 bg-gradient-to-t from-black/90 via-transparent to-transparent"></div>
-              <div className="absolute bottom-8 left-0 w-full text-center px-4">
-                <p className="text-white font-bold text-lg">{sepotifiDocs[currentDocIndex].title}</p>
-                <p className="text-slate-400 text-xs">{sepotifiDocs[currentDocIndex].desc}</p>
+            {/* FOOTER */}
+            <footer className="pt-12 text-xs font-mono text-zinc-400 flex flex-col sm:flex-row justify-between items-start sm:items-center gap-4">
+              <p>© 2026 Noveanto Nur Akbar. Built with semantic craft & clean principles.</p>
+              <div className="flex items-center gap-4">
+                <a className="hover:text-zinc-600 transition-colors" href="#">
+                  Back to top ↑
+                </a>
               </div>
-            </div>
-          </div>
+            </footer>
 
-          {/* KONTROL SLIDER DI POPUP */}
-          <div className="flex items-center gap-6 mt-8">
-            <button
-              onClick={prevDoc}
-              className="p-4 bg-slate-800 rounded-full text-white hover:bg-green-500 transition-colors"
-            >
-              <ChevronLeft size={24} />
-            </button>
-
-            <div className="flex gap-2">
-              {sepotifiDocs.map((_, idx) => (
-                <div key={idx} className={`h-2 rounded-full transition-all ${idx === currentDocIndex ? "w-6 bg-green-500" : "w-2 bg-slate-700"}`} />
-              ))}
-            </div>
-
-            <button
-              onClick={nextDoc}
-              className="p-4 bg-slate-800 rounded-full text-white hover:bg-green-500 transition-colors"
-            >
-              <ChevronRight size={24} />
-            </button>
-          </div>
+          </main>
         </div>
-      )}
-
-      {/* --- POPUP MODAL BOT TELEGRAM (KHUSUS MOBILE) --- */}
-      {isBotModalOpen && (
-        <div className="fixed inset-0 z-[100] bg-slate-950/90 backdrop-blur-md flex flex-col items-center justify-center p-4 animate-in fade-in duration-300">
-          <button
-            onClick={() => setIsBotModalOpen(false)}
-            className="absolute top-6 right-6 p-2 bg-slate-800 rounded-full text-slate-400 hover:text-white hover:bg-red-500/20 transition-all"
-          >
-            <X size={24} />
-          </button>
-
-          <h3 className="text-white font-bold text-xl mb-6">Bot Features Gallery</h3>
-
-          <div className="relative w-[260px] aspect-[9/16] bg-slate-950 rounded-[2rem] border-8 border-slate-800 shadow-2xl overflow-hidden">
-            <div key={currentBotDocIndex} className="w-full h-full relative animate-in fade-in zoom-in duration-300">
-              {botDocs[currentBotDocIndex].src.endsWith('.mp4') ? (
-                <video
-                  src={botDocs[currentBotDocIndex].src}
-                  className="w-full h-full object-cover"
-                  autoPlay
-                  loop
-                  muted
-                  playsInline
-                />
-              ) : (
-                <img
-                  src={botDocs[currentBotDocIndex].src}
-                  alt={botDocs[currentBotDocIndex].title}
-                  className="w-full h-full object-cover"
-                />
-              )}
-              {/* -------------------------------------------------- */}
-
-              <div className="absolute inset-0 bg-gradient-to-t from-black/90 via-black/30 to-transparent"></div>
-              <div className="absolute bottom-8 left-0 w-full text-center px-4">
-                <p className="text-white font-bold text-lg mb-2">{botDocs[currentBotDocIndex].title}</p>
-                <p className="text-slate-400 text-xs leading-relaxed">{botDocs[currentBotDocIndex].desc}</p>
-              </div>
-            </div>
-          </div>
-
-          <div className="flex items-center gap-6 mt-8">
-            <button
-              onClick={prevBotDoc}
-              className="p-4 bg-slate-800 rounded-full text-white hover:bg-blue-500 transition-colors"
-            >
-              <ChevronLeft size={24} />
-            </button>
-
-            <div className="flex gap-2">
-              {botDocs.map((_, idx) => (
-                <div key={idx} className={`h-2 rounded-full transition-all ${idx === currentBotDocIndex ? "w-6 bg-blue-500" : "w-2 bg-slate-700"}`} />
-              ))}
-            </div>
-
-            <button
-              onClick={nextBotDoc}
-              className="p-4 bg-slate-800 rounded-full text-white hover:bg-blue-500 transition-colors"
-            >
-              <ChevronRight size={24} />
-            </button>
-          </div>
-        </div>
-      )}
-
-      {/* --- POPUP MODAL CLOUD & DEVOPS (LEBAR / LANDSCAPE) --- */}
-      {isCloudModalOpen && (
-        <div className="fixed inset-0 z-[100] bg-slate-950/90 backdrop-blur-md flex flex-col items-center justify-center p-4 animate-in fade-in duration-300">
-          <button
-            onClick={() => setIsCloudModalOpen(false)}
-            className="absolute top-6 right-6 p-2 bg-slate-800 rounded-full text-slate-400 hover:text-white hover:bg-red-500/20 transition-all"
-          >
-            <X size={24} />
-          </button>
-
-          <h3 className="text-white font-bold text-xl mb-6 flex items-center gap-2">
-            <Cloud className="text-orange-400" /> Infrastructure Showcase
-          </h3>
-
-          <div className="relative w-[90vw] max-w-4xl aspect-video bg-slate-950 rounded-2xl border border-slate-700 shadow-[0_0_50px_rgba(249,115,22,0.1)] overflow-hidden">
-            <div key={currentCloudIndex} className="w-full h-full relative animate-in fade-in zoom-in duration-300">
-              <img
-                src={cloudDocs[currentCloudIndex].src}
-                alt={cloudDocs[currentCloudIndex].title}
-                className="w-full h-full object-contain bg-slate-900" 
-              />
-              
-              <div className="absolute inset-0 bg-gradient-to-t from-black/90 via-black/10 to-transparent pointer-events-none"></div>
-              <div className="absolute bottom-8 left-0 w-full text-center px-8">
-                <p className="text-white font-bold text-xl mb-2">{cloudDocs[currentCloudIndex].title}</p>
-                <p className="text-slate-300 text-sm text-balance mx-auto">{cloudDocs[currentCloudIndex].desc}</p>
-              </div>
-            </div>
-
-            <button onClick={prevCloudDoc} className="absolute left-4 top-1/2 -translate-y-1/2 p-3 bg-black/50 backdrop-blur-md rounded-full text-white hover:bg-orange-500 transition-colors">
-              <ChevronLeft size={24} />
-            </button>
-            <button onClick={nextCloudDoc} className="absolute right-4 top-1/2 -translate-y-1/2 p-3 bg-black/50 backdrop-blur-md rounded-full text-white hover:bg-orange-500 transition-colors">
-              <ChevronRight size={24} />
-            </button>
-          </div>
-
-          <div className="flex items-center gap-2 mt-6">
-            {cloudDocs.map((_, idx) => (
-              <div key={idx} className={`h-2 rounded-full transition-all ${idx === currentCloudIndex ? "w-8 bg-orange-500" : "w-2 bg-slate-700"}`} />
-            ))}
-          </div>
-        </div>
-      )}
-
-      {/* --- POPUP MODAL MALIOBORO --- */}
-      {isMalioboroModalOpen && (
-        <div className="fixed inset-0 z-[100] bg-slate-950/90 backdrop-blur-md flex flex-col items-center justify-center p-4 animate-in fade-in duration-300">
-          <button onClick={() => setIsMalioboroModalOpen(false)} className="absolute top-6 right-6 p-2 bg-slate-800 rounded-full text-slate-400 hover:text-white hover:bg-red-500/20 transition-all">
-            <X size={24} />
-          </button>
-          <h3 className="text-white font-bold text-xl mb-6">Malioboro 3D Gallery</h3>
-          <div className="relative w-[90vw] max-w-4xl aspect-video bg-slate-950 rounded-2xl border border-slate-700 shadow-2xl overflow-hidden">
-            <div key={currentMalioboroIndex} className="w-full h-full relative animate-in fade-in zoom-in duration-300">
-              <img src={malioboroDocs[currentMalioboroIndex].src} alt={malioboroDocs[currentMalioboroIndex].title} className="w-full h-full object-cover" />
-              <div className="absolute inset-0 bg-gradient-to-t from-black/90 via-transparent to-transparent pointer-events-none"></div>
-              <div className="absolute bottom-4 left-0 w-full text-center px-4">
-                <p className="text-white font-bold text-lg">{malioboroDocs[currentMalioboroIndex].title}</p>
-                <p className="text-slate-300 text-xs">{malioboroDocs[currentMalioboroIndex].desc}</p>
-              </div>
-            </div>
-            <button onClick={prevMalioboro} className="absolute left-2 top-1/2 -translate-y-1/2 p-2 bg-black/50 backdrop-blur-md rounded-full text-white hover:bg-orange-500 transition-colors"><ChevronLeft size={20} /></button>
-            <button onClick={nextMalioboro} className="absolute right-2 top-1/2 -translate-y-1/2 p-2 bg-black/50 backdrop-blur-md rounded-full text-white hover:bg-orange-500 transition-colors"><ChevronRight size={20} /></button>
-          </div>
-          <div className="flex items-center gap-2 mt-4">
-            {malioboroDocs.map((_, idx) => (
-              <div key={idx} className={`h-2 rounded-full transition-all ${idx === currentMalioboroIndex ? "w-6 bg-orange-500" : "w-2 bg-slate-700"}`} />
-            ))}
-          </div>
-        </div>
-      )}
-
-      {/* --- POPUP MODAL COFFEECOM --- */}
-      {isCoffeecomModalOpen && (
-        <div className="fixed inset-0 z-[100] bg-slate-950/90 backdrop-blur-md flex flex-col items-center justify-center p-4 animate-in fade-in duration-300">
-          <button onClick={() => setIsCoffeecomModalOpen(false)} className="absolute top-6 right-6 p-2 bg-slate-800 rounded-full text-slate-400 hover:text-white hover:bg-red-500/20 transition-all">
-            <X size={24} />
-          </button>
-          <h3 className="text-white font-bold text-xl mb-6">Coffeecom Preview</h3>
-          <div className="relative w-[260px] aspect-[9/16] bg-slate-950 rounded-[2rem] border-8 border-slate-800 shadow-2xl overflow-hidden">
-            <div key={currentCoffeecomIndex} className="w-full h-full relative animate-in fade-in zoom-in duration-300">
-              {coffeecomDocs[currentCoffeecomIndex].src.endsWith('.mp4') ? (
-                <video src={coffeecomDocs[currentCoffeecomIndex].src} className="w-full h-full object-cover" autoPlay loop muted playsInline />
-              ) : (
-                <img src={coffeecomDocs[currentCoffeecomIndex].src} alt={coffeecomDocs[currentCoffeecomIndex].title} className="w-full h-full object-cover" />
-              )}
-              <div className="absolute inset-0 bg-gradient-to-t from-black/90 via-transparent to-transparent"></div>
-              <div className="absolute bottom-8 left-0 w-full text-center px-4">
-                <p className="text-white font-bold text-lg mb-1">{coffeecomDocs[currentCoffeecomIndex].title}</p>
-                <p className="text-slate-300 text-xs">{coffeecomDocs[currentCoffeecomIndex].desc}</p>
-              </div>
-            </div>
-          </div>
-          <div className="flex items-center gap-6 mt-8">
-            <button onClick={prevCoffeecom} className="p-4 bg-slate-800 rounded-full text-white hover:bg-orange-500 transition-colors"><ChevronLeft size={24} /></button>
-            <div className="flex gap-2">
-              {coffeecomDocs.map((_, idx) => (
-                <div key={idx} className={`h-2 rounded-full transition-all ${idx === currentCoffeecomIndex ? "w-6 bg-orange-500" : "w-2 bg-slate-700"}`} />
-              ))}
-            </div>
-            <button onClick={nextCoffeecom} className="p-4 bg-slate-800 rounded-full text-white hover:bg-orange-500 transition-colors"><ChevronRight size={24} /></button>
-          </div>
-        </div>
-      )}
-      {/* --- POPUP MODAL TOP 5 STATS --- */}
-      {isTopStatsModalOpen && (
-        <div className="fixed inset-0 z-[100] bg-slate-950/90 backdrop-blur-md flex flex-col items-center justify-center p-4 animate-in fade-in zoom-in duration-300">
-          <button onClick={() => setIsTopStatsModalOpen(false)} className="absolute top-6 right-6 p-2 bg-slate-800 rounded-full text-slate-400 hover:text-white hover:bg-red-500/20 transition-all">
-            <X size={24} />
-          </button>
-          
-          <h3 className="text-white font-black text-2xl md:text-3xl mb-6">My Top 5 <span className="text-green-400">This Month</span></h3>
-
-          <div className="w-full max-w-2xl bg-slate-900 rounded-3xl border border-slate-800 shadow-[0_0_40px_rgba(34,197,94,0.1)] overflow-hidden p-6 md:p-8 flex flex-col md:flex-row gap-8">
-            
-            {/* Top Tracks Column */}
-            <div className="flex-1">
-              <h4 className="text-green-400 font-bold mb-4 flex items-center gap-2 border-b border-slate-800 pb-2"><Music size={16}/> Top Tracks</h4>
-              <div className="space-y-4">
-                {data?.topTracks?.map((track: any, idx: number) => (
-                  <a key={idx} href={track.url} target="_blank" className="flex items-center gap-3 group">
-                    <span className="text-slate-600 font-mono text-sm font-bold w-4">{idx + 1}</span>
-                    <div className="flex-1">
-                      <p className="text-slate-200 text-sm font-semibold group-hover:text-green-400 transition-colors line-clamp-1">{track.name}</p>
-                      <p className="text-slate-500 text-xs line-clamp-1">{track.artist}</p>
-                    </div>
-                  </a>
-                ))}
-              </div>
-            </div>
-
-            {/* Garis Pemisah Mobile/Desktop */}
-            <div className="w-full h-px md:w-px md:h-auto bg-slate-800"></div>
-
-            {/* Top Artists Column */}
-            <div className="flex-1">
-              <h4 className="text-green-400 font-bold mb-4 flex items-center gap-2 border-b border-slate-800 pb-2"><Mic size={16}/> Top Artists</h4>
-              <div className="space-y-4">
-                {data?.topArtists?.map((artist: any, idx: number) => (
-                  <a key={idx} href={artist.url} target="_blank" className="flex items-center gap-3 group">
-                    <span className="text-slate-600 font-mono text-sm font-bold w-4">{idx + 1}</span>
-                    <div className="flex-1">
-                      <p className="text-slate-200 text-sm font-semibold group-hover:text-green-400 transition-colors line-clamp-1">{artist.name}</p>
-                    </div>
-                  </a>
-                ))}
-              </div>
-            </div>
-
-          </div>
-        </div>
-      )}
-    </main>
+      </div>
+    </div>
   );
 }
