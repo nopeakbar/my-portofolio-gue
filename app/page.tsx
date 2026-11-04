@@ -15,12 +15,25 @@ import {
   ChevronDown,
   ChevronUp,
   FolderGit2,
-  ArrowUpRight
+  ArrowUpRight,
+  Copy,
+  Check
 } from 'lucide-react';
 
 export default function Portfolio() {
   const [showAllExperiences, setShowAllExperiences] = useState(false);
+  const [copiedId, setCopiedId] = useState(false);
   const sidebarRef = useRef<HTMLElement>(null);
+
+  const handleCopyId = (id: string) => {
+    if (typeof navigator !== 'undefined' && navigator.clipboard) {
+      navigator.clipboard.writeText(id);
+      setCopiedId(true);
+      setTimeout(() => {
+        setCopiedId(false);
+      }, 2000);
+    }
+  };
 
   // Synchronize desktop sidebar scroll speed with user scroll near the bottom
   useEffect(() => {
@@ -393,10 +406,18 @@ export default function Portfolio() {
                     </a>
                   </li>
                   <li>
+                    <a className="group flex items-center py-1" href="#credentials">
+                      <span className="mr-3 h-[1px] w-6 bg-zinc-300 transition-all duration-300 group-hover:w-9 group-hover:bg-zinc-950"></span>
+                      <span className="text-xs font-mono tracking-widest uppercase text-zinc-500 group-hover:text-zinc-950 font-medium">
+                        04 // Credentials
+                      </span>
+                    </a>
+                  </li>
+                  <li>
                     <a className="group flex items-center py-1" href="#contact">
                       <span className="mr-3 h-[1px] w-6 bg-zinc-300 transition-all duration-300 group-hover:w-9 group-hover:bg-zinc-950"></span>
                       <span className="text-xs font-mono tracking-widest uppercase text-zinc-500 group-hover:text-zinc-950 font-medium">
-                        04 // Get In Touch
+                        05 // Get In Touch
                       </span>
                     </a>
                   </li>
@@ -895,7 +916,7 @@ export default function Portfolio() {
                       </h4>
                       <div className="text-right shrink-0">
                         <span className="text-[11px] font-medium text-zinc-500 block">RSF Press</span>
-                        <span className="text-[11px] font-mono text-zinc-400 block">2025</span>
+                        <span className="text-[11px] font-mono text-zinc-400 block">Oct 2025</span>
                       </div>
                     </div>
 
@@ -1011,7 +1032,125 @@ export default function Portfolio() {
               </div>
             </section>
 
-            {/* SECTION 4: CONTACT */}
+            {/* SECTION 4: CREDENTIALS & HONORS */}
+            <section className="scroll-mt-24" id="credentials">
+              <div className="flex items-center gap-3 mb-4">
+                <span className="h-4 w-1 bg-zinc-900 rounded-full"></span>
+                <h2 className="text-xs font-mono font-semibold uppercase tracking-widest text-zinc-500">
+                  Credentials &amp; Honors
+                </h2>
+              </div>
+
+              <div className="mb-6">
+                <h3 className="text-xl sm:text-2xl font-bold tracking-tight text-zinc-900">
+                  Verified Credentials &amp; Cohort Honors
+                </h3>
+                <p className="mt-1 text-xs sm:text-sm text-zinc-500 font-mono">
+                  Official national competency certifications and professional bootcamp cohort recognitions.
+                </p>
+              </div>
+
+              <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+                {/* KARTU 1: KOMDIGI Junior Mobile Programmer */}
+                <article className="group bg-white border border-zinc-200/90 rounded-2xl p-6 shadow-sm hover:border-zinc-300 transition-all flex flex-col justify-between">
+                  <div>
+                    <div className="flex items-start justify-between gap-3 mb-1">
+                      <h4 className="text-base sm:text-lg font-bold text-zinc-900 group-hover:text-zinc-950 transition-colors leading-snug">
+                        Junior Mobile Programmer
+                      </h4>
+                      <div className="shrink-0 flex flex-col items-end gap-1">
+                        <img
+                          src="/logo/digitalent.png"
+                          alt="KOMDIGI Digitalent"
+                          className="h-7 sm:h-8 w-auto max-w-[80px] object-contain object-right"
+                        />
+                        <span className="text-[11px] font-mono text-zinc-400 block">Aug 2025 — 2028</span>
+                      </div>
+                    </div>
+
+                    <span className="block text-[10px] font-mono font-bold tracking-wider uppercase text-zinc-500 mb-3">
+                      NATIONAL COMPETENCY CREDENTIAL
+                    </span>
+
+                    <p className="text-xs sm:text-sm text-zinc-600 leading-relaxed">
+                      Certified under Vocational School Graduate Academy (VSGA) by Kementerian Komunikasi dan Digital (KOMDIGI). Validated standard mobile software programming competencies.
+                    </p>
+                  </div>
+
+                  {/* Interactive Action Bar */}
+                  <div className="pt-4 mt-6 border-t border-zinc-100 flex flex-wrap items-center justify-between gap-2">
+                    <button
+                      type="button"
+                      onClick={() => handleCopyId("193107451110-11")}
+                      className={`inline-flex items-center gap-1.5 px-2.5 py-1.5 rounded-lg text-xs font-mono transition-all cursor-pointer border ${
+                        copiedId
+                          ? "bg-emerald-50 text-emerald-700 border-emerald-200"
+                          : "bg-zinc-50 hover:bg-zinc-100 text-zinc-700 border-zinc-200/80 active:scale-95"
+                      }`}
+                      title="Click to copy credential ID"
+                    >
+                      {copiedId ? (
+                        <>
+                          <Check className="w-3.5 h-3.5 text-emerald-600" />
+                          <span>Copied! ✓</span>
+                        </>
+                      ) : (
+                        <>
+                          <Copy className="w-3.5 h-3.5 text-zinc-400" />
+                          <span>ID: 193107451110-11</span>
+                        </>
+                      )}
+                    </button>
+
+                    <a
+                      href="https://digitalent.komdigi.go.id/cek-sertifikat#"
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="inline-flex items-center gap-1 text-xs font-semibold text-zinc-900 hover:underline group-hover:text-zinc-950 transition-colors"
+                    >
+                      <span>Cek Kredensial</span>
+                      <ArrowUpRight className="w-3.5 h-3.5 transition-transform group-hover:translate-x-0.5 group-hover:-translate-y-0.5" />
+                    </a>
+                  </div>
+                </article>
+
+                {/* KARTU 2: berijalan Cohort Award */}
+                <article className="group bg-white border border-zinc-200/90 rounded-2xl p-6 shadow-sm hover:border-zinc-300 transition-all flex flex-col justify-between">
+                  <div>
+                    <div className="flex items-start justify-between gap-3 mb-1">
+                      <h4 className="text-base sm:text-lg font-bold text-zinc-900 group-hover:text-zinc-950 transition-colors leading-snug">
+                        Best Progressive Developer
+                      </h4>
+                      <div className="shrink-0 flex flex-col items-end gap-1">
+                        <img
+                          src="/logo/berijalan.png"
+                          alt="berijalan"
+                          className="h-5 sm:h-6 w-auto max-w-[90px] sm:max-w-[110px] object-contain object-right"
+                        />
+                        <span className="text-[11px] font-mono text-zinc-400 block">Oct 2026</span>
+                      </div>
+                    </div>
+
+                    <span className="block text-[10px] font-mono font-bold tracking-wider uppercase text-zinc-500 mb-3">
+                      COHORT PERFORMANCE AWARD
+                    </span>
+
+                    <p className="text-xs sm:text-sm text-zinc-600 leading-relaxed">
+                      Awarded &apos;Best Progressive Developer&apos; in Fullstack Developer Bootcamp Batch 18 by berijalan, recognizing continuous growth and outstanding technical velocity across the initial training phase, enterprise project implementation, and final capstone presentation.
+                    </p>
+                  </div>
+
+                  {/* Interactive Action Bar */}
+                  <div className="pt-4 mt-6 border-t border-zinc-100 flex flex-wrap items-center justify-between gap-2">
+                    <span className="inline-flex items-center px-2.5 py-1.5 rounded-lg text-xs font-mono text-zinc-600 bg-zinc-50 border border-zinc-200/80">
+                      Bootcamp Batch 18
+                    </span>
+                  </div>
+                </article>
+              </div>
+            </section>
+
+            {/* SECTION 5: CONTACT */}
             <section className="scroll-mt-24 pt-8 border-t border-zinc-200" id="contact">
               <div className="flex items-center gap-3 mb-6">
                 <span className="h-4 w-1 bg-zinc-900 rounded-full"></span>
